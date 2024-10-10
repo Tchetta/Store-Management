@@ -26,7 +26,7 @@ $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
             $profilePic = !empty($user['image_path']) ? '../uploads/profile_pics/' . $user['image_path'] : $defaultProfilePic;
 // Get user information from session
 $user_id = $_SESSION['user_id'];
-$user_name = (isset($_SESSION['first_name']) && isset($_SESSION['last_name'])) ? isset($_SESSION['first_name']) . ' ' . $_SESSION['last_name'] : ''; // Assuming first and last names are stored in the session
+$user_name = (isset($_SESSION['first_name'])) ? isset($_SESSION['first_name']) : ''; // Assuming first and last names are stored in the session
 $user_image = isset($_SESSION['image_path']) ? $_SESSION['image_path'] : $defaultProfilePic; // Default profile image if none set
 ?>
 

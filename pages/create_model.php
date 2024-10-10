@@ -3,7 +3,7 @@
     <input type="text" name="model_name" required>
 
     <label for="number_of_ports">Total Number of Ports:</label>
-    <input type="number" name="number_of_ports" id="total_ports" required>
+    <input type="number" name="number_of_ports" id="total_ports" readonly required>
 
     <label for="brand_id">Brand:</label>
     <select name="brand_id" id="brand_id" required>
@@ -40,6 +40,7 @@ document.getElementById('brand_id').addEventListener('change', function() {
     const brandId = this.value;
     const portTypeSection = document.getElementById('portTypeSection');
     const portTypesContainer = document.getElementById('portTypesContainer');
+    const totalPortsField = document.getElementById('total_ports');
 
     if (brandId) {
         // Make an AJAX call to fetch port types based on the selected brand
@@ -53,9 +54,9 @@ document.getElementById('brand_id').addEventListener('change', function() {
                     data.forEach(portType => {
                         portTypesContainer.innerHTML += `
                             <label>
-                                <input type="checkbox" name="port_types[${portType.port_type_id}]" value="${portType.port_type_id}">
+                                <input type="checkbox" name="port_types[${portType.port_type_id}]" value="${portType.port_type_id}" class="portTypeCheckbox">
                                 ${portType.port_type_name} Quantity:
-                                <input type="number" name="quantities[${portType.port_type_id}]" min="0" value="0">
+                                <input type="number" name="quantities[${portType.port_type_id}]" min="0" value="0" class="portTypeQuantity" disabled>
                             </label>
                             <br>
                         `;
@@ -64,9 +65,36 @@ document.getElementById('brand_id').addEventListener('change', function() {
                 } else {
                     portTypeSection.style.display = 'none';
                 }
+
+                // Add event listeners to update total number of ports
+                const checkboxes = document.querySelectorAll('.portTypeCheckbox');
+                const quantities = document.querySelectorAll('.portTypeQuantity');
+
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.addEventListener('change', function() {
+                        quantities[index].disabled = !checkbox.checked;
+                        updateTotalPorts();
+                    });
+                });
+
+                quantities.forEach(quantity => {
+                    quantity.addEventListener('input', updateTotalPorts);
+                });
+
+                // Function to update the total number of ports
+                function updateTotalPorts() {
+                    let totalPorts = 0;
+                    quantities.forEach((quantity, index) => {
+                        if (!quantities[index].disabled && quantity.value) {
+                            totalPorts += parseInt(quantity.value);
+                        }
+                    });
+                    totalPortsField.value = totalPorts;
+                }
             });
     } else {
         portTypeSection.style.display = 'none';
+        totalPortsField.value = 0;
     }
 });
 </script>

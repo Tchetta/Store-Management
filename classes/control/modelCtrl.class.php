@@ -35,12 +35,12 @@ class ModelCtrl extends Model {
         // Other existing methods...
     
         // Decrease model quantity
-        public function decreaseQuantity($modelId) {
+        public function decreaseQuantity($modelId, $decreaseBy = 1) {
             // You might want to add some checks here, such as verifying if the quantity is greater than 0
-            $this->model->decreaseQuantity($modelId);
+            parent::decreaseQuantity($modelId, $decreaseBy);
         }
 
-        public function increaseQuantity($modelId, $quantity) {
+        public function increaseQuantity($modelId, $quantity =1) {
             // Increment the quantity of the model by the input quantity
             $sql = "UPDATE model SET quantity = quantity + ? WHERE model_id = ?";
             $stmt = $this->connect()->prepare($sql);

@@ -1,32 +1,25 @@
 <?php
-require_once '../includes/class_autoloader.inc.php';
-
 if (isset($_POST['submit'])) {
     $modelName = $_POST['model_name'];
-    $totalPorts = $_POST['number_of_ports'];
     $powerRating = $_POST['power_rating'];
     $brandId = $_POST['brand_id'];
-    $portTypes = $_POST['port_types']; // Array of selected port types
-    $quantities = $_POST['quantities']; // Quantities corresponding to port types
+    $totalPorts = isset($_POST['number_of_ports']) ? $_POST['number_of_ports'] : 0;
+    $portTypes = isset($_POST['port_types']) ? $_POST['port_types'] : [];
+    $quantities = isset($_POST['quantities']) ? $_POST['quantities'] : [];
 
-    $modelController = new ModelCtrl();
+    // Add the model to the 'model' table
+    $modelCtrl = new ModelPortTypeCtrl();
+    $modelId = $modelCtrl->addModel($modelName, $totalPorts, $powerRating, $brandId);
 
-    try {
-        // Create the model first
-        $modelId = $modelController->createModel(null, $modelName, $totalPorts, null, $powerRating, $brandId, null); // Null for port types
-
-        // Now add port types and their quantities
+    // If port types are selected, link them with the model
+    if (!empty($portTypes)) {
         foreach ($portTypes as $portTypeId) {
             $quantity = isset($quantities[$portTypeId]) ? (int)$quantities[$portTypeId] : 0;
-            if ($quantity > 0) {
-                // Call a method to add to the model_port_types junction table
-                $modelPortTypeCtrl = new ModelPortTypeCtrl();
-                $modelPortTypeCtrl->addPortType($modelId, $portTypeId); // Assuming this method exists
-            }
+            $modelCtrl->linkModelToPortTypes($modelId, [$portTypeId]); // Update link table
         }
-
-        header("Location: ../pages/dashboard.php?page=model_list&success=modelcreated");
-    } catch (Exception $e) {
-        header("Location: ../pages/dashboard.php?page=create_model&error=" . urlencode($e->getMessage()));
     }
+
+    // Redirect to model list or display a success message
+    header("Location: ../pages/model_list.php");
+    exit();
 }
