@@ -1,0 +1,36 @@
+<?php
+$brandController = new BrandCtrl();
+$brand = $brandController->getBrandById($_GET['brand_id']);
+?>
+
+<form action="../includes/edit_brand.inc.php" method="POST">
+    <input type="hidden" name="brand_id" value="<?php echo $brand['brand_id']; ?>">
+
+    <label for="brand_name">Brand Name:</label>
+    <input type="text" name="brand_name" value="<?php echo $brand['brand_name']; ?>" required><br>
+
+    <label for="description">Description:</label>
+    <textarea name="description"><?php echo $brand['description']; ?></textarea><br>
+
+    <label for="category_id">Category:</label>
+    <select name="category_id">
+        <?php
+        // Fetch categories to populate the dropdown
+        $categoryController = new ProductCategoryCtrl();
+        $categories = $categoryController->getAllCategories();
+        foreach ($categories as $category) {
+            $selected = $category['category_id'] == $brand['category_id'] ? 'selected' : '';
+            echo "<option value='{$category['category_id']}' $selected>{$category['category_name']}</option>";
+        }
+        ?>
+    </select><br>
+
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" value="<?php echo $brand['quantity']; ?>" min="0"><br><br>
+
+    <button type="submit" name="submit">Update Brand</button>
+</form>
+
+<!-- Links to other operations -->
+<a href="dashboard.php?page=create_brand">Create New Brand</a> | 
+<a href="dashboard.php?page=brand_list">View All Brands</a>

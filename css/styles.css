@@ -1,0 +1,158 @@
+/* Basic reset for body */
+body {
+    background-color: #f5f5f5; /* Light background */
+    color: #333; /* Dark text color */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styles */
+header {
+    background-color: #ffffff; /* Light header */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #ccc; /* Light border */
+}
+
+/* Logout button styles */
+.logout-button {
+    background-color: #f44336; /* Red background for logout */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Dashboard container styles */
+.dashboard-container {
+    display: flex;
+}
+
+/* Sidebar styles */
+aside {
+    width: 250px;
+    background-color: #2a2a2a; /* Dark sidebar */
+    padding: 15px;
+    position: fixed; /* Fix sidebar */
+    height: 100%;
+    overflow-y: auto; /* Scroll if needed */
+}
+
+/* Sidebar links */
+aside ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside ul li {
+    margin: 10px 0;
+}
+
+aside ul li a {
+    color: #e0e0e0; /* Light text color for sidebar links */
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 4px; /* Rounded corners */
+    transition: background 0.3s; /* Smooth background change */
+}
+
+aside ul li a:hover {
+    background-color: #3a3a3a; /* Highlight on hover */
+}
+
+/* Content section styles */
+.content {
+    margin-left: 270px; /* Leave space for the sidebar */
+    padding: 20px;
+}
+
+/* General link styles */
+a {
+    color: #007bff; /* Blue link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Smooth color change */
+}
+
+a:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd; /* Light border for tables */
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f0f0f0; /* Light header */
+}
+
+/* Form styles */
+form {
+    background-color: #ffffff; /* Light form background */
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow */
+}
+
+form label {
+    color: #333; /* Dark text for labels */
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="email"],
+form input[type="password"],
+form select {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light input background */
+    color: #333; /* Dark text */
+}
+
+form button {
+    background-color: #007bff; /* Blue button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s; /* Smooth background change */
+}
+
+form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Center align items vertically */
+    margin: 10px 0; /* Add margin to separate from header */
+}
+
+.profile-pic {
+    width: 40px; /* Adjust size as needed */
+    height: 40px; /* Adjust size as needed */
+    border-radius: 50%; /* Make the image circular */
+    margin-right: 10px; /* Space between image and name */
+}
+
+.user-name {
+    color: #333; /* Dark text color */
+    font-weight: bold; /* Bold font for user name */
+}
