@@ -1,0 +1,125 @@
+/* Set the background image for the page */
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+               url('../images/invent4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; /* Allow stacking of elements */
+    align-items: center; /* Center items horizontally */
+    color: white; 
+}
+
+/* Remove container background and center the content */
+.container {
+    text-align: center;
+    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+}
+
+/* Heading style */
+h2 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 28px;
+    position: relative; /* Position relative for easier layout */
+}
+
+/* Town list styles */
+#townList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* Style each town item */
+#townList li {
+    margin: 10px;
+    display: flex; /* Use flex to align content */
+    justify-content: center; /* Center the link */
+    flex-direction: column; /* Stack items vertically */
+    position: relative; /* For the View button positioning */
+}
+
+/* Link styles for towns */
+#townList li a {
+    display: block;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(83, 123, 202, 0.8); /* Semi-transparent green */
+    color: white;
+    text-align: center;
+    padding-top: 30px; /* Adjust padding for better alignment */
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for town boxes */
+#townList li a:hover {
+    background-color: rgba(144, 160, 145, 0.9);
+    transform: scale(1.05);
+}
+
+/* Positioning the View button */
+#townList li a::after {
+    content: "View";
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ddd;
+    position: absolute;
+    bottom: 10px; /* Position at the bottom of the link */
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: normal;
+    background-color: rgba(0, 0, 0, 0.5); /* Slight black background for clarity */
+    border-radius: 2px;
+    padding: 2px;
+    transition: background-color 0.3s ease;
+}
+
+/* Change View button background on hover */
+#townList li a:hover::after {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Store and product list */
+#storeList, #productList {
+    display: none;
+    margin-top: 20px;
+}
+
+h3 {
+    color: #fff;
+}
+
+#stores, #products {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+#stores li, #products li {
+    padding: 10px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    color: #333;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#stores li a, #products li a {
+    text-decoration: none;
+    color: inherit;
+}

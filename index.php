@@ -1,4 +1,4 @@
-<?php
+<?php 
   // Start session to handle login state
   session_start();
   // Check if user is already logged in and redirect to dashboard
@@ -14,25 +14,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/login.css"> <!-- Link to login.css -->
 </head>
 <body>
-    <h2>Login</h2>
+<div class="logo-container">
+    <img src="images/CAM2.jpeg" alt="Camtel Logo">
+</div>
 
-    <form action="includes/login.inc.php" method="POST">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit" name="login">Login</button>
-    </form>
+    <div class="loginBody">
+        <div class="loginHeader">
+            <h1>CSMS</h1>
+            <p>STORE MANAGEMENT SYSTEM</p>
+        </div>
+        <form action="includes/login.inc.php" method="POST">
+            <div class="loginInputContainer">
+                <input type="text" name="username" placeholder="Username">
+            </div>
+            <div class="loginInputContainer">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="loginButtonContainer">
+                <button type="submit" name="login">Login</button>
+            </div>
+        </form>
 
-    <?php
-    // Show any error messages if login fails
-    if (isset($_GET['error'])) {
-        if ($_GET['error'] == 'emptyinput') {
-            echo "<p>Please fill in all fields!</p>";
-        } elseif ($_GET['error'] == 'invalidlogin') {
-            echo "<p>Invalid login credentials!</p>";
+        <?php
+        // Show any error messages if login fails
+        if (isset($_GET['error'])) {
+            if ($_GET['error'] == 'emptyinput') {
+                echo "<div class='errorMessage'><p>Please fill in all fields!</p></div>";
+            } elseif ($_GET['error'] == 'invalidlogin') {
+                echo "<div class='errorMessage'><p>Invalid login credentials!</p></div>";
+            }
         }
-    }
-    ?>
+        ?>
+    </div>
 </body>
 </html>
