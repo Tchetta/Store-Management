@@ -1,0 +1,173 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: rgb(224, 224, 224);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    margin: 20px 0;
+}
+
+input, select {
+    padding: 10px;
+    margin: 5px 0;
+    width: calc(100% - 22px);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #70abeb; /* Blue background */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color:#323232;/* Darker blue on hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #b7c3e4;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Button styles for edit and delete */
+button.editBtn {
+    background-color: rgb(209, 208, 208);; /* Blue background for edit */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button.deleteBtn {
+    background-color: grey; /* Red background for delete */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button.editBtn:hover, button.deleteBtn:hover {
+    opacity: 0.9; /* Slight hover effect for both buttons */
+}
+
+/* Styling for the search container */
+.search-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the search bar to the right */
+    align-items: center;
+    margin-top: 20px; /* Adjust margin as needed */
+}
+
+/* Styling for the search bar */
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 200px; /* Set a reduced size */
+    height: 40px; /* Adjusted height */
+    background-color: #fff;
+    border-radius: 20px; /* Adjusted border radius for a rounder look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease; /* Smooth transition */
+    overflow: hidden;
+}
+
+/* Search icon inside the bar */
+.search-bar input {
+    position: absolute;
+    left: 50px;
+    width: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: 14px; /* Adjusted font size */
+    color: #333;
+    transition: width 0.4s ease; /* Smooth expansion */
+    background: transparent;
+}
+
+/* Search button */
+.search-bar button {
+    width: 40px; /* Adjusted width */
+    height: 40px; /* Adjusted height */
+    border: none;
+    background-color: #7d7f83;
+    color: #fff;
+    border-radius: 20px; /* Round button */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px; /* Adjusted font size */
+    transition: background-color 0.3s ease;
+}
+
+.search-bar button:hover {
+    background-color: #7a7b7e;
+}
+
+/* Search bar expands when clicked */
+.search-bar.expanded {
+    width: 400px; /* Expanded width */
+}
+
+.search-bar.expanded input {
+    width: 100%; /* Expanded input width */
+    padding: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.search-bar.expanded .close-btn {
+    opacity: 1; /* Visible when expanded */
+}

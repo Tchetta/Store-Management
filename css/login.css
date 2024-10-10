@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('../images/testing 1.jpeg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(1px);
+    z-index: -1;
+}
+
+/* Logo Container for Camtel Logo */
+.logo-container {
+    position: absolute;
+    top: 20px; /* Adjust to control distance from the top */
+    right: 20px; /* Adjust to control distance from the left */
+}
+
+.logo-container img {
+    width: 100px; /* Set the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+}
+
+div.loginHeader {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+div.loginHeader h1 {
+    font-size: 100px;
+    font-weight: bold;
+    color: #3356f5;
+    padding: 0px;
+    margin: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div.loginHeader p {
+    color: #709dff;
+    font-size: 50px;
+    margin: 0px;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+div.loginHeader p:after {
+    content: "";
+    display: block;
+    height: 5px;
+    background: #709dff;
+    width: 100%;
+    margin: 0 auto;
+}
+
+div.loginBody form {
+    margin: 0 auto;
+    width: 300px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    text-align: center;
+}
+
+div.loginInputContainer {
+    margin-top: 20px;
+}
+
+div.loginInputContainer label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: bold;
+    color: aliceblue;
+    margin-bottom: 10px;
+}
+
+div.loginInputContainer input {
+    height: 25px;
+    width: 250px;
+    border: 2px solid #709dff;
+    padding: 5px;
+    text-align: center;
+    font-style: italic;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    display: block;
+    margin: 0 auto;
+}
+
+div.loginButtonContainer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+div.loginButtonContainer button {
+    font-size: 15px;
+    padding: 10px 30px;
+    background: #a5baf1;
+    border: none;
+    color: #fff;
+}
+
+
+div.errorMessage{
+    background: #fff;
+    text-align: center;
+    color:red;
+    font-size: 20px;
+    padding:11px;
+}

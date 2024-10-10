@@ -1,0 +1,160 @@
+/* dashboard.css */
+
+/* General layout */
+#dashboardMainContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #3a3b3d;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    border-top-right-radius: 20px;   /* Rounds top-right corner */
+    border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
+    transition: width 0.3s ease; /* Smooth transition for the sidebar */
+}
+/* Style the sidebar menu list */
+.sidebar ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    padding: 15px 20px; /* Padding around each menu item */
+    display: flex; /* Flexbox layout for aligning icons and text */
+    align-items: center; /* Vertically center the items */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.sidebar ul li:hover {
+    background-color: #607aa7; /* Background color on hover */
+    padding:10px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none; /* Remove underline from links */
+    font-size: 16px; /* Adjust font size */
+    display: flex; /* Align icon and text horizontally */
+    align-items: center;
+    width: 100%; /* Ensure links take full width */
+}
+
+/* Style the Font Awesome icons */
+.sidebar ul li a i {
+    margin-right: 10px; /* Space between icon and text */
+    font-size: 18px; /* Adjust icon size */
+}
+
+/* Style the menu text */
+.sidebar ul li a .menuText {
+    display: inline-block; /* Ensure text follows after the icon */
+}
+
+.dashboard_logo {
+    color: #6b89eb; /* Change to desired color */
+    font-size: 24px; /* Adjust size as necessary */
+    text-align: center; /* Center the text */
+    margin: 20px 0; /* Add space around the logo */
+}
+
+.topnav {
+    background: #fff; /* Dark background color */
+  /*   height: 50px; /* Fixed height */
+    /* display: flex; /* Use flexbox for alignment */
+ /*    align-items: center; /* Center items vertically */ 
+    padding: 10px; /* Horizontal padding */
+  /*   color: white; /* Text color */ 
+    /* justify-content: space-between; /* Space items evenly */ 
+}
+
+#toggleBtn {
+    background: none; /* Make background transparent */
+    border: none; /* Remove border */
+    color: gray; /* Change icon color to gray */
+    font-size: 20px; /* Smaller icon size */
+    cursor: pointer; /* Change cursor on hover */
+    padding: 5px; /* Add padding for better click area */
+}
+
+#toggleBtn:hover {
+    opacity: 0.8; /* Slightly fade on hover for feedback */
+}
+
+
+#logoutBtn {
+    float: right;
+    text-transform:uppercase;
+    color:grey;
+}
+
+#logoutBtn i {
+    margin-right: 5px; /* Space between icon and text */
+}
+
+#logoutBtn:hover {
+    opacity: 0.8; /* Slightly fade on hover */
+}
+
+
+.dashboard_content_container {
+    width: 80%;
+    background: #f4f6f9;
+    transition: width 0.3s ease; /* Smooth transition for the content area */
+}
+
+/* User and menu styles */
+.dashboard_sidebar_user {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #fff;
+}
+
+.dashboard_sidebar_user img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #709dff;
+}
+
+.menuText {
+    margin-left: 10px;
+}
+
+/* Content styles */
+.dashboard_content {
+    padding: 20px;
+    background-color: #f4f6f9;
+    height: calc(100vh - 50px); /* Adjust if necessary */
+}
+
+.dashboard_content_main {
+    background-color: #fff;
+    padding: 10px;
+    /* margin-top: 10px; */ /* Space between the topnav and the content */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    height: calc(100vh - 70px); /* Adjust height considering the topnav and margin */
+}
+
+/* Styles for collapsed sidebar */
+.collapsedSidebar {
+    width: 10%; /* Adjust this to how much you want the sidebar to collapse */
+}
+
+/* Adjust the toggle button for styling if needed */
+.welcome-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
