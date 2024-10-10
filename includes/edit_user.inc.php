@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 
     // Retrieve current profile picture
     $current_user = $userController->getUserById($user_id);
-    $current_profile_pic = $current_user['profile_pic'];
+    $current_profile_pic = $current_user['image_path'];
 
     // Handle profile picture update
     if ($profile_pic['error'] === 0) {
