@@ -22,3 +22,4 @@ require_once '../includes/class_autoloader.inc.php';
         echo "Out Date: " . $product['outdate'] . "<br>";
         echo "<hr>";
     }
+}
