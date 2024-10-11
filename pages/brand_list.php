@@ -1,6 +1,7 @@
 <?php
 $brandController = new BrandCtrl();
 $brands = $brandController->getAllBrands();
+$categoryController = new ProductCategoryCtrl();
 ?>
 
 <table>
@@ -17,7 +18,10 @@ $brands = $brandController->getAllBrands();
         <td><?php echo $brand['brand_id']; ?></td>
         <td><?php echo $brand['brand_name']; ?></td>
         <td><?php echo $brand['description']; ?></td>
-        <td><?php echo $brand['category_id']; ?></td>
+        <td><?php
+            $category = $categoryController->getCategoryById($brand['category_id']);
+            echo $category['category_name']; ?>
+        </td>
         <td><?php echo $brand['quantity']; ?></td>
         <td>
             <a href="dashboard.php?page=edit_brand&brand_id=<?php echo $brand['brand_id']; ?>">Edit</a> | 

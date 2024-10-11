@@ -15,10 +15,7 @@
             echo "<option value='{$category['category_id']}'>{$category['category_name']}</option>";
         }
         ?>
-    </select><br>
-
-    <label for="quantity">Quantity:</label>
-    <input type="number" name="quantity" min="0"><br><br>
+    </select><?php echo $category['category_id'] . ' | ' . $category['category_name']; ?><br><br>
 
     <button type="submit" name="submit">Create Brand</button>
 </form>
@@ -26,4 +23,3 @@
 <!-- Links to other operations -->
 <a href="dashboard.php?page=brand_list">View All Brands</a>
 <a href="dashboard.php?page=create_category">Create New Category</a>
-
