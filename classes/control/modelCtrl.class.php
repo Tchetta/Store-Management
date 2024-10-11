@@ -2,6 +2,12 @@
 require_once('../includes/class_autoloader.inc.php');
 
 class Model extends Dbh {
+    // public function productExists($model_name) {
+    //     $stmt = $this->connect()->prepare("SELECT COUNT(*) FROM model WHERE model_name = :model_name");
+    //     $stmt->execute(['model_name' => $model_name]);
+    //     return $stmt->fetchColumn() > 0;
+    // }
+
     // Method to add a new model
     protected function addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity = null) {
         $sql = "INSERT INTO model (model_name, brand_id, power_rating, port_types, quantity) VALUES (?, ?, ?, ?, ?)";
@@ -35,21 +41,23 @@ class Model extends Dbh {
     protected function deleteModel($modelId) {
         $sql = "DELETE FROM model WHERE model_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$by, $modelId]);
+        $stmt->execute([$modelId]);
     }
 
-    // Decrease the quantity of a model by 1
-    public function decreaseQuantity($modelId, $by) {
-        $sql = "UPDATE model SET number_of_ports = number_of_ports - ? WHERE model_id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$by, $modelId]);
+        // Subtract the quantity from the existing quantity
+
+    public function decreaseQuantity($model_name, $quantity){
+        $stmt = $this->connect()->prepare("UPDATE model SET quantity = quantity - :quantity WHERE model_name = :model_name");
+        $stmt->execute(['quantity' => $quantity, 'model_name' => $model_name]);
     }
-    // Increase the quantity of a model by 1
-    public function increaseQuantity($modelId, $by) {
-        $sql = "UPDATE model SET number_of_ports = number_of_ports + ? WHERE model_id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$modelId, $by]);
+
+
+    public function increaseQuantity($model_name, $quantity) {
+        $stmt = $this->connect()->prepare("UPDATE model SET quantity = quantity + :quantity WHERE model_name = :model_name");
+        $stmt->execute(['quantity' => $quantity, 'model_name' => $model_name]);
     }
+
+    
 }
 
 class ModelCtrl extends Model {
@@ -83,30 +91,27 @@ class ModelCtrl extends Model {
         parent::deleteModel($modelId);
     }
     
-        public function __construct() {
-            $this->model = new Model();
-        }
     
         // Other existing methods...
     
         // Decrease model quantity
-        public function decreaseQuantity($modelId, $by = 1) {
+        public function decreaseQuantity($model_name, $quantity) {
             // You might want to add some checks here, such as verifying if the quantity is greater than 0
-            parent::increaseQuantity($modelId);
+            parent::decreaseQuantity($model_name, $quantity);
 
             $brandCtrl = new BrandCtrl();
             $categoryCtrl = new productCategoryCtrl();
 
-            $brandId = $this->getBrandIdByModel($modelId);
-            $categoryId = $this->getCategoryIdByModel($modelId);
+            $brandId = $this->getBrandIdByModel($model_name);
+            $categoryId = $this->getCategoryIdByModel($model_name);
 
             $brandCtrl->updateBrandQuantity($brandId);
             $categoryCtrl->updateCategoryQuantity($categoryId);
         }
 
-        public function increaseQuantity($modelId, $by = 1) {
+        public function increaseQuantity($model_name, $quantity) {
             // You might want to add some checks here, such as verifying if the quantity is greater than 0
-            parent::increaseQuantity($modelId);
+            parent::increaseQuantity($model_name, $quantity);
             
         }
     
@@ -124,7 +129,6 @@ class ModelCtrl extends Model {
             $brand = new BrandCtrl();
             return $brand->getCategoryIdByBrand($brandId);
         }
-
-        
+      
     
 }
