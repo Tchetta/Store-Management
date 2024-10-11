@@ -38,6 +38,10 @@ menuItems.forEach(item => {
     }
 });
 
+function toggleSubMenu(subMenuId) {
+    const subMenu = document.getElementById(subMenuId);
+    subMenu.style.display = subMenu.style.display === 'none' ? 'block' : 'none';
+}
 
     // Dropdown functionality for inventory and other menu items
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
