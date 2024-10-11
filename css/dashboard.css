@@ -25,7 +25,7 @@
 }
 
 .sidebar ul li {
-    position: relative; /* Add relative positioning for the hover effect */
+    position: relative; /* Add relative positioning for the hover and active effect */
     padding: 15px 20px; /* Padding around each menu item */
     display: flex; /* Flexbox layout for aligning icons and text */
     align-items: center; /* Vertically center the items */
@@ -33,12 +33,12 @@
     transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-/* Thicker left color strip on hover */
+/* Hover Effect: Thicker left color strip */
 .sidebar ul li:hover {
     background-color: #adc8f7; /* Background color on hover */
 }
 
-/* Adding the left color strip */
+/* Adding the left color strip on hover */
 .sidebar ul li:hover::before {
     content: ""; /* Creates an empty pseudo-element */
     position: absolute; /* Absolute positioning */
@@ -46,15 +46,28 @@
     top: 0; /* Aligns to the top */
     bottom: 0; /* Extends to the bottom */
     width: 5px; /* Width of the left color strip */
-    background-color: #043b9b; /* Color of the strip */
+    background-color:#6b89eb; /* Color of the strip */
     border-top-right-radius: 20px; /* Rounds top-right corner */
     border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
 }
 
-/* Active link style */
+/* Active link style: Background and thicker left color strip */
 .sidebar ul li.active {
-    background-color: #b3c4fa; /* Background color for active menu item */
+    background-color: #d1d9f1; /* Background color for active menu item */
     font-weight: bold; /* Bold text for active item */
+}
+
+/* Adding the left color strip for active item */
+.sidebar ul li.active::before {
+    content: ""; /* Creates an empty pseudo-element */
+    position: absolute; /* Absolute positioning */
+    left: 0; /* Aligns to the left */
+    top: 0; /* Aligns to the top */
+    bottom: 0; /* Extends to the bottom */
+    width: 5px; /* Width of the left color strip */
+    background-color: #6b89eb; /* Color of the strip */
+    border-top-right-radius: 20px; /* Rounds top-right corner */
+    border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
 }
 
 /* Optional: Change the link color for the active item */
@@ -86,6 +99,7 @@
 .sidebar ul li a .menuText {
     display: inline-block; /* Ensure text follows after the icon */
 }
+
 
 
 .dashboard_logo {
