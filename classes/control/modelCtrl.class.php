@@ -3,10 +3,10 @@ require_once('../includes/class_autoloader.inc.php');
 
 class Model extends Dbh {
     // Method to add a new model
-    protected function addModel($modelId, $modelName, $brandId, $numberOfPorts=null, $portTypes=null, $powerRating=null, $quantity = null) {
-        $sql = "INSERT INTO model (model_id, model_name, number_of_ports, port_types, power_rating, brand_id, quantity) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    protected function addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity = null) {
+        $sql = "INSERT INTO model (model_name, brand_id, power_rating, port_types, quantity) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$modelId, $modelName, $numberOfPorts, $portTypes, $powerRating, $brandId, $quantity]);
+        $stmt->execute([$modelName, $brandId, $powerRating, $portTypesJson, $quantity]);
     }
 
     // Method to get a model by ID
@@ -54,9 +54,13 @@ class Model extends Dbh {
 
 class ModelCtrl extends Model {
     // Create a new model
-    public function createModel($modelId, $modelName, $numberOfPorts, $portTypes, $powerRating, $brandId, $quantity) {
+    /* public function createModel($modelId, $modelName, $numberOfPorts, $portTypes, $powerRating, $brandId, $quantity) {
         // Validate inputs if necessary
         parent::addModel($modelId, $modelName, $numberOfPorts, $portTypes, $powerRating, $brandId, $quantity);
+    } */
+
+    public function createModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity) {
+        parent::addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity);
     }
 
     // Get all models

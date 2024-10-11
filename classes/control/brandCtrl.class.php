@@ -2,11 +2,14 @@
 
 class Brand extends Dbh {
     // Method to add a new brand with quantity and category_id
-    protected function addBrand($brandName, $categoryId, $description=null) {
-        $sql = "INSERT INTO brand (brand_name, description, category_id) VALUES (?, ?, ?)";
+    protected function addBrand($brandName, $categoryId, $description = null) {
+        $sql = "INSERT INTO brand (brand_name, category_id, description) VALUES (?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$brandName, $description, $categoryId]);
+        echo 'Caaaaaaatttt'.$categoryId;
+
+        $stmt->execute([$brandName, $categoryId, $description]);
     }
+    
 
     // Method to get a brand by ID
     protected function getBrandById($brandId) {
@@ -58,7 +61,7 @@ class BrandCtrl extends Brand {
             throw new Exception("Brand name is required.");
         }
 
-        $this->addBrand($brandName, $description, $categoryId, $quantity);
+        $this->addBrand($brandName, $categoryId, $description);
     }
 
     // Update an existing brand
@@ -67,7 +70,7 @@ class BrandCtrl extends Brand {
             throw new Exception("Brand ID is required.");
         }
 
-        $this->updateBrand($brandId, $brandName, $description, $categoryId, $quantity);
+        parent::updateBrand($brandId, $brandName, $description, $categoryId, $quantity);
     }
 
     // Delete a brand
