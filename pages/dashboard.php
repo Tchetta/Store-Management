@@ -58,7 +58,6 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
                             // Welcome message displayed by default
                             echo '<div class="welcome-message">
                                     <h2>Welcome to the Dashboard!</h2>
-                                    <p>Here you can manage users, stores, and products. Please select an option from the sidebar.</p>
                                   </div>';
                         }
                     ?>
