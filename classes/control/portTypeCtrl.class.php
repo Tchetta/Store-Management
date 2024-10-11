@@ -12,4 +12,9 @@ class PortTypeCtrl extends Dbh {
         $stmt = $this->conn->query("SELECT port_type_id, port_type_name FROM port_types");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getPortName($portTypeId) {
+        $stmt = $this->conn->query("SELECT port_type_name FROM port_types WHERE port_type_id = {$portTypeId}");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

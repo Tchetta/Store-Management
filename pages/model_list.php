@@ -7,10 +7,11 @@ $models = $modelController->getAllModels();
 <table>
     <tr>
         <th>Model ID</th>
-        <th>Model Name</th>
+        <th>Model</th>
         <th>Number of Ports</th>
         <th>Power Rating</th>
-        <th>Brand ID</th>
+        <th>Brand</th>
+        <th>Port Types</th>
         <th>Quantity</th>
         <th>Actions</th>
     </tr>
@@ -21,6 +22,7 @@ $models = $modelController->getAllModels();
         <td><?php echo $model['number_of_ports']; ?></td>
         <td><?php echo $model['power_rating']; ?></td>
         <td><?php echo $model['brand_id']; ?></td>
+        <td><?php echo $model['port_types']; ?></td>
         <td><?php echo $model['quantity']; ?></td>
         <td>
             <a href="dashboard.php?page=edit_model&id=<?php echo $model['model_id']; ?>">Edit</a> |
