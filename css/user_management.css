@@ -1,0 +1,288 @@
+/* General body font */
+body {
+    font-family: 'Roboto', sans-serif; /* Apply the font globally */
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif; /* Apply the font to headings */
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif; /* Apply the font to the table */
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-family: 'Roboto', sans-serif; /* Ensure consistency in table text */
+}
+
+th {
+    background-color: #737a74;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+td {
+    font-size: 14px;
+}
+
+/* Style for the profile picture */
+td img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Hover effect for rows */
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Action buttons (edit, delete) */
+td a {
+    display: inline-block;
+    background-color: #d3b8b8; /* Light grey background */
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif; /* Apply font to buttons */
+}
+
+td a:first-child {
+    background-color: #21fc58; /* Dark grey for 'Edit' button */
+}
+
+td a:hover {
+    background-color: #d3d3d3; /* Lighter grey when hovered */
+    color: #333; /* Darker text color on hover */
+}
+
+/* Create New User link */
+p a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #97b2ec;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+p a:hover {
+    background-color: #b0b8b1;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+    th, td {
+        padding: 8px;
+    }
+    p a {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}
+  /* Ensure the form is confined within the dashboard */
+  .form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+}
+
+form label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+    color: #555;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+form input[type="file"] {
+    padding: 0;
+}
+
+button {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Link to view users */
+p a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+p a:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px;
+        width: 90%;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+  /* Container for the dashboard content */
+  .dashboard_content_main {
+    max-height: 80vh; /* Set the maximum height for the scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px; /* Add padding for aesthetic spacing */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Ensure the form is confined within the dashboard */
+.form-container {
+    max-width: 70%; /* Set max width for the form container */
+    margin: 40px auto; /* Center the form container */
+    padding: 20px; /* Padding inside the container */
+    background-color: #fff; /* Background color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    border-radius: 8px; /* Rounded corners */
+}
+
+form {
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack items vertically */
+    
+}
+
+/* Make each field a flex container to align label and input */
+.form-field {
+    display: flex; /* Use flexbox for each field */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 15px; /* Spacing between fields */
+    
+}
+
+form label {
+    flex: 1; /* Make labels take up available space */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Bold font for labels */
+    color: #656566; /* Text color */
+}
+
+form input, form select {
+    width: 70%; /* Set width for fields */
+    padding: 10px; /* Padding for fields */
+    border: 1px solid #ccc; /* Border style */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Center the button and link */
+button {
+    width: 30%; /* Button width */
+    background-color: #7dbbf5; /* Button background color */
+    color: white; /* Button text color */
+    padding: 10px 0; /* Button padding */
+    font-size: 16px; /* Button font size */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-left:30px;
+    margin-top: 20px; /* Margin above button */
+    align-self: center; /* Center the button */
+}
+
+/* Link to view users */
+p a {
+    display: inline-block; /* Inline block for link */
+    padding: 10px 20px; /* Padding for link */
+    background-color: #868788; /* Link background color */
+    color: white; /* Link text color */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No underline */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 14px; /* Font size */
+    font-weight: bold; /* Bold font */
+    text-align: center; /* Center text */
+    margin-left:30px;
+}
+
+p a:hover {
+    background-color: #d7e7f8; /* Darker color on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 15px; /* Padding for smaller screens */
+        width: 90%; /* Full width for smaller screens */
+    }
+
+    button {
+        font-size: 14px; /* Button font size */
+        padding: 8px; /* Padding for smaller screens */
+    }
+}

@@ -3,7 +3,21 @@ require_once '../includes/class_autoloader.inc.php';
 
 // Initialize the user controller
 $userController = new UserCtrl();
+?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>view users</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/user_management.css"> <!-- Link to user_management.css -->
+</head>
+<body>
+
+<?php
 try {
     // Fetch all users
     $users = $userController->getAllUsers();
@@ -51,3 +65,6 @@ try {
     echo '<p>Error fetching users: ' . $e->getMessage() . '</p>';
 }
 ?>
+
+</body>
+</html>
