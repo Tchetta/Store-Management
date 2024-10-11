@@ -13,6 +13,8 @@ $allPortTypes = $portCtrl->getAllPortTypes(); // Fetch all port types from the d
 <form action="../includes/create_model.inc.php" method="POST" id="modelForm">
     <label for="model_name">Model Name:</label>
     <input type="text" name="model_name" required>
+    <label for="model_name">Quantity:</label>
+    <input type="text" name="quantity">
 
     <label for="brand_id">Brand:</label>
     <select name="brand_id" id="brand_id" required>
@@ -39,7 +41,7 @@ $allPortTypes = $portCtrl->getAllPortTypes(); // Fetch all port types from the d
     </div>
 
     <label for="power_rating">Power Rating:</label>
-    <input type="text" name="power_rating" required>
+    <input type="text" name="power_rating">
 
     <button type="submit" name="submit">Create Model</button>
 </form>
