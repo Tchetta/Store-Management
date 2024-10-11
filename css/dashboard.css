@@ -1,4 +1,5 @@
 /* dashboard.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 /* General layout */
 #dashboardMainContainer {
@@ -25,7 +26,7 @@
 }
 
 .sidebar ul li {
-    position: relative; /* Add relative positioning for the hover effect */
+    position: relative; /* Add relative positioning for the hover and active effect */
     padding: 15px 20px; /* Padding around each menu item */
     display: flex; /* Flexbox layout for aligning icons and text */
     align-items: center; /* Vertically center the items */
@@ -33,12 +34,12 @@
     transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-/* Thicker left color strip on hover */
+/* Hover Effect: Thicker left color strip */
 .sidebar ul li:hover {
     background-color: #adc8f7; /* Background color on hover */
 }
 
-/* Adding the left color strip */
+/* Adding the left color strip on hover */
 .sidebar ul li:hover::before {
     content: ""; /* Creates an empty pseudo-element */
     position: absolute; /* Absolute positioning */
@@ -46,15 +47,28 @@
     top: 0; /* Aligns to the top */
     bottom: 0; /* Extends to the bottom */
     width: 5px; /* Width of the left color strip */
-    background-color: #043b9b; /* Color of the strip */
+    background-color:#6b89eb; /* Color of the strip */
     border-top-right-radius: 20px; /* Rounds top-right corner */
     border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
 }
 
-/* Active link style */
+/* Active link style: Background and thicker left color strip */
 .sidebar ul li.active {
-    background-color: #b3c4fa; /* Background color for active menu item */
+    background-color: #a9aaaa; /* Background color for active menu item */
     font-weight: bold; /* Bold text for active item */
+}
+
+/* Adding the left color strip for active item */
+.sidebar ul li.active::before {
+    content: ""; /* Creates an empty pseudo-element */
+    position: absolute; /* Absolute positioning */
+    left: 0; /* Aligns to the left */
+    top: 0; /* Aligns to the top */
+    bottom: 0; /* Extends to the bottom */
+    width: 5px; /* Width of the left color strip */
+    background-color: #6b89eb; /* Color of the strip */
+    border-top-right-radius: 20px; /* Rounds top-right corner */
+    border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
 }
 
 /* Optional: Change the link color for the active item */
@@ -86,6 +100,7 @@
 .sidebar ul li a .menuText {
     display: inline-block; /* Ensure text follows after the icon */
 }
+
 
 
 .dashboard_logo {
@@ -195,3 +210,22 @@
      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
+.submenu {
+    list-style: none;
+    padding-left: 20px; /* Indent submenu */
+    margin: 0;
+    background-color: #444; /* Background for submenu */
+}
+
+.submenu li {
+    padding: 10px 0; /* Padding for submenu items */
+}
+
+.submenu li a {
+    color: #fff; /* Change text color for submenu */
+    text-decoration: none;
+}
+
+.submenu li a:hover {
+    text-decoration: underline; /* Underline on hover for submenu items */
+}

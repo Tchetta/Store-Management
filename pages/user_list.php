@@ -56,8 +56,8 @@ try {
                   </tr>';
         }
         echo '</table>';
-
-        echo '<p><a href="dashboard.php?page=create_user">Create New User</a></p>';
+/* 
+        echo '<p><a href="dashboard.php?page=create_user">Create New User</a></p>'; */
     } else {
         echo '<p>No users found.</p>';
     }

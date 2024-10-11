@@ -18,16 +18,18 @@
 </head>
 <body>
 <div class="logo-container">
-    <img src="images/CAM2.jpeg" alt="Camtel Logo">
+    <img src="images/camtel.png" alt="Camtel Logo">
 </div>
 
     <div class="loginBody">
         <div class="loginHeader">
-            <h1>CSMS</h1>
-            <p>STORE MANAGEMENT SYSTEM</p>
+            
+           
         </div>
         <form action="includes/login.inc.php" method="POST">
             <div class="loginInputContainer">
+            <h1>CSMS</h1>
+            <p> CAMTEL STORE MANAGEMENT SYSTEM</p>
                 <input type="text" name="username" placeholder="Username">
             </div>
             <div class="loginInputContainer">
