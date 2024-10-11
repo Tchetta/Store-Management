@@ -1,34 +1,64 @@
-<h2>Create New User</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New User</title>
 
-<form action="../includes/create_user.inc.php" method="POST" enctype="multipart/form-data">
-    <label for="firstname">First Name:</label><br>
-    <input type="text" id="firstname" name="firstname" required><br>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="../css/user_management.css">
+</head>
+<body>
 
-    <label for="lastname">Last Name:</label><br>
-    <input type="text" id="lastname" name="lastname" required><br>
+<div class="form-container">
+    <h2>Create New User</h2>
 
-    <label for="username">Username (User ID):</label><br>
-    <input type="text" id="username" name="username" required><br>
+    <form action="../includes/create_user.inc.php" method="POST" enctype="multipart/form-data">
+        <div class="form-field">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+        </div>
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br>
+        <div class="form-field">
+            <label for="lastname">Last Name:</label>
+            <input type="text" id="lastname" name="lastname" required>
+        </div>
 
-    <label for="password">Password:</label><br>
-    <input type="password" id="password" name="password" required><br>
+        <div class="form-field">
+            <label for="username">Username (User ID):</label>
+            <input type="text" id="username" name="username" required>
+        </div>
 
-    <label for="confirm_password">Confirm Password:</label><br>
-    <input type="password" id="confirm_password" name="confirm_password" required><br>
+        <div class="form-field">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
 
-    <label for="role">Role:</label><br>
-    <select id="role" name="role" required>
-        <option value="admin">Admin</option>
-        <option value="user">User</option>
-    </select><br>
+        <div class="form-field">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
 
-    <label for="profile_pic">Profile Picture:</label><br>
-    <input type="file" id="profile_pic" name="profile_pic" accept="image/*"><br><br>
+        <div class="form-field">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
 
-    <button type="submit" name="submit">Create User</button>
-</form>
+        <div class="form-field">
+            <label for="role">Role:</label>
+            <select id="role" name="role" required>
+                <option value="admin">Admin</option>
+                <option value="user">User</option>
+            </select>
+        </div>
 
-<p><a href="dashboard.php?page=user_list">View Users</a></p>
+        <div class="form-field">
+            <label for="profile_pic">Profile Picture:</label>
+            <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+        </div>
+
+        <button type="submit" name="submit">Create User</button>
+    </form>
+
+    <p><a href="dashboard.php?page=user_list">View Users</a></p>
+</div>

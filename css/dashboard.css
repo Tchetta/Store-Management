@@ -6,6 +6,7 @@
     flex-direction: row;
 }
 
+/* Sidebar styles */
 .sidebar {
     width: 20%;
     background-color: #3a3b3d;
@@ -16,6 +17,7 @@
     border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
     transition: width 0.3s ease; /* Smooth transition for the sidebar */
 }
+
 /* Style the sidebar menu list */
 .sidebar ul {
     list-style-type: none; /* Remove default bullet points */
@@ -23,6 +25,7 @@
 }
 
 .sidebar ul li {
+    position: relative; /* Add relative positioning for the hover effect */
     padding: 15px 20px; /* Padding around each menu item */
     display: flex; /* Flexbox layout for aligning icons and text */
     align-items: center; /* Vertically center the items */
@@ -30,9 +33,38 @@
     transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
+/* Thicker left color strip on hover */
 .sidebar ul li:hover {
-    background-color: #607aa7; /* Background color on hover */
-    padding:10px;
+    background-color: #adc8f7; /* Background color on hover */
+}
+
+/* Adding the left color strip */
+.sidebar ul li:hover::before {
+    content: ""; /* Creates an empty pseudo-element */
+    position: absolute; /* Absolute positioning */
+    left: 0; /* Aligns to the left */
+    top: 0; /* Aligns to the top */
+    bottom: 0; /* Extends to the bottom */
+    width: 5px; /* Width of the left color strip */
+    background-color: #043b9b; /* Color of the strip */
+    border-top-right-radius: 20px; /* Rounds top-right corner */
+    border-bottom-right-radius: 20px; /* Rounds bottom-right corner */
+}
+
+/* Active link style */
+.sidebar ul li.active {
+    background-color: #b3c4fa; /* Background color for active menu item */
+    font-weight: bold; /* Bold text for active item */
+}
+
+/* Optional: Change the link color for the active item */
+.sidebar ul li.active a {
+    color: white; /* Change text color if needed */
+}
+
+/* Ensure the hover effect applies even to the active item */
+.sidebar ul li.active:hover {
+    background-color: #4c565b; /* Optional hover color for active item */
 }
 
 .sidebar ul li a {
@@ -54,6 +86,7 @@
 .sidebar ul li a .menuText {
     display: inline-block; /* Ensure text follows after the icon */
 }
+
 
 .dashboard_logo {
     color: #6b89eb; /* Change to desired color */
@@ -152,9 +185,13 @@
 /* Adjust the toggle button for styling if needed */
 .welcome-message {
     text-align: center;
+    text-transform: uppercase;
+    font-size: large;
+    color:rgb(195, 197, 214);
     margin-top: 20px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 5px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
+

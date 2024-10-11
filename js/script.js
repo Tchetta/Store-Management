@@ -28,6 +28,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
         isCollapsed = !isCollapsed;
     });
+    // Assuming you have a way to identify the current page
+const currentPage = window.location.pathname.split("/").pop(); // Get the current page filename
+const menuItems = document.querySelectorAll('.sidebar-menu-item');
+
+menuItems.forEach(item => {
+    if (item.getAttribute('href') === currentPage) {
+        item.classList.add('active'); // Add 'active' class to the current menu item
+    }
+});
+
 
     // Dropdown functionality for inventory and other menu items
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');

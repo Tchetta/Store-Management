@@ -5,7 +5,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    background: linear-gradient(
+                rgba(0, 0, 0, 0.6), 
+                rgba(0, 0, 0, 0.6)), 
                 url('../images/testing 1.jpeg') no-repeat center center;
     background-size: cover;
     position: relative;
@@ -19,20 +21,20 @@ body::before {
     right: 0;
     bottom: 0;
     background: inherit;
-    filter: blur(1px);
+    filter: blur(5px); /* Increase the blur */
     z-index: -1;
 }
 
 /* Logo Container for Camtel Logo */
 .logo-container {
     position: absolute;
-    top: 20px; /* Adjust to control distance from the top */
-    right: 20px; /* Adjust to control distance from the left */
+    top: 20px;
+    right: 20px;
 }
 
 .logo-container img {
-    width: 100px; /* Set the width of the logo */
-    height: auto; /* Maintain aspect ratio */
+    width: 100px;
+    height: auto;
 }
 
 div.loginHeader {
@@ -43,14 +45,14 @@ div.loginHeader {
 div.loginHeader h1 {
     font-size: 100px;
     font-weight: bold;
-    color: #3356f5;
+    color: #6c7dca;
     padding: 0px;
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 div.loginHeader p {
-    color: #709dff;
+    color: #758bbd;
     font-size: 50px;
     margin: 0px;
     display: inline-block;
@@ -61,7 +63,7 @@ div.loginHeader p:after {
     content: "";
     display: block;
     height: 5px;
-    background: #709dff;
+    background: #758bbd;
     width: 100%;
     margin: 0 auto;
 }
@@ -69,7 +71,7 @@ div.loginHeader p:after {
 div.loginBody form {
     margin: 0 auto;
     width: 300px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6); /* Slightly darker background */
     padding: 30px;
     border: 2px solid #fff;
     border-radius: 8px;
@@ -116,11 +118,10 @@ div.loginButtonContainer button {
     color: #fff;
 }
 
-
-div.errorMessage{
+div.errorMessage {
     background: #fff;
     text-align: center;
-    color:red;
+    color: red;
     font-size: 20px;
-    padding:11px;
+    padding: 11px;
 }
