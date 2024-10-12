@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $page = isset($_GET['page']) ? $_GET['page'] : 'welcome';
 
 // Define the available sections for management
-$pages = [
+/* $pages = [
     'user_list' => 'User Management',
     'store_list' => 'Store Management',
     'category_list' => 'Product Category Management',
@@ -21,7 +21,7 @@ $pages = [
     'model_port_types_list' => 'Port Type Management',
     'state_list' => 'State Management',
     'product_list' => 'Equipment Management',
-];
+]; */
 
 $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
 // Get user information from session

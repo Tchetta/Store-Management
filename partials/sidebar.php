@@ -10,41 +10,48 @@
 
     <!-- Menu section -->
     <ul class="dashboard_menu_lists">
-        <?php
-        // Ensure $pages array exists
-        if (isset($pages)) {
-            foreach ($pages as $key => $value):
-                // Check if it's "User Management" to create the main menu with submenus
-                if ($value === 'User Management'): ?>
-                    <li class="menu-item">
-                        <a href="javascript:void(0)" class="menu-toggle" onclick="toggleSubMenu('userManagementSubMenu')">
-                            <i class="fas fa-users"></i>
-                            <span class="menuText">User Management</span>
-                        </a>
-                        <ul id="userManagementSubMenu" class="submenu" style="display: none;">
-                            <li class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'user_list') ? 'active' : ''; ?>">
-                                <a href="dashboard.php?page=user_list">View Users</a>
-                            </li>
-                            <li class="<?php echo (isset($_GET['page']) && $_GET['page'] === 'create_user') ? 'active' : ''; ?>">
-                                <a href="dashboard.php?page=create_user">Create Users</a>
-                            </li>
-                        </ul>
-                    </li>
-                <?php
-                // Render other pages normally
-                else: ?>
-                    <li class="<?php echo (isset($_GET['page']) && $_GET['page'] === $key) ? 'active' : ''; ?>">
-                        <a href="dashboard.php?page=<?php echo $key; ?>">
-                            <i class="fas fa-cogs"></i>
-                            <span class="menuText"><?php echo $value; ?></span>
-                        </a>
-                    </li>
-                <?php
-                endif;
-            endforeach;
-        } else {
-            echo '<li>No pages available</li>'; // Error handling if $pages isn't set
-        }
-        ?>
+        <!-- User Management -->
+        <li class="menu-item <?php echo ($page === 'user_list' || $page === 'create_user') ? 'active' : ''; ?>">
+            <a href="#" class="menu-link">
+                <i class="fas fa-users"></i>
+                <span class="menuText">User Management</span>
+            </a>
+            <ul class="submenu">
+                <li><a href="dashboard.php?page=user_list" class="<?php echo ($page === 'user_list') ? 'active' : ''; ?>">View Users</a></li>
+                <li><a href="dashboard.php?page=create_user" class="<?php echo ($page === 'create_user') ? 'active' : ''; ?>">Create User</a></li>
+            </ul>
+        </li>
+
+        <!-- Store Management -->
+        <li class="menu-item <?php echo ($page === 'store_list' || $page === 'create_store') ? 'active' : ''; ?>">
+            <a href="#" class="menu-link">
+                <i class="fas fa-store"></i>
+                <span class="menuText">Store Management</span>
+            </a>
+            <ul class="submenu">
+                <li><a href="dashboard.php?page=store_list" class="<?php echo ($page === 'store_list') ? 'active' : ''; ?>">View Stores</a></li>
+                <li><a href="dashboard.php?page=create_store" class="<?php echo ($page === 'create_store') ? 'active' : ''; ?>">Create Store</a></li>
+            </ul>
+        </li>
+
+        <!-- Store Management -->
+        <li class="menu-item <?php echo ($page === 'product_list' || $page === 'model_list' || $page === 'brand_list' || $page === 'category_list' || $page === 'create_list' || $page === 'create_brand' || $page === 'create_category') ? 'active' : ''; ?>">
+            <a href="#" class="menu-link">
+                <i class="fas fa-box-open"></i>
+                <span class="menuText">Product Management</span>
+            </a>
+            <ul class="submenu">
+                <li><a href="dashboard.php?page=add_product" class="<?php echo ($page === 'add_product') ? 'active' : ''; ?>">Add Products</a></li>
+                <li><a href="dashboard.php?page=product_list" class="<?php echo ($page === 'product_list') ? 'active' : ''; ?>">View Products</a></li>
+                <li><a href="dashboard.php?page=create_model" class="<?php echo ($page === 'create_model') ? 'active' : ''; ?>">Create Model</a></li>
+                <li><a href="dashboard.php?page=model_list" class="<?php echo ($page === 'model_list') ? 'active' : ''; ?>">View Models</a></li>
+                <li><a href="dashboard.php?page=create_brand" class="<?php echo ($page === 'create_brand') ? 'active' : ''; ?>">Create Brand</a></li>
+                <li><a href="dashboard.php?page=brand_list" class="<?php echo ($page === 'brand_list') ? 'active' : ''; ?>">View brands</a></li>
+                <li><a href="dashboard.php?page=create_category" class="<?php echo ($page === 'create_category') ? 'active' : ''; ?>">Create Product Category</a></li>
+                <li><a href="dashboard.php?page=category_list" class="<?php echo ($page === 'category_list') ? 'active' : ''; ?>">View Categories</a></li>
+            </ul>
+        </li>
+
+        <!-- Add more menu items here for other management sections as needed -->
     </ul>
 </div>
