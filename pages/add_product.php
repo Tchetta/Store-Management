@@ -1,8 +1,10 @@
-<form action="../includes/create_product.inc.php" method="POST" id="productForm">
+<form action="../includes/add_product.inc.php" method="POST" id="productForm">
+    <!-- Store selection -->
     <label for="store_id">Store:</label>
     <select name="store_id" required>
         <option value="">Select Store</option>
         <?php
+        // Assuming StoreCtrl is a valid class that fetches stores
         $storeCtrl = new StoreCtrl();
         $stores = $storeCtrl->getAllStores();
         foreach ($stores as $store) {
@@ -11,65 +13,56 @@
         ?>
     </select>
 
-    <label for="product_id">Product Category:</label>
-    <select name="product_id" required>
-        <option value="">Select Category</option>
-        <?php
-        $categoryCtrl = new ProductCategoryCtrl();
-        $categories = $categoryCtrl->getAllCategories();
-        foreach ($categories as $category) {
-            echo "<option value='{$category['category_id']}'>{$category['category_name']}</option>";
-        }
-        ?>
-    </select>
-
+    <!-- Models selection table -->
     <label for="models">Models:</label>
-    <div id="model-container">
-        <?php
-        $modelCtrl = new ModelCtrl();
-        $models = $modelCtrl->getAllModels();
-        foreach ($models as $model) {
-            echo "
-            <div class='model-entry'>
-                <input type='checkbox' name='model_id[]' value='{$model['model_id']}'> {$model['model_name']}
-                <input type='number' name='model_quantity[{$model['model_id']}]' placeholder='Quantity' min='1' disabled>
-            </div>";
-        }
-        ?>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Model Name</th>
+                <th>Quantity</th>
+                <th>Serial Numbers (Optional)</th>
+            </tr>
+        </thead>
+        <tbody id="model-container">
+            <?php
+            // Assuming ModelCtrl is a valid class that fetches models
+            $modelCtrl = new ModelCtrl();
+            $models = $modelCtrl->getAllModels();
+            foreach ($models as $model) {
+                echo "
+                <tr>
+                    <td><input type='checkbox' name='model_id[]' value='{$model['model_id']}' class='model-checkbox'></td>
+                    <td>{$model['model_name']}</td>
+                    <td><input type='number' name='model_quantity[{$model['model_id']}]' placeholder='Quantity' min='1' class='model-quantity' disabled></td>
+                    <td><textarea name='serial_numbers[{$model['model_id']}]' placeholder='Serial Numbers (Optional)' class='serial-numbers' rows='3' disabled></textarea></td>
+                </tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 
-    <label for="state_id">State:</label>
-    <select name="state_id" required>
-        <option value="">Select State</option>
-        <?php
-        $stateCtrl = new StateCtrl();
-        $states = $stateCtrl->getAllStates();
-        foreach ($states as $state) {
-            echo "<option value='{$state['state_id']}'>{$state['state_name']}</option>";
-        }
-        ?>
-    </select>
-
-    <label for="description">Description:</label>
-    <textarea name="description"></textarea>
-
-    <label for="specification">Specification:</label>
-    <textarea name="specification"></textarea>
-
+    <!-- Submit button -->
     <button type="submit" name="submit">Add Product</button>
 </form>
 
 <script>
-// Enable quantity input when model checkbox is selected
-document.querySelectorAll("input[type='checkbox'][name='model_id[]']").forEach(checkbox => {
+document.querySelectorAll('.model-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function() {
-        const quantityInput = this.parentElement.querySelector("input[type='number']");
+        const row = this.closest('tr');
+        const quantityInput = row.querySelector('.model-quantity');
+        const serialInput = row.querySelector('.serial-numbers');  // Updated for textarea
+        
         if (this.checked) {
             quantityInput.disabled = false;
+            serialInput.disabled = false;
         } else {
             quantityInput.disabled = true;
-            quantityInput.value = ''; // Clear quantity if unchecked
+            serialInput.disabled = true;
+            quantityInput.value = '';  // Clear quantity if unchecked
+            serialInput.value = '';    // Clear textarea content if unchecked
         }
     });
 });
+
 </script>
