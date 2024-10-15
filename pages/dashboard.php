@@ -10,18 +10,6 @@ if (!isset($_SESSION['user_id'])) {
 // Check if there's a page to load
 $page = isset($_GET['page']) ? $_GET['page'] : 'welcome';
 
-// Define the available sections for management
-/* $pages = [
-    'user_list' => 'User Management',
-    'store_list' => 'Store Management',
-    'category_list' => 'Product Category Management',
-    'model_list' => 'Model Management',
-    'brand_list' => 'Brand Management',
-    'product_list' => 'Equipment State Management',
-    'model_port_types_list' => 'Port Type Management',
-    'state_list' => 'State Management',
-    'product_list' => 'Equipment Management',
-]; */
 
 $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
 // Get user information from session
@@ -38,6 +26,7 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard.css"> <!-- Use your provided styles -->
+    <link rel="stylesheet" href="../css/display_items.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 </head>
 <body>

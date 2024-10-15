@@ -5,6 +5,7 @@ if (isset($_POST['submit'])) {
     $storeId = $_POST['store_id'];
     $storeName = $_POST['store_name'];
     $storeLocation = $_POST['store_location'];
+    $managerId = isset($_POST['manager_id']) ? $_POST['manager_id'] : null;
 
     // Basic validation
     if (empty($storeId) || empty($storeName)) {
@@ -15,7 +16,8 @@ if (isset($_POST['submit'])) {
     $storeController = new StoreCtrl();
 
     try {
-        $storeController->createStore($storeId, $storeName, $storeLocation);
+        // Pass the manager ID to the createStore method, which can handle the null case
+        $storeController->createStore($storeId, $storeName, $storeLocation, $managerId);
         header("Location: ../pages/dashboard.php?page=store_list&success=storecreated");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=create_store&error=" . urlencode($e->getMessage()));

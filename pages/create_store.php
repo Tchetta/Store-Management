@@ -20,6 +20,9 @@ if (isset($_GET['error'])) {
     <label for="store_location">Store Location:</label>
     <input type="text" name="store_location" id="store_location"><br>
 
+    <label for="manager_id">Store Manager (optional):</label>
+    <input type="text" name="manager_id" id="manager_id" placeholder="Enter Manager ID"><br>
+
     <button type="submit" name="submit">Create Store</button>
 </form>
 
