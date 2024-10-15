@@ -1,3 +1,15 @@
+// Move the toggleSubMenu function outside of the DOMContentLoaded event listener
+function toggleSubMenu(subMenuId) {
+    const subMenu = document.getElementById(subMenuId);
+
+    // Toggle the display of the submenu
+    if (subMenu.style.display === 'none' || subMenu.style.display === '') {
+        subMenu.style.display = 'block'; // Show the submenu if it's currently hidden
+    } else {
+        subMenu.style.display = 'none'; // Hide the submenu if it's currently visible
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     const sidebarToggle = document.getElementById('toggleBtn');
     const sidebar = document.querySelector('.sidebar');
@@ -9,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     sidebarToggle.addEventListener('click', (event) => {
         event.preventDefault();
 
+        // Collapse or expand the sidebar
         if (!isCollapsed) {
             sidebar.style.width = '10%';
             contentContainer.style.width = '90%';
@@ -26,19 +39,14 @@ document.addEventListener('DOMContentLoaded', function () {
         isCollapsed = !isCollapsed;
     });
 
-    // Dropdown functionality
-    const dropdownToggles = document.querySelectorAll('.menu-link');
-    dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(event) {
-            event.preventDefault();
-            const submenu = this.nextElementSibling;
+    // Add event listeners for submenu toggles
+    const submenuToggles = document.querySelectorAll('.submenu-toggle'); // Assume you add 'submenu-toggle' class to parent items
 
-            // Toggle submenu
-            if (submenu.style.display === 'block') {
-                submenu.style.display = 'none';
-            } else {
-                submenu.style.display = 'block';
-            }
+    submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', (event) => {
+            event.preventDefault();
+            const subMenuId = toggle.getAttribute('data-submenu'); // Get submenu ID from a data attribute
+            toggleSubMenu(subMenuId);
         });
     });
 });

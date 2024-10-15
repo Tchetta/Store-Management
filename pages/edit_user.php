@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="../css/user_management.css"> <!-- Link to the CSS file -->
+</head>
+<body>
 <?php
 require_once '../includes/class_autoloader.inc.php';
 
@@ -14,28 +23,41 @@ if (isset($_GET['id'])) {
             <form action="../includes/edit_user.inc.php" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user['user_id']); ?>">
 
-                <label for="first_name">First Name:</label>
-                <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name']); ?>" required>
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($user['first_name']); ?>" required>
+                </div>
 
-                <label for="last_name">Last Name:</label>
-                <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name']); ?>" required>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($user['last_name']); ?>" required>
+                </div>
 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                </div>
 
-                <label for="role">Role:</label>
-                <select id="role" name="role" required>
-                    <option value="admin" <?php if ($user['role'] == 'admin') echo 'selected'; ?>>Admin</option>
-                    <option value="user" <?php if ($user['role'] == 'user') echo 'selected'; ?>>User</option>
-                </select>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="role" name="role" required>
+                        <option value="admin" <?php if ($user['role'] == 'admin') echo 'selected'; ?>>Admin</option>
+                        <option value="store manager" <?php if ($user['role'] == 'store manager') echo 'selected'; ?>>Store manager</option>
+                        <option value="SuperAdmin" <?php if ($user['role'] == 'SuperAdmin') echo 'selected'; ?>>SuperAdmin</option>
+                    </select>
+                </div>
 
-                <label for="profile_pic">Profile Picture:</label>
-                <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
-                
-                <p>Current Profile Picture:</p>
-                <img src="../uploads/profile_pics/<?php echo htmlspecialchars($user['image_path']); ?>" alt="Profile Picture" class="current-profile-pic">
+                <div class="form-group">
+                    <label for="profile_pic">Profile Picture:</label>
+                    <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
+                </div>
 
-                <button type="submit" name="submit">Update User</button>
+                <div class="form-group">
+                    <p>Current Profile Picture:</p>
+                    <img src="../uploads/profile_pics/<?php echo htmlspecialchars($user['image_path']); ?>" alt="Profile Picture" class="current-profile-pic">
+                </div>
+
+                <button type="submit" name="submit" class="btn">Update User</button>
             </form>
         </div>
         <?php
@@ -47,3 +69,5 @@ if (isset($_GET['id'])) {
     echo '<p>Invalid user ID.</p>';
 }
 ?>
+</body>
+</html>

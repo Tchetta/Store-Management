@@ -43,7 +43,7 @@ if (isset($_GET['error'])) {
             <td><?php echo htmlspecialchars($store['store_location']); ?></td>
             <td>
                 <?php echo htmlspecialchars($manager['first_name']); ?>
-                <img src="../uploads/profile_pics/<?php echo htmlspecialchars($manager['image_path']); ?>" alt="Profile Picture" style="width:40px; height:40px;">
+                <?php echo htmlspecialchars($manager['last_name']); ?>
             </td>
             <td>
                 <a href="dashboard.php?page=edit_store&id=<?php echo $store['store_id']; ?>">Edit</a> |

@@ -48,7 +48,8 @@
             <label for="role">Role:</label>
             <select id="role" name="role" required>
                 <option value="admin">Admin</option>
-                <option value="user">User</option>
+                <option value="superadmin">SuperAdmin</option>
+                <option value="storemanager">StoreManager</option>
             </select>
         </div>
 

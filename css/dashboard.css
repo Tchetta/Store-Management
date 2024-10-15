@@ -71,7 +71,6 @@
 
 .sidebar ul li a i {
     margin-right: 10px;
-    font-size: 18px;
 }
 
 .dashboard_logo {
@@ -101,29 +100,72 @@
     font-weight: bold;
     font-size: 18px;
 }
+/* Sidebar styles */
+.sidebar {
+    width: 20%;
+    background-color: #3a3b3d;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    border-radius: 0 20px 20px 0;
+    transition: width 0.3s ease;
+    overflow-y: auto; /* Allow vertical scroll if content exceeds height */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* Each menu item, now with relative positioning */
+.sidebar ul li {
+    position: relative; /* Add this to position submenus correctly */
+    padding: 15px 20px;
+    display: flex;
+    align-items: flex-start; /* Ensure text stays at the top */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+    background-color: #adc8f7;
+}
+
+.sidebar ul li::before,
+.sidebar ul li.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background-color: #6b89eb;
+    border-radius: 0 20px 20px 0;
+}
 
 /* Submenu styles */
 .submenu {
-    display: none;
+    display: none; /* Initially hide submenus */
     list-style: none;
-    padding-left: 20px;
-    margin: 0;
+   margin-top:10px;
+  padding-left:0px;
     background-color: #444;
-    max-height: 300px; /* Limit height to prevent overflowing */
-    overflow-y: auto; /* Enable scrolling if height exceeds */
 }
 
+/* Submenu items */
 .submenu li {
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .submenu li a {
     color: white;
     text-decoration: none;
+    
 }
 
 .submenu li a:hover {
-    text-decoration: underline;
+    color: #709dff;
 }
 
 /* Content styles */
@@ -146,7 +188,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 30px);
 }
 
 .welcome-message {
@@ -203,12 +245,3 @@
     width: 100%;
 }
 
-/* Welcome message */
-.welcome-message {
-    text-align: center;
-    font-size: 1.5rem;
-    color: #444;
-    padding: 20px;
-    background-color: #f1f1f1;
-    border-radius: 8px;
-}
