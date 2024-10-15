@@ -9,11 +9,12 @@ class Model extends Dbh {
     // }
 
     // Method to add a new model
-    protected function addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity = null) {
-        $sql = "INSERT INTO model (model_name, brand_id, power_rating, port_types, quantity) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$modelName, $brandId, $powerRating, $portTypesJson, $quantity]);
-    }
+    protected function addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity = null, $imagePath = 'uploads/model_img/default.png') {
+    $sql = "INSERT INTO model (model_name, brand_id, power_rating, port_types, quantity, image_path) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute([$modelName, $brandId, $powerRating, $portTypesJson, $quantity, $imagePath]);
+}
+
 
     // Method to get a model by ID
     protected function getModelById($modelId) {
@@ -67,8 +68,8 @@ class ModelCtrl extends Model {
         parent::addModel($modelId, $modelName, $numberOfPorts, $portTypes, $powerRating, $brandId, $quantity);
     } */
 
-    public function createModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity) {
-        parent::addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity);
+    public function createModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity, $image_path) {
+        parent::addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity, $image_path);
     }
 
     // Get all models
@@ -130,5 +131,22 @@ class ModelCtrl extends Model {
             return $brand->getCategoryIdByBrand($brandId);
         }
       
+        public function getModelsByPage($start, $limit) {
+            $sql = "SELECT * FROM model LIMIT :start, :limit"; // Adjust table name as necessary
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+        public function updateImagePath($modelId, $imagePath) {
+            $sql = "UPDATE models SET image_path = :image_path WHERE model_id = :model_id"; // Adjust table name as necessary
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindValue(':image_path', $imagePath, PDO::PARAM_STR);
+            $stmt->bindValue(':model_id', $modelId, PDO::PARAM_INT);
+            return $stmt->execute(); // Returns true on success
+        }
+        
     
 }

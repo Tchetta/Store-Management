@@ -10,10 +10,11 @@ $portCtrl = new PortTypeCtrl(); // Assuming you have a PortType controller
 $allPortTypes = $portCtrl->getAllPortTypes(); // Fetch all port types from the database
 ?>
 
-<form action="../includes/create_model.inc.php" method="POST" id="modelForm">
+<form action="../includes/create_model.inc.php" method="POST" id="modelForm" enctype="multipart/form-data">
     <label for="model_name">Model Name:</label>
     <input type="text" name="model_name" required>
-    <label for="model_name">Quantity:</label>
+
+    <label for="quantity">Quantity:</label>
     <input type="text" name="quantity">
 
     <label for="brand_id">Brand:</label>
@@ -43,22 +44,26 @@ $allPortTypes = $portCtrl->getAllPortTypes(); // Fetch all port types from the d
     <label for="power_rating">Power Rating:</label>
     <input type="text" name="power_rating">
 
+    <label for="model_image">Model Image (Optional):</label>
+    <input type="file" name="model_image" accept="image/*">
+
     <button type="submit" name="submit">Create Model</button>
 </form>
 
-<!-- Links to other operations -->
-<div>
-    <a href="dashboard.php?page=model_list">View All Models</a>
-</div>
-
+<!-- JavaScript to handle brand selection and show/hide port types section -->
 <script>
 // JavaScript to handle brand selection and show/hide port types section
 document.getElementById('brand_id').addEventListener('change', function() {
     const portTypeSection = document.getElementById('portTypeSection');
     if (this.value) {
-        portTypeSection.style.display = 'block';
+        portTypeSection.style.display = 'block'; // Show the port types section
     } else {
-        portTypeSection.style.display = 'none';
+        portTypeSection.style.display = 'none'; // Hide the port types section
     }
 });
 </script>
+
+<!-- Links to other operations -->
+<div>
+    <a href="dashboard.php?page=model_list">View All Models</a>
+</div>

@@ -35,7 +35,7 @@
         </li>
 
         <!-- Store Management -->
-        <li class="menu-item <?php echo ($page === 'product_list' || $page === 'model_list' || $page === 'brand_list' || $page === 'category_list' || $page === 'create_list' || $page === 'create_brand' || $page === 'create_category') ? 'active' : ''; ?>">
+        <li class="menu-item <?php echo ($page === 'product_list' || $page === 'model_list' || $page === 'brand_list' || $page === 'category_list' || $page === 'create_list' || $page === 'create_brand' || $page === 'create_category' || $page === 'add_product') ? 'active' : ''; ?>">
             <a href="#" class="menu-link">
                 <i class="fas fa-box-open"></i>
                 <span class="menuText">Product Management</span>

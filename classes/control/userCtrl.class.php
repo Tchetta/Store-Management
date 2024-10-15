@@ -121,4 +121,14 @@ class UserCtrl extends User {
         }
         parent::deleteUser($userId);
     }
+
+    public function getUsersByPage($start, $limit) {
+        $sql = "SELECT * FROM users LIMIT :start, :limit";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindValue(':start', $start, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 }
