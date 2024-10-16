@@ -27,6 +27,7 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="../css/display_items.css"> <!-- Use your provided styles -->
+    <link rel="stylesheet" href="../model.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 </head>
 <body>
