@@ -1,6 +1,6 @@
 <?php
 require_once '../includes/class_autoloader.inc.php';
-require_once 'dbh.class.php'; // Include your database connection
+//require_once 'dbh.class.php'; // Include your database connection
 require_once 'control/modelCtrl.class.php';
 
 //     Handle multiple models and quantities
@@ -33,3 +33,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 require 'views/product_form.php'; // Load the view
+

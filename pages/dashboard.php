@@ -20,7 +20,8 @@ $pages = [
     'product_list' => 'Equipment State Management',
     'model_port_types_list' => 'Port Type Management',
     'state_list' => 'State Management',
-    'product_list' => 'Equipment Management',
+    'add_product' => 'Equipment Management'
+    
 ];
 
 $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';

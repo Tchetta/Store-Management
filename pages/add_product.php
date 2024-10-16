@@ -1,3 +1,4 @@
+
 <form action="../includes/create_product.inc.php" method="POST" id="productForm">
     <label for="store_id">Store:</label>
     <select name="store_id" required>
@@ -38,25 +39,28 @@
         ?>
     </div>
 
-    <label for="state_id">State:</label>
+    <!-- <label for="state_id">State:</label>
     <select name="state_id" required>
         <option value="">Select State</option>
-        <?php
-        $stateCtrl = new StateCtrl();
-        $states = $stateCtrl->getAllStates();
-        foreach ($states as $state) {
-            echo "<option value='{$state['state_id']}'>{$state['state_name']}</option>";
+      
+      //  $stateCtrl = new StateCtrl();
+       // $states = $stateCtrl->getAllStates();
+      //  foreach ($states as $state) {
+       //     echo "<option value='{$state['state_id']}'>{$state['state_name']}</option>";
         }
         ?>
-    </select>
-
+    </select> -->
+<!-- 
     <label for="description">Description:</label>
     <textarea name="description"></textarea>
 
     <label for="specification">Specification:</label>
     <textarea name="specification"></textarea>
+    -->
+    <button type="submit" name="submit">Add Product</button> <br><br>
 
-    <button type="submit" name="submit">Add Product</button>
+    <button type="submit" name="submit">Remove product</button> <br>
+
 </form>
 
 <script>
@@ -73,3 +77,4 @@ document.querySelectorAll("input[type='checkbox'][name='model_id[]']").forEach(c
     });
 });
 </script>
+

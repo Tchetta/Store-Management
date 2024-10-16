@@ -1,19 +1,33 @@
 <?php
 require_once('../includes/class_autoloader.inc.php');
 
-class Model extends Dbh {
-    // public function productExists($model_name) {
-    //     $stmt = $this->connect()->prepare("SELECT COUNT(*) FROM model WHERE model_name = :model_name");
-    //     $stmt->execute(['model_name' => $model_name]);
-    //     return $stmt->fetchColumn() > 0;
-    // }
+ class Model extends Dbh {
+//     public function productExists($model_name) {
+//         $stmt = $this->connect()->prepare("SELECT COUNT(*) FROM model WHERE model_name = :model_name");
+//         $stmt->execute(['model_name' => $model_name]);
+//         return $stmt->fetchColumn() > 0;
+//     }
 
     // Method to add a new model
-    protected function addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity = null) {
-        $sql = "INSERT INTO model (model_name, brand_id, power_rating, port_types, quantity) VALUES (?, ?, ?, ?, ?)";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$modelName, $brandId, $powerRating, $portTypesJson, $quantity]);
+    protected function addModel($model_name, $number_of_ports, $power_rating, $brand_id, $quantity, $port_types) {
+        $stmt = $this->connect()->prepare('INSERT INTO model (model_name, number_of_ports, power_rating, brand_id, quantity, port_types) 
+        VALUES (?, ?, ?, ?, ?, ?);');
+        if (!$stmt->execute([$model_name, $number_of_ports, $power_rating, $brand_id, $quantity, $port_types])) {
+            // Handle error (e.g., log it or throw an exception)
+            return false;
+        }
+        return true; // Model added successfully
     }
+
+    protected function checkModel($model_name) {
+        $stmt = $this->connect()->prepare('SELECT model_name FROM model WHERE model_name = ?');
+        if (!$stmt->execute([$model_name])) {
+            // Handle error
+            return false; // Indicate failure
+        }
+        return $stmt->rowCount() > 0; // Returns true if model exists
+    }
+
 
     // Method to get a model by ID
     protected function getModelById($modelId) {
@@ -52,10 +66,26 @@ class Model extends Dbh {
     }
 
 
-    public function increaseQuantity($model_name, $quantity) {
-        $stmt = $this->connect()->prepare("UPDATE model SET quantity = quantity + :quantity WHERE model_name = :model_name");
-        $stmt->execute(['quantity' => $quantity, 'model_name' => $model_name]);
+    protected function increaseQuantity($model_name, $quantity) {
+        $stmt = $this->connect()->prepare('UPDATE model SET quantity = quantity + ? WHERE model_name = ?');
+        if (!$stmt->execute([$quantity, $model_name])) {
+            // Handle error
+            return false; // Indicate failure
+        }
+        return true; // Quantity increased successfully
     }
+
+    // Public method to manage adding or updating a model
+    public function manageModel($model_name, $number_of_ports, $power_rating, $brand_id, $quantity, $port_types) {
+        if ($this->checkModel($model_name)) {
+            // If model exists, increase the quantity
+            return $this->increaseQuantity($model_name, $quantity);
+        } else {
+            // If model does not exist, add it
+            return $this->addModel($model_name, $number_of_ports, $power_rating, $brand_id, $quantity, $port_types);
+        }
+    }
+
 
     
 }
@@ -67,8 +97,8 @@ class ModelCtrl extends Model {
         parent::addModel($modelId, $modelName, $numberOfPorts, $portTypes, $powerRating, $brandId, $quantity);
     } */
 
-    public function createModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity) {
-        parent::addModel($modelName, $brandId, $powerRating, $portTypesJson, $quantity);
+    public function createModel($model_id, $modelName, $brandId, $powerRating, $portTypesJson, $quantity) {
+        parent::addModel($model_id, $modelName, $brandId, $powerRating, $portTypesJson, $quantity);
     }
 
     // Get all models
