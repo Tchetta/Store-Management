@@ -404,4 +404,30 @@ class ModelCtrl extends Model {
         $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // In ModelCtrl class
+public function getModelsByBrand($brandId) {
+    $sql = "SELECT * FROM model WHERE brand = :brand_id";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute(['brand_id' => $brandId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getModelsByCategory($categoryId) {
+    $sql = "SELECT * FROM model WHERE category = :category_id";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute(['category_id' => $categoryId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// In ModelCtrl class
+public function getModelsByBrandOrCategory($brandId = null, $categoryId = null) {
+    $sql = "SELECT * FROM model WHERE (:brand_id IS NULL OR brand = :brand_id) 
+                                  AND (:category_id IS NULL OR category = :category_id)";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute(['brand_id' => $brandId, 'category_id' => $categoryId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 }
