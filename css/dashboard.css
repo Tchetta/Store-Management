@@ -176,9 +176,12 @@
 }
 
 .dashboard_content {
+    /* This will be the parent container */
+    background-color: #f4f4f9; /* Optional background color */
     padding: 20px;
-    background-color: #f4f6f9;
-    height: calc(100vh - 50px);
+    height: 100vh; /* Ensure the parent takes up the full viewport height */
+    display: flex;
+    flex-direction: column; /* So content within can be arranged vertically */
 }
 
 .dashboard_content_main {
@@ -188,8 +191,11 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     width: 100%;
-    height: calc(100vh - 30px);
+    overflow-y: auto; /* Enables vertical scrolling inside this container */
+    flex-grow: 1; /* Fills the remaining space inside .dashboard_content */
+    height: auto; /* Allows the height to adjust dynamically */
 }
+
 
 .welcome-message {
     text-align: center;
