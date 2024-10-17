@@ -45,10 +45,8 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
                         if (file_exists($pageFile)) {
                             include($pageFile);
                         } else {
-                            // Welcome message displayed by default
-                            echo '<div class="welcome-message">
-                                    <h2>Welcome to the Dashboard!</h2>
-                                  </div>';
+                            include('store_list.php');
+                                  
                         }
                     ?>
                 </div>

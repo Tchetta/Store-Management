@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
     $modelCtrl->createModel($modelName, $brandId, $num_of_ports, $portTypes, $quantity, $categoryId, $specifications, $description, $imagePath);
     
     // Redirect to a success or model listing page
-    header('Location: ../pages/dashboard.php?page=model_list?status=success');
+    header('Location: ../pages/dashboard.php?page=model_list&status=success');
     exit();
 } else {
     // Handle form submission failure (optional)
