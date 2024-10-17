@@ -1,173 +1,299 @@
+/* Basic reset for better cross-browser support */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    background-color: #f4f4f9;
     padding: 20px;
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: rgb(224, 224, 224);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.create-store-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 400px; /* Ensures the container takes up a decent space vertically */
 }
 
 h2 {
     text-align: center;
+    margin-bottom: 20px;
     color: #333;
 }
 
-form {
-    margin: 20px 0;
+.create-store-form {
+    display: flex;
+    flex-direction: column;
 }
 
-input, select {
+.create-store-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.create-store-form input[type="text"] {
     padding: 10px;
-    margin: 5px 0;
-    width: calc(100% - 22px);
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
 }
 
-button {
-    background-color: #70abeb; /* Blue background */
+.create-store-form button {
+    padding: 12px;
+    background-color: #7db5f5;
     color: white;
-    padding: 10px 15px;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-right: 10px;
+    font-size: 16px;
+    width: 30%;
 }
 
-button:hover {
-    background-color:#323232;/* Darker blue on hover */
+.create-store-form button:hover {
+    background-color: #45a049;
 }
 
-table {
+/* Align the view stores link to the bottom right */
+.bottom-right-link {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.view-stores-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.view-stores-link:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
+}
+
+/* Container styling */
+.view-store-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styling */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Table styling */
+.store-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-th {
-    background-color: #b7c3e4;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Button styles for edit and delete */
-button.editBtn {
-    background-color: rgb(209, 208, 208);; /* Blue background for edit */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button.deleteBtn {
-    background-color: grey; /* Red background for delete */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button.editBtn:hover, button.deleteBtn:hover {
-    opacity: 0.9; /* Slight hover effect for both buttons */
-}
-
-/* Styling for the search container */
-.search-container {
-    display: flex;
-    justify-content: flex-end; /* Aligns the search bar to the right */
-    align-items: center;
-    margin-top: 20px; /* Adjust margin as needed */
-}
-
-/* Styling for the search bar */
-.search-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 200px; /* Set a reduced size */
-    height: 40px; /* Adjusted height */
-    background-color: #fff;
-    border-radius: 20px; /* Adjusted border radius for a rounder look */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.4s ease; /* Smooth transition */
+    margin-bottom: 20px;
     overflow: hidden;
 }
 
-/* Search icon inside the bar */
-.search-bar input {
-    position: absolute;
-    left: 50px;
-    width: 0;
-    padding: 0;
-    border: none;
-    outline: none;
-    font-size: 14px; /* Adjusted font size */
-    color: #333;
-    transition: width 0.4s ease; /* Smooth expansion */
-    background: transparent;
+.store-table th,
+.store-table td {
+    padding: 12px;
+    border: 1px solid #ccc;
+    text-align: left;
 }
 
-/* Search button */
-.search-bar button {
-    width: 40px; /* Adjusted width */
-    height: 40px; /* Adjusted height */
-    border: none;
-    background-color: #7d7f83;
-    color: #fff;
-    border-radius: 20px; /* Round button */
-    cursor: pointer;
+.store-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.store-table td {
+    background-color: #fff;
+}
+
+.action-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.action-link:hover {
+    text-decoration: underline;
+}
+
+.delete {
+    color: red;
+}
+
+/* Pagination styling */
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination ul {
+    list-style: none;
+    display: inline-flex;
+    gap: 10px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #007BFF;
+}
+
+.pagination a.active {
+    background-color: #007BFF;
+    color: white;
+}
+
+.pagination a:hover {
+    background-color: #f4f4f4;
+}
+
+/* Store overview cards */
+.store-overview {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    align-items: center;
-    font-size: 16px; /* Adjusted font size */
-    transition: background-color 0.3s ease;
 }
 
-.search-bar button:hover {
-    background-color: #7a7b7e;
+.store-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 220px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Search bar expands when clicked */
-.search-bar.expanded {
-    width: 400px; /* Expanded width */
+.store-card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
 }
 
-.search-bar.expanded input {
-    width: 100%; /* Expanded input width */
-    padding: 10px;
+.store-card p {
+    margin-bottom: 10px;
+    color: #555;
 }
 
-.close-btn {
-    position: absolute;
-    right: 10px;
-    cursor: pointer;
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Create store link styling */
+.create-store-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
     font-size: 16px;
-    color: #666;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    text-decoration: none;
+    color: #28a745;
 }
 
-.search-bar.expanded .close-btn {
-    opacity: 1; /* Visible when expanded */
+.create-store-link:hover {
+    text-decoration: underline;
+}
+
+/* Error and success messages */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-message {
+    color: green;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    top:20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #7db7ee;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
 }

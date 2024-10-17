@@ -1,11 +1,25 @@
 /* General body font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 
 
 
 body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    padding: 20px;
 
 }
+/* Container styling */
+.view-user-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    overflow-y: scroll;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 h2 {
 
@@ -15,101 +29,131 @@ h2 {
     margin-bottom: 20px;
     text-align: center;
 }
-
-/* Style the table */
+/* Style the table similar to store management */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  
-        border-radius:8px;
-
+    margin-bottom: 20px;
+    /* box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);  *//* Softer shadow for a cleaner look */
+    /* border-radius: 10px; */ /* Rounded corners for the table */
+     /* Ensures rounded corners apply */
 }
 
 th, td {
-    padding: 12px 15px;
+    padding: 12px; /* Increase padding for a more spacious layout */
     text-align: left;
-    border: 1px solid #ddd;
- 
+    border: 1px solid #eee; /* Light border for separation */
+    /* background-color: #fff; */ /* White background for better contrast */
 }
 
 th {
-    background-color: #737a74;
-    color: white;
-    text-transform: uppercase;
+    background-color:#f4f4f4; /* Similar blue tone to store management */
+  /*   color: white; */ /* White text for contrast */
     font-weight: bold;
-    font-size: 10px;
+    font-size: 12px; /* Adjust font size for clarity */
+    text-transform: uppercase; /* Uppercase for headings */
 }
 
 td {
-    font-size: 14px;
+    font-size: 14px; /* Standard font size for content */
+   /*  color: #333; */ /* Darker text for better readability */
+    background-color: #fff;
 }
 
-/* Style for the profile picture */
-td img {
-    border-radius: 50%;
-    object-fit: cover;
+
+/* Pagination styling */
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* Hover effect for rows */
-tr:hover {
-    background-color: #f1f1f1;
+.pagination ul {
+    list-style: none;
+    display: inline-flex;
+    gap: 10px;
 }
+
+.pagination li {
+    display: inline;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #007BFF;
+}
+
+.pagination a.active {
+    background-color: #007BFF;
+    color: white;
+}
+
+.pagination a:hover {
+    background-color: #f4f4f4;
+}
+
 
 /* Action buttons (edit, delete) */
-td a {
-    display: inline-block;
-    background-color: #666262; /* Light grey background */
-    color: #fff;
+.edit-action {
+    color: #007BFF; /* Blue for edit action */
     text-decoration: none;
-    font-weight: bold;
-    padding: 8px 12px;
-    margin: 5px;
-    border-radius: 10px;
-    font-family:  'Roboto'; /* Apply font to buttons */
 }
 
-td a:first-child {
-    background-color:  #6b89eb;  /* Dark grey for 'Edit' button */
+.edit-action:hover {
+    text-decoration: underline;
 }
 
-td a:hover {
-    background-color: #d3d3d3; /* Lighter grey when hovered */
-    color: #333; /* Darker text color on hover */
-}
-
-/* Create New User link */
-p a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #97b2ec;
-    color: white;
-    text-transform: uppercase;
+.delete-action {
+    color: #ff4d4d; /* Red for delete action */
     text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
- 
 }
 
-p a:hover {
-    background-color: #b0b8b1;
+.delete-action:hover {
+    text-decoration: underline;
+}
+/* Store overview cards */
+.user-overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
-/* Mobile responsiveness */
+.user-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 220px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-card h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.user-card p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
     table {
         font-size: 12px;
     }
+
     th, td {
-        padding: 8px;
-    }
-    p a {
-        padding: 8px 16px;
-        font-size: 12px;
+        padding: 10px;
     }
 }
+
   /* Ensure the form is confined within the dashboard */
   .form-container {
     max-width: 600px;
@@ -196,16 +240,7 @@ p a:hover {
         padding: 8px;
     }
 }
-  /* Container for the dashboard content */
-  .dashboard_content_main {
-    max-height: 80vh; /* Set the maximum height for the scrollable area */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 20px; /* Add padding for aesthetic spacing */
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
+ 
 /* Ensure the form is confined within the dashboard */
 .form-container {
     max-width: 70%; /* Set max width for the form container */

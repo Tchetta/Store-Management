@@ -16,25 +16,48 @@ if (!$store) {
 }
 
 // Handle errors or success messages
+$message = '';
 if (isset($_GET['error'])) {
-    echo '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
+    $message = '<p style="color:red;">Error: ' . htmlspecialchars($_GET['error']) . '</p>';
 } elseif (isset($_GET['success'])) {
-    echo '<p style="color:green;">Store updated successfully!</p>';
+    $message = '<p style="color:green;">Store updated successfully!</p>';
 }
 ?>
 
-<h2>Edit Store</h2>
-<form action="../includes/edit_store.inc.php" method="POST">
-    <input type="hidden" name="store_id" value="<?php echo htmlspecialchars($store['store_id']); ?>">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Store</title>
+    <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to your CSS file -->
+</head>
+<body>
 
-    <label for="store_name">Store Name:</label>
-    <input type="text" name="store_name" id="store_name" value="<?php echo htmlspecialchars($store['store_name']); ?>" required><br>
+<div class="container">
+    <h2>Edit Store</h2>
+    
+    <?php echo $message; ?>
 
-    <label for="store_location">Store Location:</label>
-    <input type="text" name="store_location" id="store_location" value="<?php echo htmlspecialchars($store['store_location']); ?>" required><br>
+    <form action="../includes/edit_store.inc.php" method="POST">
+        <input type="hidden" name="store_id" value="<?php echo htmlspecialchars($store['store_id']); ?>">
 
-    <button type="submit" name="submit">Update Store</button>
-</form>
+        <div class="form-group">
+            <label for="store_name">Store Name:</label>
+            <input type="text" name="store_name" id="store_name" value="<?php echo htmlspecialchars($store['store_name']); ?>" required>
+        </div>
 
-<p><a href="dashboard.php?page=create_user">Create New User</a></p>
-<p><a href="dashboard.php?page=store_list">View Stores</a></p>
+        <div class="form-group">
+            <label for="store_location">Store Location:</label>
+            <input type="text" name="store_location" id="store_location" value="<?php echo htmlspecialchars($store['store_location']); ?>" required>
+        </div>
+
+        <button type="submit" name="submit">Update Store</button>
+    </form>
+
+    
+    <p><a href="dashboard.php?page=store_list">View Stores</a></p>
+</div>
+
+</body>
+</html>
