@@ -1,35 +1,50 @@
 <?php
+// Include necessary files and initialize ModelCtrl
 require_once '../includes/class_autoloader.inc.php';
-$modelController = new ModelCtrl();
-$model = $modelController->getModelById($_GET['id']);
+
+$modelId = $_GET['model_id'] ?? null;
+$modelCtrl = new ModelCtrl();
+
+if ($modelId) {
+    // Get the model details by ID
+    $model = $modelCtrl->getModelById($modelId);
+    if (!$model) {
+        die('Model not found');
+    }
+} else {
+    die('Invalid model ID');
+}
 ?>
+    <h2>Edit Model: <?php echo htmlspecialchars($model['model_name']); ?></h2>
+    <form action="../includes/edit_model.inc.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="model_id" value="<?php echo $modelId; ?>">
 
-<form action="../includes/edit_model.inc.php" method="POST">
-    <input type="hidden" name="model_id" value="<?php echo $model['model_id']; ?>">
+        <label for="model_name">Model Name</label>
+        <input type="text" name="model_name" id="model_name" value="<?php echo htmlspecialchars($model['model_name']); ?>" required>
 
-    <label for="model_name">Model Name:</label>
-    <input type="text" name="model_name" value="<?php echo $model['model_name']; ?>" required>
+        <label for="brand_id">Brand</label>
+        <input type="text" name="brand_id" id="brand_id" value="<?php echo htmlspecialchars($model['brand']); ?>" required>
 
-    <label for="number_of_ports">Number of Ports:</label>
-    <input type="number" name="number_of_ports" value="<?php echo $model['number_of_ports']; ?>" required>
+        <label for="category_id">Category</label>
+        <input type="text" name="category_id" id="category_id" value="<?php echo htmlspecialchars($model['category']); ?>" required>
 
-    <label for="port_types">Port Types:</label>
-    <input type="text" name="port_types" value="<?php echo $model['port_types']; ?>" required>
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity" value="<?php echo htmlspecialchars($model['quantity']); ?>" required>
 
-    <label for="power_rating">Power Rating:</label>
-    <input type="text" name="power_rating" value="<?php echo $model['power_rating']; ?>">
+        <label for="description">Description</label>
+        <textarea name="description" id="description"><?php echo htmlspecialchars($model['description']); ?></textarea>
 
-    <label for="brand_id">Brand ID:</label>
-    <input type="number" name="brand_id" value="<?php echo $model['brand_id']; ?>" required>
+        <label for="specification">Specifications</label>
+        <textarea name="specification" id="specification"><?php echo htmlspecialchars($model['specification']); ?></textarea>
+        <label for="ports">Port Types</label>
+        <textarea name="portTypes" id="ports"><?php echo htmlspecialchars($model['port_types']); ?></textarea>
 
-    <label for="quantity">Quantity:</label>
-    <input type="number" name="quantity" value="<?php echo $model['quantity']; ?>">
+        <label for="model_image">Upload Image (optional)</label>
+        <input type="file" name="model_image" id="model_image">
 
-    <button type="submit" name="submit">Update Model</button>
-</form>
+        <button type="submit" name="submit">Save Changes</button>
+    </form>
 
-<!-- Links to other operations -->
-<div>
-    <a href="dashboard.php?page=create_model">Create New Model</a> | 
-    <a href="dashboard.php?page=model_list">View All Models</a>
-</div>
+    <p><a href="dashboard.php?page=create_model">Create Models</a></p>
+    <p><a href="dashboard.php?page=model_list">View Models</a></p>
+

@@ -1,95 +1,90 @@
-
-
 <?php
 require_once '../includes/class_autoloader.inc.php';
-// #################
 
 if (isset($_POST['submit'])) {
+    // Collect form data
     $modelName = $_POST['model_name'];
-    $brandId = (int)$_POST['brand_id'];
-    $powerRating = $_POST['power_rating'];
-    $model_quantity = isset($_POST['quantity']) ? $_POST['quantity'] : 0;
+    $quantity = $_POST['quantity'];
+    $brandId = $_POST['brand_id'];
+    $categoryId = $_POST['category_id'];
+    $description = $_POST['description'] ?? '';
 
-    // Initialize arrays to hold port types and quantities
-    $portTypes = isset($_POST['port_types']) ? $_POST['port_types'] : [];
-    $quantities = isset($_POST['quantities']) ? $_POST['quantities'] : [];
+    // Handle parameters and specifications
+    $specifications = '';
+    if (isset($_POST['input_current']) && !empty($_POST['input_current'])) {
+        $specifications .= 'Input Current: ' . $_POST['input_current'] . ' A' . PHP_EOL; // Added unit for current
+    }
+    if (isset($_POST['input_voltage']) && !empty($_POST['input_voltage'])) {
+        $specifications .= 'Input Voltage: ' . $_POST['input_voltage'] . ' V' . PHP_EOL; // Added unit for voltage
+    }
+    if (isset($_POST['output_current']) && !empty($_POST['output_current'])) {
+        $specifications .= 'Output Current: ' . $_POST['output_current'] . ' A' . PHP_EOL; // Added unit for current
+    }
+    if (isset($_POST['output_voltage']) && !empty($_POST['output_voltage'])) {
+        $specifications .= 'Output Voltage: ' . $_POST['output_voltage'] . ' V' . PHP_EOL; // Added unit for voltage
+    }
 
-   // Initialize PortTypeCtrl to fetch port names
-$portTypeController = new PortTypeCtrl();
+    // Handle dimensions
+    if (isset($_POST['length']) && !empty($_POST['length'])) {
+        $specifications .= 'Length: ' . $_POST['length'] . ' metres' . PHP_EOL; // Length in meters
+    }
+    if (isset($_POST['width']) && !empty($_POST['width'])) {
+        $specifications .= 'Width: ' . $_POST['width'] . ' cm' . PHP_EOL; // Width in cm
+    }
+    if (isset($_POST['height']) && !empty($_POST['height'])) {
+        $specifications .= 'Height: ' . $_POST['height'] . ' cm' . PHP_EOL; // Height in cm
+    }
+    if (isset($_POST['diagonal']) && !empty($_POST['diagonal'])) {
+        $specifications .= 'Diagonal: ' . $_POST['diagonal'] . ' inches' . PHP_EOL; // Diagonal in inches, no unit field
+    }
 
-// Calculate total number of ports based on selected port types and their quantities
-$totalPorts = 0;
-$selectedPorts = [];
+    // Handle color
+    if (isset($_POST['color']) && !empty($_POST['color'])) {
+        $specifications .= 'Color: ' . $_POST['color'] . PHP_EOL;
+    }
 
-// Check if port types are set
-if (isset($_POST['port_types'])) {
-    $portTypes = $_POST['port_types']; // Get the selected port types
-    $quantities = $_POST['quantities']; // Get the quantities for each port type
-
-    foreach ($portTypes as $portTypeId => $value) {
-        $port_quantity = isset($quantities[$portTypeId]) ? (int)$quantities[$portTypeId] : 0;
-        if ($port_quantity > 0) {
-            $totalPorts += $port_quantity;
-
-            // Fetch the port name using PortTypeCtrl::getPortName
-            $portName = $portTypeController->getPortName($portTypeId);
-            if (is_string($portName) && !empty($portName)) {
-                // Store the port name and its quantity in the selectedPorts array
-                $selectedPorts[] = [
-                    'port_name' => $portName,
-                    'quantity' => $port_quantity
-                ];
-            } else {
-                error_log("Invalid port name for portTypeId: $portTypeId");
-                continue; // Skip invalid port names
-            }
+    // Handle port types and quantities
+    $portTypes = '';
+    $num_of_ports = 0;
+    if (isset($_POST['port_types'])) {
+        foreach ($_POST['port_types'] as $portTypeId) {
+            // Check if the quantity for this port type ID exists and is a scalar value (number)
+            $portQuantity = $_POST['quantities'][$portTypeId] ?? 0;
+            
+            // Fetch the port type name (assuming getPortName is a valid method)
+            $portTypeName = (new PortTypeCtrl())->getPortName($portTypeId);
+            
+            // Append port type and quantity to the $portTypes string
+            $portTypes .= $portTypeName . ': ' . $portQuantity . PHP_EOL;
+            $num_of_ports+=$portQuantity;
         }
     }
-}
 
-// Prepare the port types as a JSON object
-$portTypesJson = json_encode($selectedPorts);
-
-    // Validate required fields
-    if (empty($modelName) || empty($brandId) || $totalPorts <= 0) {
-        header("Location: ../pages/dashboard.php?page=create_model&error=emptyfields");
-        exit();
-    }
 
     // Handle image upload
-    $imagePath = 'uploads/model_img/default.png'; // Default image path
-    if (isset($_FILES['model_image']) && $_FILES['model_image']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/model_img/';
-        $uploadFile = $uploadDir . basename($_FILES['model_image']['name']);
-        $imageFileType = strtolower(pathinfo($uploadFile, PATHINFO_EXTENSION));
+    $imagePath = 'default.png'; // Default image
+    if (isset($_FILES['model_image']) && $_FILES['model_image']['error'] === 0) {
+        $imageDir = '../uploads/model_image/';
+        $imageName = basename($_FILES['model_image']['name']);
+        $targetFilePath = $imageDir . $imageName;
 
-        // Check if the file is an image
-        $check = getimagesize($_FILES['model_image']['tmp_name']);
-        if ($check !== false) {
-            // Move the uploaded file to the designated folder
-            if (move_uploaded_file($_FILES['model_image']['tmp_name'], $uploadFile)) {
-                $imagePath = $uploadFile; // Set the image path to the uploaded file
-            } else {
-                // Log or handle the error
-                error_log("Error uploading the file.");
-            }
+        if (move_uploaded_file($_FILES['model_image']['tmp_name'], $targetFilePath)) {
+            $imagePath = $imageName; // Store the actual uploaded image path
         } else {
-            error_log("File is not an image.");
+            // Handle upload failure (optional)
+            echo 'Image upload failed';
         }
     }
 
-    // Create Model instance and call the method to create the model
-    $modelController = new ModelCtrl();
-
-    try {
-        $modelController->createModel($modelName, $brandId, $powerRating, $portTypesJson, $model_quantity, $imagePath);
-        header("Location: ../pages/dashboard.php?page=model_list&success=modelcreated");
-    } catch (Exception $e) {
-        header("Location: ../pages/dashboard.php?page=create_model&error=" . urlencode($e->getMessage()));
-    }
-
+    // Create the model using the ModelCtrl
+    $modelCtrl = new ModelCtrl();
+    $modelCtrl->createModel($modelName, $brandId, $num_of_ports, $portTypes, $quantity, $categoryId, $specifications, $description, $imagePath);
+    
+    // Redirect to a success or model listing page
+    header('Location: ../pages/dashboard.php?page=model_list?status=success');
     exit();
 } else {
-    header("Location: ../pages/dashboard.php?page=create_model");
-    exit();
+    // Handle form submission failure (optional)
+    echo 'Invalid request';
 }
+?>

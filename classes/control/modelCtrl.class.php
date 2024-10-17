@@ -3,22 +3,20 @@ require_once('../includes/class_autoloader.inc.php');
 
 class Model extends Dbh {
     // Add a new model
-    protected function addModel($modelName, $brand, $powerRating, $portTypesJson, $quantity, $category, $specification, $description, $inputCurrent, $inputVoltage, $imagePath = 'uploads/model_img/default.png') {
-        $sql = "INSERT INTO model (model_name, brand, power_rating, port_types, quantity, category, specification, description, input_current, input_voltage, image_path) 
-                VALUES (:model_name, :brand, :power_rating, :port_types, :quantity, :category, :specification, :description, :input_current, :input_voltage, :image_path)";
+    public function createModel($modelName, $brand, $numPorts, $portTypes = '', $quantity = 0, $category, $specification = '', $description = '', $imagePath = 'default.png') {
+        $sql = "INSERT INTO model (model_name, brand, number_of_ports, port_types, quantity, category, specification, description, image_path) 
+                VALUES (:model_name, :brand, :number_of_ports, :port_types, :quantity, :category, :specification, :description, :image_path)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([
             'model_name' => $modelName,
             'brand' => $brand,
-            'power_rating' => $powerRating,
-            'port_types' => $portTypesJson,
+            'port_types' => $portTypes,
             'quantity' => $quantity,
             'category' => $category,
             'specification' => $specification,
             'description' => $description,
-            'input_current' => $inputCurrent,
-            'input_voltage' => $inputVoltage,
-            'image_path' => $imagePath
+            'image_path' => $imagePath,
+            'number_of_ports' => $numPorts
         ]);
     }
 
@@ -220,9 +218,9 @@ class Model extends Dbh {
 
 class ModelCtrl extends Model {
     // Create a new model
-    public function createModel($modelName, $brand, $powerRating, $portTypesJson, $quantity, $category, $specification, $description, $inputCurrent, $inputVoltage, $imagePath) {
+    public function createModel($modelName, $brand, $numPorts, $portTypes = '', $quantity = 0, $category, $specification = '', $description = '', $imagePath = 'default.png') {
         // Validate inputs if necessary
-        parent::addModel($modelName, $brand, $powerRating, $portTypesJson, $quantity, $category, $specification, $description, $inputCurrent, $inputVoltage, $imagePath);
+        parent::createModel($modelName, $brand, $numPorts, $portTypes, $quantity, $category, $specification, $description, $imagePath);
     }
 
     // Get all models
