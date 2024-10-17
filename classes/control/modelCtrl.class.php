@@ -211,10 +211,10 @@ class Model extends Dbh {
     }
 
     // Increase model quantity
-    protected function increaseQuantity($modelName, $quantity) {
-        $sql = "UPDATE model SET quantity = quantity + :quantity WHERE model_name = :model_name";
+    protected function increaseQuantity($modelId, $quantity) {
+        $sql = "UPDATE model SET quantity = quantity + :quantity WHERE model_id = :model_id";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute(['quantity' => $quantity, 'model_name' => $modelName]);
+        $stmt->execute(['quantity' => $quantity, 'model_id' => $modelId]);
     }
 }
 
