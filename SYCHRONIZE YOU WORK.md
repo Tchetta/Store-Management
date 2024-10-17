@@ -1,5 +1,5 @@
 ## Open any terminal and navigate to your project location
- If you're using vscode's terminal then no need to navigate to your project as you already are in.
+ If you're using vscode's terminal then you don't need to navigate to your project, as you already are in.
  
 ### Copy and paste the following code to the terminal.
  Replace [mybranch] with the name of your branch.
@@ -14,5 +14,6 @@
     git fetch origin
     git merge main
     git push
+    git pull
 ```
 ## Go to vs code and confirm if the changes were effective.
