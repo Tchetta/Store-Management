@@ -45,7 +45,7 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
                         if (file_exists($pageFile)) {
                             include($pageFile);
                         } else {
-                            include('store_list.php');
+                            include('equipment_list.php');
                                   
                         }
                     ?>

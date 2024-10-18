@@ -201,11 +201,26 @@ class Model extends Dbh {
         $stmt->execute(['model_id' => $modelId]);
     }
 
-    // Decrease model quantity
-    protected function decreaseQuantity($modelName, $quantity) {
-        $sql = "UPDATE model SET quantity = quantity - :quantity WHERE model_name = :model_name";
+    // Method to update model quantity
+    public function updateModelQuantity($modelId) {
+        // Count the number of rows in the equipment table with the given model_id
+        $sql = "SELECT COUNT(*) AS total_count FROM equipment WHERE model_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute(['quantity' => $quantity, 'model_name' => $modelName]);
+        $stmt->execute([$modelId]); // Use $modelId instead of $model_id
+        $count = $stmt->fetchColumn();
+        
+        // Update the quantity in the model table
+        $sql_update = "UPDATE model SET quantity = ? WHERE model_id = ?";
+        $stmt = $this->connect()->prepare($sql_update);
+        $stmt->execute([$count, $modelId]); // Use $modelId instead of $model_id
+    }
+
+
+    // Decrease model quantity
+    protected function decreaseQuantity($modelId, $quantity) {
+        $sql = "UPDATE model SET quantity = quantity - :quantity WHERE model_id = :model_id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute(['quantity' => $quantity, 'model_id' => $modelId]);
     }
 
     // Increase model quantity
@@ -343,31 +358,39 @@ class ModelCtrl extends Model {
         $brandCtrl = new BrandCtrl();
         $categoryCtrl = new ProductCategoryCtrl();
 
-        $brandId = $this->getBrandIdByModel($modelName);
-        $categoryId = $this->getCategoryIdByModel($modelName);
+        $brand = $this->getBrandByModel($modelId);
+        $category = $this->getCategoryByModel($modelId);
 
-        $brandCtrl->updateBrandQuantity($brandId);
-        $categoryCtrl->updateCategoryQuantity($categoryId);
+        $brandCtrl->updateBrandQuantity($brand);
+        $categoryCtrl->updateCategoryQuantity($category);
     }
 
     // Increase model quantity
-    public function increaseQuantity($modelName, $quantity) {
-        parent::increaseQuantity($modelName, $quantity);
+    public function increaseQuantity($modelId, $quantity) {
+        parent::increaseQuantity($modelId, $quantity);
+
+        $brandCtrl = new BrandCtrl();
+        $categoryCtrl = new ProductCategoryCtrl();
+
+        $brand = $this->getBrandByModel($modelId);
+        $category = $this->getCategoryByModel($modelId);
+
+        $brandCtrl->updateBrandQuantity($brand);
+        $categoryCtrl->updateCategoryQuantity($category);
     }
 
     // Get the brand ID associated with a model
-    public function getBrandIdByModel($modelId) {
+    public function getBrandByModel($modelId) {
         $sql = "SELECT brand FROM model WHERE model_id = :model_id";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute(['model_id' => $modelId]);
         return $stmt->fetchColumn();
     }
-
-    // Get the category ID associated with a model's brand
-    public function getCategoryIdByModel($modelId) {
-        $brandId = $this->getBrandIdByModel($modelId);
-        $brand = new BrandCtrl();
-        return $brand->getCategoryIdByBrand($brandId);
+    public function getCategoryByModel($modelId) {
+        $sql = "SELECT category FROM model WHERE model_id = :model_id";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute(['model_id' => $modelId]);
+        return $stmt->fetchColumn();
     }
 
     // Paginate models
@@ -404,4 +427,55 @@ class ModelCtrl extends Model {
         $stmt->execute(['searchTerm' => '%' . $searchTerm . '%']);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // In ModelCtrl class
+public function getModelsByBrand($brandId) {
+    $sql = "SELECT * FROM model WHERE brand = :brand_id";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute(['brand_id' => $brandId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function getModelsByCategory($categoryId) {
+    $sql = "SELECT * FROM model WHERE category = :category_id";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute(['category_id' => $categoryId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// In ModelCtrl class
+/* public function getModelsByBrandOrCategory($brand = null, $category = null) {
+    $sql = "SELECT * FROM model WHERE (:brand IS NULL OR brand = :brand) 
+                                  AND (:category IS NULL OR category = :category)";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute(['brand' => $brand, 'category' => $category]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+} */
+    public function getModelsByBrandOrCategory($brand = null, $category = null) {
+        $sql = "SELECT * FROM model WHERE";
+
+        if ($brand) {
+            $sql .= " brand = :brand";
+        }
+
+        if ($category) {
+            $sql .= " OR category = :category";
+        }
+
+        $stmt = $this->connect()->prepare($sql);
+        
+        if ($brand) {
+            $stmt->bindParam(':brand', $brand);
+        }
+        
+        if ($category) {
+            $stmt->bindParam(':category', $category);
+        }
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
 }

@@ -15,7 +15,7 @@ $stores = $storeCtrl->getAllStores();
 ?>
 
 <div class="container mt-5">
-    <h2 class="mb-4">Add Model</h2>
+    <h2 class="mb-4">Add a new Model</h2>
     <form action="../includes/create_model.inc.php" method="POST" id="modelForm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="model_name">Model Name:</label>
@@ -142,6 +142,10 @@ $stores = $storeCtrl->getAllStores();
         <button type="submit" name="submit" class="btn btn-primary">Create Model</button>
     </form>
 </div>
+
+<!-- Links to other operations -->
+<a href="dashboard.php?page=model_list">View All Model</a>
+<a href="dashboard.php?page=create_model">Create New Model</a>
 
 <script>
     // Toggle sections based on user checkbox selection
