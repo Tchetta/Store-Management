@@ -9,8 +9,9 @@ $portCtrl = new PortTypeCtrl();
 $allPortTypes = $portCtrl->getAllPortTypes();
 
 $categoryCtrl = new ProductCategoryCtrl();
-$storeCtrl = new StoreCtrl();
 $categories = $categoryCtrl->getAllCategories();
+
+$storeCtrl = new StoreCtrl();
 $stores = $storeCtrl->getAllStores();
 ?>
 
@@ -97,22 +98,18 @@ $stores = $storeCtrl->getAllStores();
         <!-- Dimension Section -->
         <div id="dimensionSection" style="display: none;">
             <h4>Dimensions</h4>
-
             <div class="form-group">
                 <label for="length">Length (metres):</label>
                 <input type="number" step="0.01" name="length" id="length" class="form-control" placeholder="Length">
             </div>
-
             <div class="form-group">
                 <label for="width">Width (cm):</label>
                 <input type="number" step="0.01" name="width" id="width" class="form-control" placeholder="Width">
             </div>
-
             <div class="form-group">
                 <label for="height">Height (cm):</label>
                 <input type="number" step="0.01" name="height" id="height" class="form-control" placeholder="Height">
             </div>
-
             <div class="form-group">
                 <label for="diagonal">Diagonal (inches):</label>
                 <input type="number" step="0.01" name="diagonal" id="diagonal" class="form-control" placeholder="Diagonal">
@@ -122,7 +119,6 @@ $stores = $storeCtrl->getAllStores();
         <!-- Color Section -->
         <div id="colorSection" style="display: none;">
             <h4>Color</h4>
-
             <div class="form-group">
                 <label for="color">Select Color:</label>
                 <input type="text" name="color" id="color" class="form-control" placeholder="Enter Color">
@@ -144,7 +140,7 @@ $stores = $storeCtrl->getAllStores();
 </div>
 
 <!-- Links to other operations -->
-<a href="dashboard.php?page=model_list">View All Model</a>
+<a href="dashboard.php?page=model_list">View All Models</a>
 <a href="dashboard.php?page=create_model">Create New Model</a>
 
 <script>

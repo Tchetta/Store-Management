@@ -6,7 +6,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-    padding: 20px;
+    padding: 0;
 
 }
 /* Container styling */
@@ -405,7 +405,7 @@ p a:hover {
 
 /* Style for form elements */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .form-group label {
@@ -413,7 +413,7 @@ p a:hover {
     font-weight: 600;
     color: #333;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 2px;
 }
 
 .form-group input[type="text"],

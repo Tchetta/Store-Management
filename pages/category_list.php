@@ -19,8 +19,8 @@ $categories = $categoryCtrl->getAllCategories();
             <td><?php echo $category['category_name']; ?></td>
             <td><?php echo $category['quantity']; ?></td>
             <td>
-                <a href="dashboard.php?page=edit_category&id=<?php echo $category['category_id']; ?>">Edit</a> | 
-                <a href="../includes/delete_category.inc.php?id=<?php echo $category['category_id']; ?>" 
+                <a  class="action-link" href="dashboard.php?page=edit_category&id=<?php echo $category['category_id']; ?>">Edit</a> | 
+                <a  class="action-link delete" href="../includes/delete_category.inc.php?id=<?php echo $category['category_id']; ?>" 
                    onclick="return confirm('Are you sure you want to delete this category?');">Delete</a>
             </td>
         </tr>

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Store</title>
-    <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to the CSS file -->
-</head>
-<body>
+
     <div class="create-store-container">
         <?php
         require_once '../includes/class_autoloader.inc.php';
@@ -41,5 +33,4 @@
         <p><a href="dashboard.php?page=store_list" class="view-stores-link">View Stores</a></p>
     </div>
     </div>
-</body>
-</html>
+
