@@ -269,3 +269,15 @@
 .link:hover {
     text-decoration: underline; /* Underline on hover for a link-like appearance */
 }
+.create-link {
+    float:left;
+    margin-bottom: 10px; /* Adds space between the link and the list */
+    font-size: 16px;
+    /* font-weight: bold; */
+    text-decoration: none;
+    color: #007bff; /* Change link color */
+}
+
+.create-link:hover {
+    text-decoration: underline;
+}

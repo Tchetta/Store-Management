@@ -16,9 +16,8 @@
 
 <!-- Links to other operations -->
 
-<a href="dashboard.php?page=brand_list">View All Brands</a>
-<a href="dashboard.php?page=create_brand">Create New Brand</a>
 
-
+<div class="link-container">
     <a href="dashboard.php?page=brand_list" class="link">View All Brands</a>
-    
+</div>
+    </div>

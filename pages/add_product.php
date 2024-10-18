@@ -29,24 +29,15 @@ if ($brandId || $categoryId) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
-    <link rel="stylesheet" href="path/to/your/styles.css">
-</head>
-<body>
-
-<h1>Add Product</h1>
+<div class="model_container model_mt-5">
+<h2 class="model_mb-4">Add Product</h2>
 <form action="dashboard.php?page=add_product" method="GET">
-    <div>
+    <!-- <div  class="model_form-group">
         <label for="store_name">Store Name:</label>
         <input type="text" id="store_name" name="store_name" required>
-    </div>
+    </div> -->
 
-    <div>
+    <div  class="model_form-group">
         <label for="brand">Brand:</label>
         <select id="brand" name="brand" onchange="this.form.submit()">
             <option value="">Select Brand</option>
@@ -58,7 +49,7 @@ if ($brandId || $categoryId) {
         </select>
     </div>
 
-    <div>
+    <div  class="model_form-group">
         <label for="category">Category:</label>
         <select id="category" name="category" onchange="this.form.submit()">
             <option value="">Select Category</option>
@@ -72,7 +63,7 @@ if ($brandId || $categoryId) {
 </form>
 
 <form action="../includes/add_product.inc.php" method='post'>
-    <div>
+    <div  class="model_form-group">
         <label for="model">Model:</label>
         <select id="model" name="model" required>
             <option value="">Select Model</option>
@@ -82,13 +73,11 @@ if ($brandId || $categoryId) {
         </select>
     </div>
 
-    <div>
+    <div  class="model_form-group">
         <label for="serial_number">Serial Number:</label>
         <input type="text" id="serial_number" name="serial_number" placeholder="Optional">
     </div>
 
     <button type="submit">Add Product</button>
 </form>
-
-</body>
-</html>
+</div>

@@ -1,6 +1,12 @@
 <?php require_once "../includes/search.inc.php" ?>
 
-<div class="search-container">
+<div class="view-store-container">
+    <!-- Links to other operations -->
+<div class="create_container">
+    <a href="dashboard.php?page=add_product" class="create-link">Add Product</a>
+</div>
+
+<h2 class="h2">Product List</h2>
     <form action="" method="POST">
         <input type="text" name="search_term" placeholder="Search products..." required>
         <label for="sort_by">Sort By:</label>
@@ -26,7 +32,7 @@
     </form>
 </div>
 
-<table class="product-table">
+<table class="store-table">
     <thead>
         <tr>
             <th>Serial Number</th>
@@ -57,8 +63,8 @@
                     <td><?php echo $product['indate']; ?></td>
                     <td><?php echo $product['outdate']; ?></td>
                     <td>
-                        <a href="edit_product.php?serial_num=<?php echo $product['serial_num']; ?>">Edit</a>
-                        <a href="../includes/delete_product.inc.php?serial_num=<?php echo $product['serial_num']; ?>">Delete</a>
+                        <a class="action-link" href="edit_product.php?serial_num=<?php echo $product['serial_num']; ?>">Edit</a>
+                        <a class="action-link delete" href="../includes/delete_product.inc.php?serial_num=<?php echo $product['serial_num']; ?>">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -70,4 +76,3 @@
     </tbody>
 </table>
 
-<a href="dashboard.php?page=add_product">Add a product</a>
