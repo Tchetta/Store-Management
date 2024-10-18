@@ -25,9 +25,13 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="../css/dashboard.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="../css/display_items.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="../model.css"> <!-- Use your provided styles -->
+    <!--  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../css/user_management.css"> <!-- Link to user_management.css -->
+    <link rel="stylesheet" href="../css/product_management.css"> <!-- Updated CSS file link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 </head>
 <body>

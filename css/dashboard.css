@@ -2,8 +2,8 @@
 
 /* General layout */
 * {
-    margin: 0;
-    padding: 0;
+   /*  margin: 0;
+    padding: 0; */
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
@@ -19,7 +19,7 @@
     background-color: #3a3b3d;
     color: white;
     height: 100vh;
-    padding-top: 20px;
+   /*  padding-top: 20px; */
     border-radius: 0 20px 20px 0;
     transition: width 0.3s ease, transform 0.3s ease;
     overflow-y: auto; /* Allow vertical scroll if content exceeds height */
@@ -251,3 +251,21 @@
     width: 100%;
 }
 
+.link-container {
+    position: relative; /* Set the parent container to relative */
+    height: 40px; /* Adjust height as needed */
+    width: 100%; /* Full width or adjust as needed */
+}
+
+.link {
+    position: absolute;
+    bottom: 10px; /* Distance from the bottom */
+    right: 10px; /* Distance from the right */
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Link color */
+    font-size: 16px; /* Adjust font size */
+}
+
+.link:hover {
+    text-decoration: underline; /* Underline on hover for a link-like appearance */
+}

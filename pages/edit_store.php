@@ -24,15 +24,7 @@ if (isset($_GET['error'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Store</title>
-    <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to your CSS file -->
-</head>
-<body>
+
 
 <div class="container">
     <h2>Edit Store</h2>
@@ -55,9 +47,8 @@ if (isset($_GET['error'])) {
         <button type="submit" name="submit">Update Store</button>
     </form>
 
-    
-    <p><a href="dashboard.php?page=store_list">View Stores</a></p>
+    <div class="link-container">
+    <a href="dashboard.php?page=store_list" class="link">View Stores</a></p>
+</div>
 </div>
 
-</body>
-</html>

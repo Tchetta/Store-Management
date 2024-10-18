@@ -6,9 +6,9 @@ $modelCtrl = new ModelCtrl();
 $models = $modelCtrl->getAllModels(); // Fetch all models
 ?>
 
-    <div class="container">
-        <h2 class="my-4">Models List</h2>
-        <table class="table table-striped">
+    <div class="view-store-container">
+        <h2 class="h2">Models List</h2>
+        <table class="store-table">
             <thead>
                 <tr>
                     <th>Model ID</th>
@@ -42,12 +42,8 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
                             <td><?php echo htmlspecialchars($model['description']); ?></td>
                             <td>
                                 <!-- Edit button -->
-                                <a href="dashboard.php?page=edit_model&model_id=<?php echo $model['model_id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                <!-- Delete button with confirmation -->
-                                <form action="delete_model.php" method="POST" style="display:inline-block;">
-                                    <input type="hidden" name="model_id" value="<?php echo $model['model_id']; ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this model?');">Delete</button>
-                                </form>
+                                <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?php echo $model['model_id']; ?>">Edit</a>
+                                <a class="action-link delete" href="../includes/delete_model.inc.php=<?php echo $model['model_id']; ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -60,8 +56,8 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
         </table>
     </div>
 
-    <p><a href="dashboard.php?page=model_list">View Models</a></p>
-    <p><a href="dashboard.php?page=create_model">Create Models</a></p>
+    
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
