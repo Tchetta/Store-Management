@@ -201,19 +201,7 @@ class Model extends Dbh {
         $stmt->execute(['model_id' => $modelId]);
     }
 
-    // Method to update model quantity
-    public function updateModelQuantity($modelId) {
-        // Count the number of rows in the equipment table with the given model_id
-        $sql = "SELECT COUNT(*) AS total_count FROM equipment WHERE model_id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$modelId]); // Use $modelId instead of $model_id
-        $count = $stmt->fetchColumn();
-        
-        // Update the quantity in the model table
-        $sql_update = "UPDATE model SET quantity = ? WHERE model_id = ?";
-        $stmt = $this->connect()->prepare($sql_update);
-        $stmt->execute([$count, $modelId]); // Use $modelId instead of $model_id
-    }
+    
 
 
     // Decrease model quantity
@@ -368,6 +356,29 @@ class ModelCtrl extends Model {
     // Increase model quantity
     public function increaseQuantity($modelId, $quantity) {
         parent::increaseQuantity($modelId, $quantity);
+
+        $brandCtrl = new BrandCtrl();
+        $categoryCtrl = new ProductCategoryCtrl();
+
+        $brand = $this->getBrandByModel($modelId);
+        $category = $this->getCategoryByModel($modelId);
+
+        $brandCtrl->updateBrandQuantity($brand);
+        $categoryCtrl->updateCategoryQuantity($category);
+    }
+
+    // Method to update model quantity
+    public function updateModelQuantity($modelId) {
+        // Count the number of rows in the equipment table with the given model_id
+        $sql = "SELECT COUNT(*) AS total_count FROM equipment WHERE model_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$modelId]); // Use $modelId instead of $model_id
+        $count = $stmt->fetchColumn();
+        
+        // Update the quantity in the model table
+        $sql_update = "UPDATE model SET quantity = ? WHERE model_id = ?";
+        $stmt = $this->connect()->prepare($sql_update);
+        $stmt->execute([$count, $modelId]); // Use $modelId instead of $model_id
 
         $brandCtrl = new BrandCtrl();
         $categoryCtrl = new ProductCategoryCtrl();
