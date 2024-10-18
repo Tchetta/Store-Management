@@ -4,7 +4,7 @@ $brands = $brandController->getAllBrands();
 $categoryController = new ProductCategoryCtrl();
 ?>
 
-<table>
+<table >
     <tr>
         <th>Brand ID</th>
         <th>Brand Name</th>
@@ -24,8 +24,8 @@ $categoryController = new ProductCategoryCtrl();
         </td>
         <td><?php echo $brand['quantity']; ?></td>
         <td>
-            <a href="dashboard.php?page=edit_brand&brand_id=<?php echo $brand['brand_id']; ?>">Edit</a> | 
-            <a href="../includes/delete_brand.inc.php?brand_id=<?php echo $brand['brand_id']; ?>">Delete</a>
+            <a class="action-link" href="dashboard.php?page=edit_brand&brand_id=<?php echo $brand['brand_id']; ?>">Edit</a> | 
+            <a class="action-link delete" href="../includes/delete_brand.inc.php?brand_id=<?php echo $brand['brand_id']; ?>">Delete</a>
         </td>
     </tr>
     <?php endforeach; ?>

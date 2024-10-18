@@ -21,17 +21,6 @@ $users = $userController->getUsersByPage($userStart, $userLimit);
 $totalStores = count($storeController->getAllStores());
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Users</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/user_management.css"> <!-- Link to user_management.css -->
-</head>
-<body>
-
 <!-- User Table -->
 <h2>User List (Table View)</h2>
 <?php if (empty($users)): ?>
@@ -87,6 +76,3 @@ $totalStores = count($storeController->getAllStores());
 </div>
 
 
-
-</body>
-</html>

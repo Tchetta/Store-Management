@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
-    <link rel="stylesheet" href="../css/user_management.css"> <!-- Link to the CSS file -->
-</head>
-<body>
+
 <?php
 require_once '../includes/class_autoloader.inc.php';
 
@@ -69,5 +61,3 @@ if (isset($_GET['id'])) {
     echo '<p>Invalid user ID.</p>';
 }
 ?>
-</body>
-</html>

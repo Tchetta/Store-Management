@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Store</title>
-    <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to the CSS file -->
-</head>
-<body>
+
 <?php
 require_once '../includes/class_autoloader.inc.php';
 
@@ -98,5 +90,3 @@ if (isset($_GET['error'])) {
 <!-- <p><a class="create-store-link" href="dashboard.php?page=create_store">Create New Store</a></p> -->
 
 
-</body>
-</html>
