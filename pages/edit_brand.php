@@ -12,19 +12,6 @@ $brand = $brandController->getBrandById($_GET['brand_id']);
     <label for="description">Description:</label>
     <textarea name="description"><?php echo $brand['description']; ?></textarea><br>
 
-    <label for="category_id">Category:</label>
-    <select name="category_id">
-        <?php
-        // Fetch categories to populate the dropdown
-        $categoryController = new ProductCategoryCtrl();
-        $categories = $categoryController->getAllCategories();
-        foreach ($categories as $category) {
-            $selected = $category['category_id'] == $brand['category_id'] ? 'selected' : '';
-            echo "<option value='{$category['category_id']}' $selected>{$category['category_name']}</option>";
-        }
-        ?>
-    </select><br>
-
     <label for="quantity">Quantity:</label>
     <input type="number" name="quantity" value="<?php echo $brand['quantity']; ?>" min="0"><br><br>
 

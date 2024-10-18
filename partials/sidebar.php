@@ -30,14 +30,14 @@
         </li>
 
         <!-- Product Management -->
-        <li class="menu-item <?php echo ($page === 'product_list' || $page === 'create_product') ? 'active' : ''; ?>">
+        <li class="menu-item <?php echo ($page === 'equipment_list' || $page === 'add_equipment') ? 'active' : ''; ?>">
             <a href="#" class="menu-link submenu-toggle" data-submenu="product_submenu">
                 <i class="fas fa-box-open"></i>
                 <span class="menuText">Product Management</span>
             </a>
             <ul id="product_submenu" class="submenu">
-                <li><a href="dashboard.php?page=add_product" class="<?php echo ($page === 'add_product') ? 'active' : ''; ?>">Add Products</a></li>
-                <li><a href="dashboard.php?page=product_list" class="<?php echo ($page === 'product_list') ? 'active' : ''; ?>">View Products</a></li>
+                <li><a href="dashboard.php?page=add_equipment" class="<?php echo ($page === 'add_equipment') ? 'active' : ''; ?>">Add Products</a></li>
+                <li><a href="dashboard.php?page=equipment_list" class="<?php echo ($page === 'equipment_list') ? 'active' : ''; ?>">View Products</a></li>
                 <li><a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>">Others</a></li>
             </ul>
 

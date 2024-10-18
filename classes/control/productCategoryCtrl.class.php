@@ -60,17 +60,17 @@ class ProductCategory extends Dbh {
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$categoryId, $by]);
     }
-    public function updateCategoryQuantity($categoryId) {
+    public function updateCategoryQuantity($categoryName) {
         // Sum the quantity of all brands belonging to this category
-        $sql = "SELECT SUM(quantity) AS total_quantity FROM brand WHERE category_id = ?";
+        $sql = "SELECT SUM(quantity) AS total_quantity FROM model WHERE category = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$categoryId]);
+        $stmt->execute([$categoryName]);
         $totalQuantity = $stmt->fetchColumn();
 
         // Update the category's quantity
-        $sqlUpdate = "UPDATE product_category SET quantity = ? WHERE category_id = ?";
+        $sqlUpdate = "UPDATE product_category SET quantity = ? WHERE category_name = ?";
         $stmtUpdate = $this->connect()->prepare($sqlUpdate);
-        $stmtUpdate->execute([$totalQuantity, $categoryId]);
+        $stmtUpdate->execute([$totalQuantity, $categoryName]);
     }
 }
 

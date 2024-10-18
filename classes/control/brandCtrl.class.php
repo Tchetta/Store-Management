@@ -38,10 +38,17 @@ class Brand extends Dbh {
     }
 
     // Method to update brand quantity
-    protected function updateBrandQuantity($brandId, $quantity) {
-        $sql = "UPDATE brand SET quantity = ? WHERE brand_id = ?";
+    public function updateBrandQuantity($brandName) {
+        // Sum the quantity of all brands belonging to this category
+        $sql = "SELECT SUM(quantity) AS total_quantity FROM model WHERE brand = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$quantity, $brandId]);
+        $stmt->execute([$brandName]);
+        $totalQuantity = $stmt->fetchColumn();
+
+        // Update the category's quantity
+        $sqlUpdate = "UPDATE brand SET quantity = ? WHERE brand_name = ?";
+        $stmtUpdate = $this->connect()->prepare($sqlUpdate);
+        $stmtUpdate->execute([$totalQuantity, $brandName]);
     }
 
     // Method to delete a brand by ID

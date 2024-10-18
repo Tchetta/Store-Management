@@ -9,7 +9,6 @@ $categoryController = new ProductCategoryCtrl();
         <th>Brand ID</th>
         <th>Brand Name</th>
         <th>Description</th>
-        <th>Category</th>
         <th>Quantity</th>
         <th>Actions</th>
     </tr>
@@ -18,10 +17,6 @@ $categoryController = new ProductCategoryCtrl();
         <td><?php echo $brand['brand_id']; ?></td>
         <td><?php echo $brand['brand_name']; ?></td>
         <td><?php echo $brand['description']; ?></td>
-        <td><?php
-            $category = $categoryController->getCategoryById($brand['category_id']);
-            echo $category['category_name']; ?>
-        </td>
         <td><?php echo $brand['quantity']; ?></td>
         <td>
             <a class="action-link" href="dashboard.php?page=edit_brand&brand_id=<?php echo $brand['brand_id']; ?>">Edit</a> | 

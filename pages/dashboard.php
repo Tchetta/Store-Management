@@ -17,6 +17,14 @@ $user_id = $_SESSION['user_id'];
 $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] : '';
 $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SESSION['image_path'] : $defaultProfilePic;
 
+$modelController = new ModelCtrl();
+$models = $modelController->getAllModels();
+
+foreach ($models as $model) {
+    $modelId = $model['model_id'];
+    $modelController->updateModelQuantity($modelId);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +57,7 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
                         if (file_exists($pageFile)) {
                             include($pageFile);
                         } else {
-                            include('store_list.php');
+                            include('equipment_list.php');
                                   
                         }
                     ?>
