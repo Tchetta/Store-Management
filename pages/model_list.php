@@ -7,6 +7,9 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
 ?>
 
     <div class="view-store-container">
+    <div class="create_container">
+    <a href="dashboard.php?page=create_model" class="create-link">Create New Model</a>
+</div>
         <h2 class="h2">Models List</h2>
         <table class="store-table">
             <thead>

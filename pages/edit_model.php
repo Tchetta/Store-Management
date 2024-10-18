@@ -54,6 +54,9 @@ if ($modelId) {
     </div>
         <button type="submit" name="submit">Save Changes</button>
     </form>
+    <div class="link-container">
+<a href="dashboard.php?page=model_list" class="link">View All Model</a>
+</div>
     </div>
    
 
