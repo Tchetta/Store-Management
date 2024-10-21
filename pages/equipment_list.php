@@ -2,7 +2,9 @@
 require_once '../includes/class_autoloader.inc.php';
 
 $equipmentCtrl = new EquipmentCtrl();
-$equipment = $equipmentCtrl->getAllEquipment();
+$equipments= $equipmentCtrl->getAllEquipment();
+$modelCtrl = new ModelCtrl();
+
 ?>
 
 <h1>Equipment List</h1>
@@ -13,7 +15,7 @@ $equipment = $equipmentCtrl->getAllEquipment();
             <th>ID</th>
             <th>Serial Number</th>
             <th>Store ID</th>
-            <th>Model ID</th>
+            <th>Model</th>
             <th>Category</th>
             <th>Brand</th>
             <th>State</th>
@@ -21,12 +23,17 @@ $equipment = $equipmentCtrl->getAllEquipment();
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($equipment as $item): ?>
+        <?php foreach ($equipments as $item): ?>
         <tr>
             <td><?= $item['id'] ?></td>
             <td><?= $item['serial_num'] ?></td>
             <td><?= $item['store_id'] ?></td>
-            <td><?= $item['model_id'] ?></td>
+            <td>
+                <?php 
+                    $model = $modelCtrl->getModelById($item['model_id']);
+                    echo $model['model_id'];
+                ?>
+             </td>
             <td><?= $item['category'] ?></td>
             <td><?= $item['brand'] ?></td>
             <td><?= $item['equipment_state'] ?></td>
@@ -41,3 +48,5 @@ $equipment = $equipmentCtrl->getAllEquipment();
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<a href="dashboard.php?page=add_equipment">Add Equipment(s)</a>

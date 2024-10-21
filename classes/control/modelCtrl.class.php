@@ -3,7 +3,7 @@ require_once('../includes/class_autoloader.inc.php');
 
 class Model extends Dbh {
     // Add a new model
-    public function createModel($modelName, $brand, $numPorts, $portTypes = '', $quantity = 0, $category, $specification = '', $description = '', $imagePath = 'default.png') {
+    public function createModel($modelName, $brand, $numPorts, $portTypes = '', $category, $specification = '', $description = '', $imagePath = 'default.png') {
         $sql = "INSERT INTO model (model_name, brand, number_of_ports, port_types, quantity, category, specification, description, image_path) 
                 VALUES (:model_name, :brand, :number_of_ports, :port_types, :quantity, :category, :specification, :description, :image_path)";
         $stmt = $this->connect()->prepare($sql);
@@ -221,9 +221,9 @@ class Model extends Dbh {
 
 class ModelCtrl extends Model {
     // Create a new model
-    public function createModel($modelName, $brand, $numPorts, $portTypes = '', $quantity = 0, $category, $specification = '', $description = '', $imagePath = 'default.png') {
+    public function createModel($modelName, $brand, $numPorts, $portTypes = '', $category, $specification = '', $description = '', $imagePath = 'default.png') {
         // Validate inputs if necessary
-        parent::createModel($modelName, $brand, $numPorts, $portTypes, $quantity, $category, $specification, $description, $imagePath);
+        parent::createModel($modelName, $brand, $numPorts, $portTypes, $category, $specification, $description, $imagePath);
     }
 
     // Get all models

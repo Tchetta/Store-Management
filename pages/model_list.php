@@ -14,7 +14,7 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
         <table class="store-table">
             <thead>
                 <tr>
-                    <th>Model ID</th>
+                    <th>Model IMAGE</th>
                     <th>Model Name</th>
                     <th>Brand</th>
                     <th>Category</th>
@@ -29,7 +29,7 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
                 <?php if (count($models) > 0): ?>
                     <?php foreach ($models as $model): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($model['model_id']); ?></td>
+                            <td><img class="model-image" src="../uploads/model_image/<?= $model['image_path'] ?>" alt="model image"></td>
                             <td><?php echo htmlspecialchars($model['model_name']); ?></td>
                             <td><?php echo htmlspecialchars($model['brand']); ?></td>
                             <td><?php echo htmlspecialchars($model['category']); ?></td>
@@ -46,7 +46,7 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
                             <td>
                                 <!-- Edit button -->
                                 <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?php echo $model['model_id']; ?>">Edit</a>
-                                <a class="action-link delete" href="../includes/delete_model.inc.php=<?php echo $model['model_id']; ?>">Delete</a>
+                                <a class="action-link delete" href="../includes/delete_model.inc.php?id=<?php echo $model['model_id']; ?>">Delete</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -59,6 +59,7 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
         </table>
     </div>
 
+    <a href="dashboard.php?page=create_model">Create a Model</a>
     
     
 

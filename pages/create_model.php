@@ -22,10 +22,10 @@ $stores = $storeCtrl->getAllStores();
                 <input type="text" name="model_name" id="model_name" class="model_form-control" required>
             </div>
 
-            <div class="model_form-group">
+            <!-- <div class="model_form-group">
                 <label for="quantity">Quantity:</label>
                 <input type="number" step="0.01" name="quantity" id="quantity" class="model_form-control" min="1">
-            </div>
+            </div> -->
 
             <div class="model_form-group">
                 <label for="brand_id">Select Brand:</label>
@@ -93,20 +93,43 @@ $stores = $storeCtrl->getAllStores();
             <div id="dimensionSection" class="model_hidden-section">
                 <h4 class="model_section-title">Dimensions</h4>
                 <div class="model_form-group">
-                    <label for="length">Length (metres):</label>
+                    <label for="length">Length:</label>
                     <input type="number" step="0.01" name="length" id="length" class="model_form-control" placeholder="Length">
+                    <select name="unit_length">
+                        <option value="cm" >centimetres (cm)</option>
+                        <option value="m" selected>metres (m)</option>
+                        <option value='"'>inches (in)</option>
+                    </select>
                 </div>
                 <div class="model_form-group">
-                    <label for="width">Width (cm):</label>
+                    <label for="width">Width:</label>
                     <input type="number" step="0.01" name="width" id="width" class="model_form-control" placeholder="Width">
+                    <select name="unit_width">
+                        <option value="cm">centimetres (cm)</option>
+                        <option value="m">metres (m)</option>
+                        <option value='"'>inches (in)</option>
+                        <option value="pixels" selected>pixels (px)</option>
+                    </select>
                 </div>
                 <div class="model_form-group">
-                    <label for="height">Height (cm):</label>
+                    <label for="height">Height:</label>
                     <input type="number" step="0.01" name="height" id="height" class="model_form-control" placeholder="Height">
+                    <select name="unit_height">
+                        <option value="cm">centimetres (cm)</option>
+                        <option value="m">metres (m)</option>
+                        <option value='"'>inches (in)</option>
+                        <option value="pixels" selected>pixels (px)</option>
+                    </select>
                 </div>
                 <div class="model_form-group">
-                    <label for="diagonal">Diagonal (inches):</label>
+                    <label for="diagonal">Diagonal:</label>
                     <input type="number" step="0.01" name="diagonal" id="diagonal" class="model_form-control" placeholder="Diagonal">
+                    <select name="unit_diagonal">
+                        <option value="cm">centimetres (cm)</option>
+                        <option value="m">metres (m)</option>
+                        <option value='"' selected>inches (in, ")</option>
+                        <option value="px">pixels (px)</option>
+                    </select>
                 </div>
             </div>
 
