@@ -3,8 +3,14 @@ $brandController = new BrandCtrl();
 $brands = $brandController->getAllBrands();
 $categoryController = new ProductCategoryCtrl();
 ?>
+<div class="view-store-container">
+    <!-- Links to other operations -->
+<div class="create_container">
+    <a href="dashboard.php?page=create_brand" class="create-link">Create New Brand</a>
+</div>
 
-<table >
+<h2 class="h2">Brand List</h2>
+<table class="store-table">
     <tr>
         <th>Brand ID</th>
         <th>Brand Name</th>
@@ -26,5 +32,3 @@ $categoryController = new ProductCategoryCtrl();
     <?php endforeach; ?>
 </table>
 
-<!-- Links to other operations -->
-<a href="dashboard.php?page=create_brand">Create New Brand</a>

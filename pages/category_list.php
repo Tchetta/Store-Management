@@ -2,8 +2,14 @@
 $categoryCtrl = new ProductCategoryCtrl();
 $categories = $categoryCtrl->getAllCategories();
 ?>
+<div class="view-store-container">
+    <!-- Links to other operations -->
+<div class="create_container">
+    <a href="dashboard.php?page=create_category" class="create-link">Create New Product category</a>
+</div>
 
-<table>
+<h2 class="h2"> Product Category</h2>
+<table >
     <thead>
         <tr>
             <th>Category ID</th>
@@ -27,8 +33,4 @@ $categories = $categoryCtrl->getAllCategories();
         <?php endforeach; ?>
     </tbody>
 </table>
-
-<!-- Links to other operations -->
-<div>
-    <a href="dashboard.php?page=create_category">Create New Category</a>
 </div>
