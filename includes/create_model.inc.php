@@ -4,10 +4,14 @@ require_once '../includes/class_autoloader.inc.php';
 if (isset($_POST['submit'])) {
     // Collect form data
     $modelName = $_POST['model_name'];
-    $quantity = $_POST['quantity'];
     $brandId = $_POST['brand_id'];
     $categoryId = $_POST['category_id'];
     $description = $_POST['description'] ?? '';
+    
+    $unit_length = (isset($_POST['unit_length'])) ? $_POST['unit_length'] : 'm' ;
+    $unit_diagonal = (isset($_POST['unit_diagonal'])) ? $_POST['unit_diagonal'] : '"' ;
+    $unit_width = (isset($_POST['unit_width'])) ?$_POST['unit_width'] : 'cm' ;
+    $unit_height = (isset($_POST['unit_height'])) ? $_POST['unit_height'] : 'cm' ;
 
     // Handle parameters and specifications
     $specifications = '';
@@ -26,16 +30,16 @@ if (isset($_POST['submit'])) {
 
     // Handle dimensions
     if (isset($_POST['length']) && !empty($_POST['length'])) {
-        $specifications .= 'Length: ' . $_POST['length'] . ' metres' . PHP_EOL; // Length in meters
+        $specifications .= 'Length: ' . $_POST['length'] . ' ' . $unit_length . PHP_EOL; 
     }
     if (isset($_POST['width']) && !empty($_POST['width'])) {
-        $specifications .= 'Width: ' . $_POST['width'] . ' cm' . PHP_EOL; // Width in cm
+        $specifications .= 'Width: ' . $_POST['width'] . ' ' . $unit_width . PHP_EOL; 
     }
     if (isset($_POST['height']) && !empty($_POST['height'])) {
-        $specifications .= 'Height: ' . $_POST['height'] . ' cm' . PHP_EOL; // Height in cm
+        $specifications .= 'Height: ' . $_POST['height'] . ' ' . $unit_height . PHP_EOL; 
     }
     if (isset($_POST['diagonal']) && !empty($_POST['diagonal'])) {
-        $specifications .= 'Diagonal: ' . $_POST['diagonal'] . ' inches' . PHP_EOL; // Diagonal in inches, no unit field
+        $specifications .= 'Diagonal: ' . $_POST['diagonal'] . ' ' . $unit_diagonal . PHP_EOL; 
     }
 
     // Handle color
@@ -78,7 +82,7 @@ if (isset($_POST['submit'])) {
 
     // Create the model using the ModelCtrl
     $modelCtrl = new ModelCtrl();
-    $modelCtrl->createModel($modelName, $brandId, $num_of_ports, $portTypes, $quantity, $categoryId, $specifications, $description, $imagePath);
+    $modelCtrl->createModel($modelName, $brandId, $num_of_ports, $portTypes, $categoryId, $specifications, $description, $imagePath);
     
     // Redirect to a success or model listing page
     header('Location: ../pages/dashboard.php?page=model_list&status=success');

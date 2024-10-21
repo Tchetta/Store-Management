@@ -73,6 +73,10 @@ textarea:focus {
     color: #6c757d; /* Gray text for help messages */
 }
 
+img.model-image {
+    width: 50%;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {

@@ -15,7 +15,8 @@ class PortTypeCtrl extends Dbh {
 
     public function getPortName($portTypeId) {
         $stmt = $this->conn->query("SELECT port_type_name FROM port_types WHERE port_type_id = {$portTypeId}");
-        $port = $stmt->fetch();
+        $port = $stmt->fetchColumn();
+        return $port;
     }
 
 }

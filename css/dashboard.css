@@ -8,6 +8,11 @@
     font-family: 'Roboto', sans-serif;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 #dashboardMainContainer {
     display: flex;
     flex-direction: row;
@@ -268,4 +273,10 @@
 
 .link:hover {
     text-decoration: underline; /* Underline on hover for a link-like appearance */
+}
+
+img.model-image {
+    width: 50%;
+    display: inline-block;
+    margin: auto;
 }
