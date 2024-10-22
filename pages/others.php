@@ -1,45 +1,40 @@
+<div class="container">
+    <h2>OTHER SETTINGS</h2>
 
-<div class="others-section">
-    <h2>Others</h2>
-    <div class="others-dropdown-nav">
-        <button class="others-dropdown-toggle">Manage</button>
-        <div class="others-dropdown-menu">
-            <button onclick="showSection('models')">Models</button>
-            <button onclick="showSection('brands')">Brands</button>
-            <button onclick="showSection('categories')">Categories</button>
+    <!-- Models Button -->
+    <div class="manage-section">
+        <button class="manage-btn" onclick="toggleDropdown('models')">Models</button>
+        <div id="models-dropdown" class="dropdown-menu" style="display: none;">
+            <a href="dashboard.php?page=create_model">Create Model</a>
+            <a href="dashboard.php?page=model_list">View Models</a>
         </div>
     </div>
 
-    <div id="models" class="others-content-section" style="display:none;">
-        <h3>Manage Models</h3>
-        <ul>
-            <li><a href="dashboard.php?page=create_model">Create Model</a></li>
-            <li><a href="dashboard.php?page=model_list">View Models</a></li>
-        </ul>
+    <!-- Brands Button -->
+    <div class="manage-section">
+        <button class="manage-btn" onclick="toggleDropdown('brands')">Brands</button>
+        <div id="brands-dropdown" class="dropdown-menu" style="display: none;">
+            <a href="dashboard.php?page=create_brand">Create Brand</a>
+            <a href="dashboard.php?page=brand_list">View Brands</a>
+        </div>
     </div>
 
-    <div id="brands" class="others-content-section" style="display:none;">
-        <h3>Manage Brands</h3>
-        <ul>
-            <li><a href="dashboard.php?page=create_brand">Create Brand</a></li>
-            <li><a href="dashboard.php?page=brand_list">View Brands</a></li>
-        </ul>
-    </div>
-
-    <div id="categories" class="others-content-sectionion" style="display:none;">
-        <h3>Manage Categories</h3>
-        <ul>
-            <li><a href="dashboard.php?page=create_category">Create Product Category</a></li>
-            <li><a href="dashboard.php?page=category_list">View Categories</a></li>
-        </ul>
+    <!-- Categories Button -->
+    <div class="manage-section">
+        <button class="manage-btn" onclick="toggleDropdown('categories')">Categories</button>
+        <div id="categories-dropdown" class="dropdown-menu" style="display: none;">
+            <a href="dashboard.php?page=create_category">Create Category</a>
+            <a href="dashboard.php?page=category_list">View Categories</a>
+        </div>
     </div>
 </div>
 
 <script>
-    function showSection(section) {
-        const sections = ['models', 'brands', 'categories'];
-        sections.forEach((sec) => {
-            document.getElementById(sec).style.display = sec === section ? 'block' : 'none';
-        });
+    function toggleDropdown(section) {
+        const dropdownId = section + '-dropdown';
+        const dropdown = document.getElementById(dropdownId);
+
+        // Toggle the dropdown visibility
+        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
     }
 </script>

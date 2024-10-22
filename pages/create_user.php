@@ -50,6 +50,15 @@
 
         <button type="submit" name="submit">Create User</button>
     </form>
-
-    <<a class="action-link" href="dashboard.php?page=user_list&id<?php echo $users['user_id']; ?>">View Users</a>
+    <div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+    </div>
+    <div class="link-container">
+    <a href="dashboard.php?page=user_list" class="link">View All users</a>
 </div>
+</div>
+
+
+   

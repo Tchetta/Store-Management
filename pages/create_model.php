@@ -154,6 +154,12 @@ $stores = $storeCtrl->getAllStores();
 
             <button type="submit" name="submit" class="model_btn model_btn-primary">Create Model</button>
         </form>
+        <div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
+
     </div>
 
     <script>
