@@ -13,7 +13,11 @@
 
     <button type="submit" name="submit">Create Brand</button>
 </form>
-
+<div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
 <!-- Links to other operations -->
 
 

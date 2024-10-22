@@ -84,7 +84,17 @@ $selectedCategory = $_GET['category'] ?? '';
         <label for="serial_number">Serial Number:</label>
         <input type="text" id="serial_number" name="serial_num" placeholder="Optional">
     </div>
+   
 
     <button type="submit" name="submit">Add Product</button>
+    <div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
+
+<div class="link-container">
+    <a href="dashboard.php?page=equipment_list" class="link">View All Product</a>
+</div>
 </form>
 

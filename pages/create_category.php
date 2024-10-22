@@ -7,7 +7,11 @@
 </div>
     <button type="submit" name="submit">Create Category</button>
 </form>
-
+<div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
 <!-- Links to other operations -->
 <div class="link-container">
       <a href="dashboard.php?page=category_list" class="link">View All Categories</a> 
