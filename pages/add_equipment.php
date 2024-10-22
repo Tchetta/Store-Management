@@ -25,11 +25,12 @@ $selectedBrand = $_GET['brand'] ?? '';
 $selectedCategory = $_GET['category'] ?? '';
 ?>
 
-<h1>Add Product</h1>
+<div class="model_container model_mt-5">
+<h2 class="model_mb-4">Add Product</h2>
 
 <!-- Form to select brand and category -->
 <form action="../includes/fetch_models.inc.php" method="post" id="filterForm">
-    <div>
+    <div class="model_form-group">
         <label for="brand">Brand:</label>
         <select id="brand" name="brand" onchange="document.getElementById('filterForm').submit()">
             <option value="">Select Brand</option>
@@ -39,7 +40,7 @@ $selectedCategory = $_GET['category'] ?? '';
         </select>
     </div>
 
-    <div>
+    <div class="model_form-group">
         <label for="category">Category:</label>
         <select id="category" name="category" onchange="document.getElementById('filterForm').submit()">
             <option value="">Select Category</option>
@@ -52,12 +53,12 @@ $selectedCategory = $_GET['category'] ?? '';
 
 <!-- Form for submitting product -->
 <form action="../includes/add_equipment.inc.php" method="POST">
-    <div>
+    <div class="model_form-group">
         <input type="hidden" name="category" value="<?= $selectedCategory ?>">
         <input type="hidden" name="brand" value="<?= $selectedBrand ?>">
     </div>
 
-    <div>
+    <div class="model_form-group">
         <label for="store_name">Store:</label>
         <select id="store_name" name="store_id" required>
             <option value="">Select Store</option>
@@ -67,7 +68,7 @@ $selectedCategory = $_GET['category'] ?? '';
         </select>
     </div>
 
-    <div>
+    <div class="model_form-group">
         <label for="model">Model:</label>
         <select id="model" name="model_id" required>
             <option value="">Select Model</option>
@@ -79,7 +80,7 @@ $selectedCategory = $_GET['category'] ?? '';
         </select>
     </div>
 
-    <div>
+    <div class="model_form-group">
         <label for="serial_number">Serial Number:</label>
         <input type="text" id="serial_number" name="serial_num" placeholder="Optional">
     </div>

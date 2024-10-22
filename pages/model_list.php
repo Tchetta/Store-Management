@@ -59,7 +59,7 @@ $models = $modelCtrl->getAllModels(); // Fetch all models
         </table>
     </div>
 
-    <a href="dashboard.php?page=create_model">Create a Model</a>
+   
     
     
 

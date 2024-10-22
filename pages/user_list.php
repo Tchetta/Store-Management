@@ -22,6 +22,10 @@ $totalStores = count($storeController->getAllStores());
 ?>
 
 <!-- User Table -->
+<div class="view-store-container">
+    <div class="create_container">
+    <a href="dashboard.php?page=create_user" class="create-link">Add New Users</a>
+</div>
 <h2>User List (Table View)</h2>
 <?php if (empty($users)): ?>
     <p>No users found.</p>
