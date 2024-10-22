@@ -32,6 +32,13 @@
             <button type="submit" name="submit">Create Store</button>
         </form>
 
-  
+        <div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
+<div class="link-container">
+    <a href="dashboard.php?page=store_list" class="link">View All Stores</a>
+</div>
     </div>
 
