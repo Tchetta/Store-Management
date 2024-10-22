@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="shortcut icon" href="https://www.svgrepo.com/show/406079/letter-s.svg" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/login.css"> <!-- Link to login.css -->
 </head>
 <body>

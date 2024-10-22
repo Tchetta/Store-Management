@@ -2,7 +2,6 @@
 require_once '../includes/class_autoloader.inc.php';
 
 $equipmentCtrl = new EquipmentCtrl();
-$equipments= $equipmentCtrl->getAllEquipment();
 $modelCtrl = new ModelCtrl();
 
 ?>
@@ -17,7 +16,14 @@ $modelCtrl = new ModelCtrl();
         <tr>
             <th>ID</th>
             <th>Serial Number</th>
-            <th>Store ID</th>
+            <?php
+                if($user_role === 'admin') {
+                $equipments= $equipmentCtrl->getAllEquipment();
+                echo '<th>Store ID</th>';
+            } else {
+                $equipments= $equipmentCtrl->getAllEquipmentByStoreId($storeId);    
+            }
+            ?>
             <th>Model</th>
             <th>Category</th>
             <th>Brand</th>
@@ -30,6 +36,11 @@ $modelCtrl = new ModelCtrl();
         <tr>
             <td><?= $item['id'] ?></td>
             <td><?= $item['serial_num'] ?></td>
+            <?php
+                if($user_role === 'admin') {
+                echo '<td>' . $item['store_id'] . '</td>';
+            }
+            ?>
             <td><?= $item['store_id'] ?></td>
             <td>
                 <?php 

@@ -56,6 +56,13 @@ class User extends Dbh {
         }
     }
 
+    public function setUserPassword($uId, $password = '12345678') {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "UPDATE users SET password = ? WHERE user_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$hashedPassword, $uid]);
+    }
+
     // Delete a user by ID
     public function deleteUser($userId) {
         $sql = "DELETE FROM users WHERE user_id = ?";

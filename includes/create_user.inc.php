@@ -6,22 +6,23 @@ if (isset($_POST['submit'])) {
     $lastName = $_POST['lastname'];
     $username = $_POST['username'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm_password'];
+    // $password = $_POST['password'];
+    // $confirmPassword = $_POST['confirm_password'];
     $role = $_POST['role'];
     $profilePic = $_FILES['profile_pic'];
 
     // Basic input validation
-    if (empty($username) || empty($email) || empty($password) || empty($role) || empty($firstName) || empty($lastName)) {
+    // if (empty($username) || empty($email) || empty($password) || empty($role) || empty($firstName) || empty($lastName)) {
+    if (empty($username) || empty($email) || empty($role) || empty($firstName) || empty($lastName)) {
         header("Location: ../dashboard.php?page=create_user&error=emptyfields");
         exit();
     }
 
     // Check if passwords match
-    if ($password !== $confirmPassword) {
+    /* if ($password !== $confirmPassword) {
         header("Location: ../dashboard.php?page=create_user&error=passwordmismatch");
         exit();
-    }
+    } */
 
     // Handling profile picture upload
     if ($profilePic['error'] === 0) {
@@ -64,6 +65,7 @@ if (isset($_POST['submit'])) {
     // Initialize the controller and call the createUser method
     $userController = new UserCtrl();
     try {
+        $password = '12345678';
         $userController->createUser($username, $email, $password, $role, $fileNameNew, $firstName, $lastName);
         header("Location: ../pages/dashboard.php?page=user_list&success=usercreated");
         exit();

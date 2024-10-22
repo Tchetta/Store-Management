@@ -23,7 +23,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
         </div>
-        <div class="model_form-group">
+        <!-- <div class="model_form-group">
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
@@ -32,7 +32,7 @@
         <div class="model_form-group">
             <label for="confirm_password">Confirm Password:</label>
             <input type="password" id="confirm_password" name="confirm_password" required>
-        </div>
+        </div> -->
 
         <div class="form-field">
             <label for="role">Role:</label>
@@ -48,7 +48,7 @@
             <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
         </div>
 
-        <button type="submit" name="submit">Create User</button>
+        <button type="submit" name="submit">Add User</button>
     </form>
     <div class="back-arrow-container">
     <a href="javascript:history.back()" class="back-arrow">

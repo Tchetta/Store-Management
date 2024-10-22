@@ -75,6 +75,13 @@ class Store extends Dbh {
         $stmt->execute([$storeId]);
         return $stmt->fetch();
     }
+    // Get store by ID
+    public function getStoreByManagerId($manId) {
+        $sql = "SELECT store_id FROM stores WHERE manager_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$manId]);
+        return $stmt->fetchColumn();
+    }
 
     public function getStoresByPage($start, $limit) {
         $sql = "SELECT * FROM stores LIMIT ?, ?";

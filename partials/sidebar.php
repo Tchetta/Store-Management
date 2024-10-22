@@ -14,6 +14,7 @@
             <ul id="user_submenu" class="submenu">
                 <li><a href="dashboard.php?page=user_list" class="<?php echo ($page === 'user_list') ? 'active' : ''; ?>">View Users</a></li>
                 <li><a href="dashboard.php?page=create_user" class="<?php echo ($page === 'create_user') ? 'active' : ''; ?>">Create User</a></li>
+                <li><a href="dashboard.php?page=edit_user&id=<?=$user_id?>" class="<?php echo ($page === 'edit_user') ? 'active' : ''; ?>">Account Settings</a></li>
             </ul>
         </li>
 
