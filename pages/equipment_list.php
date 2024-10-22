@@ -6,8 +6,11 @@ $equipments= $equipmentCtrl->getAllEquipment();
 $modelCtrl = new ModelCtrl();
 
 ?>
-
-<h1>Equipment List</h1>
+ <div class="view-store-container">
+    <div class="create_container">
+    <a href="dashboard.php?page=add_equipment" class="create-link">Add Product</a>
+</div>
+<h2>Equipment List</h2>
 
 <table>
     <thead>
@@ -30,23 +33,22 @@ $modelCtrl = new ModelCtrl();
             <td><?= $item['store_id'] ?></td>
             <td>
                 <?php 
-                    $model = $modelCtrl->getModelById($item['model_id']);
-                    echo $model['model_id'];
+                    $modelName = $modelCtrl->getModelName($item['model_id']);
+                    echo $modelName;
                 ?>
              </td>
             <td><?= $item['category'] ?></td>
             <td><?= $item['brand'] ?></td>
             <td><?= $item['equipment_state'] ?></td>
             <td>
-                <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>">Edit</a>
+                <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" class="edit-action">Edit</a>
                 <form action="../includes/delete_equipment.php" method="POST" style="display:inline;">
                     <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete this equipment?')">Delete</button>
-                </form>
+                    <a href="../includes/delete_equipment.inc.php?id=<?php echo htmlspecialchars($user['user_id']); ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
 
-<a href="dashboard.php?page=add_equipment">Add Equipment(s)</a>
+

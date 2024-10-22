@@ -26,7 +26,7 @@ if (isset($_GET['error'])) {
 
 
 
-<div class="container">
+<div class="model_container model_mt-5">
     <h2>Edit Store</h2>
     
     <?php echo $message; ?>
@@ -34,12 +34,12 @@ if (isset($_GET['error'])) {
     <form action="../includes/edit_store.inc.php" method="POST">
         <input type="hidden" name="store_id" value="<?php echo htmlspecialchars($store['store_id']); ?>">
 
-        <div class="form-group">
+        <div class="model_form-group">
             <label for="store_name">Store Name:</label>
             <input type="text" name="store_name" id="store_name" value="<?php echo htmlspecialchars($store['store_name']); ?>" required>
         </div>
 
-        <div class="form-group">
+        <div class="model_form-group">
             <label for="store_location">Store Location:</label>
             <input type="text" name="store_location" id="store_location" value="<?php echo htmlspecialchars($store['store_location']); ?>" required>
         </div>
