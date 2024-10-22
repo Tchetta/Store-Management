@@ -42,6 +42,14 @@ class Login extends Dbh {
         $_SESSION['first_name'] = $user['first_name'];
         $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['image_path'] = $user['image_path'];
+        $_SESSION['user_role'] = $user['role'];
+        $_SESSION['image_path'] = $user['image_path'];
+
+        if ($_SESSION['user_role'] === 'store manager') {
+            $storeCtrl = new StoreCtrl();
+            $storeId = $storeCtrl->getStoreByManagerId($user['user_id']);
+            $_SESSION['store_id'] = $storeId;
+        }
 
         return true;
         $stmt = null; // Close the statement

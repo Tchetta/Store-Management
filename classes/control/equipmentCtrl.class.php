@@ -61,6 +61,14 @@ class EquipmentCtrl extends Dbh
         return $stmt->fetchAll();
     }
 
+    // Fetch all equipment by storeId
+    public function getAllEquipmentByStoreId($storeId) {
+        $sql = "SELECT * FROM equipment WHERE store_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$storeId]);
+        return $stmt->fetchAll();
+    }
+
     public function getModelId($eqId) {
         $sql = "SELECT model_id FROM equipment WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);

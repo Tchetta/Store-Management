@@ -4,14 +4,13 @@ require_once('../includes/class_autoloader.inc.php');
 class Model extends Dbh {
     // Add a new model
     public function createModel($modelName, $brand, $numPorts, $portTypes = '', $category, $specification = '', $description = '', $imagePath = 'default.png') {
-        $sql = "INSERT INTO model (model_name, brand, number_of_ports, port_types, quantity, category, specification, description, image_path) 
-                VALUES (:model_name, :brand, :number_of_ports, :port_types, :quantity, :category, :specification, :description, :image_path)";
+        $sql = "INSERT INTO model (model_name, brand, number_of_ports, port_types, category, specification, description, image_path) 
+                VALUES (:model_name, :brand, :number_of_ports, :port_types, :category, :specification, :description, :image_path)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([
             'model_name' => $modelName,
             'brand' => $brand,
             'port_types' => $portTypes,
-            'quantity' => $quantity,
             'category' => $category,
             'specification' => $specification,
             'description' => $description,

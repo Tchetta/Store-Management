@@ -30,9 +30,23 @@ if (isset($_GET['id'])) {
                     <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
                 </div>
 
+                <div class="model_form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
+                <div class="model_form-group">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" required>
+                </div>
+                
+
                 <div  class="model_form-group">
                     <label for="role">Role:</label>
-                    <select id="role" name="role" required>
+                    <select id="role" name="role" required <?php
+                        if($user_role == 'store manager') {
+                            echo 'hidden';
+                        } ?>>
                         <option value="admin" <?php if ($user['role'] == 'admin') echo 'selected'; ?>>Admin</option>
                         <option value="store manager" <?php if ($user['role'] == 'store manager') echo 'selected'; ?>>Store manager</option>
                         <option value="SuperAdmin" <?php if ($user['role'] == 'SuperAdmin') echo 'selected'; ?>>SuperAdmin</option>

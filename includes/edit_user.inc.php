@@ -6,17 +6,42 @@ if (isset($_POST['submit'])) {
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
-    $role = $_POST['role'];
+    $role = $_POST['role'] ?? 'store manager';
     $profile_pic = $_FILES['profile_pic'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirm_password'];
 
     // Basic input validation
-    if (empty($first_name) || empty($last_name) || empty($email) || empty($role)) {
+    if (empty($first_name) || empty($last_name) || empty($email)) {
         header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=emptyfields");
         exit();
     }
 
+    // Check if passwords match
+    if (isset($_POST['password']) && isset($_POST['confirm_password'])) {
+        $password = $_POST['password'];
+        $confirmPassword = $_POST['confirm_password'];
+        if ($password !== $confirmPassword) {
+            header("Location: ../dashboard.php?page=edit_user&error=passwordmismatch&id=$user_id");
+            exit();
+        }
+    }
+    
+
     // Initialize the user controller
     $userController = new UserCtrl();
+
+    // Check if passwords match
+    if (isset($_POST['password']) && isset($_POST['confirm_password'])) {
+        $password = $_POST['password'];
+        $confirmPassword = $_POST['confirm_password'];
+        if ($password !== $confirmPassword) {
+            header("Location: ../dashboard.php?page=edit_user&error=passwordmismatch&id=$user_id");
+            exit();
+        }
+
+        $userController->setUserPassword($user_id, $password);
+    }
 
     // Retrieve current profile picture
     $current_user = $userController->getUserById($user_id);
@@ -48,6 +73,7 @@ if (isset($_POST['submit'])) {
         // No new image uploaded, keep the current profile pic
         $fileNameNew = $current_profile_pic; // Set to existing profile pic path
     }
+
 
     try {
         // Prepare the data to update
