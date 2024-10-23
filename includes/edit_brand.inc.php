@@ -9,7 +9,7 @@ if (isset($_POST['submit'])) {
 
     // Basic validation
     if (empty($brandId) || empty($brandName)) {
-        header("Location: ../pages/dashboard.php?page=edit_brand&brand_id=$brandId&error=emptyfields");
+        header("Location: ../pages/dashboard.php?page=edit_brand&brand_id=$brandId&error=empty+fields");
         exit();
     }
 
@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
         $brandController->setBrandDescription($brandId, $description);
         $brandController->setBrandQuantity($brandId, $quantity);
 
-        header("Location: ../pages/dashboard.php?page=brand_list&success=brandupdated");
+        header("Location: ../pages/dashboard.php?page=brand_list&success=brand+updated");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=edit_brand&brand_id=$brandId&error=" . urlencode($e->getMessage()));
     }

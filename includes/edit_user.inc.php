@@ -8,12 +8,10 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $role = $_POST['role'] ?? 'store manager';
     $profile_pic = $_FILES['profile_pic'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm_password'];
 
     // Basic input validation
     if (empty($first_name) || empty($last_name) || empty($email)) {
-        header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=emptyfields");
+        header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=empty+fields");
         exit();
     }
 
@@ -62,11 +60,11 @@ if (isset($_POST['submit'])) {
             if (move_uploaded_file($fileTmp, $fileDestination)) {
                 // Successfully moved the file
             } else {
-                header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=fileuploadfailed");
+                header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=file+upload+failed");
                 exit();
             }
         } else {
-            header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=invalidfiletype");
+            header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=invalid+file+type");
             exit();
         }
     } else {
@@ -89,7 +87,7 @@ if (isset($_POST['submit'])) {
         $userController->updateUser($user_id, $data);
 
         // Redirect back to the user list
-        header("Location: ../pages/dashboard.php?page=user_list&success=userupdated");
+        header("Location: ../pages/dashboard.php?page=user_list&success=user+updated");
         exit();
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=edit_user&id=$user_id&error=" . urlencode($e->getMessage()));

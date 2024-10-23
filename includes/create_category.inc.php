@@ -8,12 +8,14 @@ if (isset($_POST['submit'])) {
 
     try {
         $categoryCtrl->createCategory($categoryName);
-        header("Location: ../pages/dashboard.php?page=category_list&success=categorycreated");
+        $success = 'Category created successfully\nCategory Name: ' . $categoryName;
+        $success = urlencode($success);
+        header("Location: ../pages/dashboard.php?page=category_list&success=$success");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=create_category&error=" . urlencode($e->getMessage()));
     }
     exit();
 } else {
-    header("Location: ../pages/dashboard.php?page=create_category");
+    header("Location: ../pages/dashboard.php?page=create_category&error=nothing+submitted");
     exit();
 }

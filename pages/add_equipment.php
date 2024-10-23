@@ -10,6 +10,16 @@ $brands = $brandCtrl->getAllBrands(); // Fetch all brands
 $categories = $categoryCtrl->getAllCategories(); // Fetch all categories
 $stores = $storeCtrl->getAllStores(); // Fetch all categories
 
+if($user_role === 'store manager') {
+    $storeId = $storeCtrl->getStoreByManagerId($user_id);
+    if (!isset($storeId) || empty($storeId)) {
+        $error = 'you (' . $user_name . ') are not the manager of any store.';
+        $error = urlencode($error);
+        header("Location: dashboard.php?add_equipment&error=$error");
+    }
+}
+    
+
 $models =  $_GET['models'] ?? [];
 
 ?>
@@ -60,11 +70,8 @@ $selectedCategory = $_GET['category'] ?? '';
 
     <div class="model_form-group">
         <label for="store_name">Store:</label>
-        <select id="store_name" name="store_id" required>
-            <option value="">Select Store</option>
-            <?php foreach ($stores as $store): ?>
-                <option value="<?= $store['store_id'] ?>"><?= $store['store_name'] ?></option>
-            <?php endforeach; ?>
+        <select id="store_name" name="store_id" required hidden>
+            <option value="<?= $storeId ?>"><?= $store['store_name'] ?></option>
         </select>
     </div>
 

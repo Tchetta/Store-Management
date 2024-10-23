@@ -10,6 +10,9 @@ if (!isset($_SESSION['user_id'])) {
 // Check if there's a page to load
 $page = isset($_GET['page']) ? $_GET['page'] : 'welcome';
 
+$error = isset($_GET['error']) ? htmlspecialchars(urldecode($_GET['error'])) : '';
+$success = isset($_GET['success']) ? htmlspecialchars(urldecode($_GET['success'])) : '';
+
 
 $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
 // Get user information from session
@@ -17,7 +20,13 @@ $user_id = $_SESSION['user_id'];
 $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] : '';
 $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SESSION['image_path'] : $defaultProfilePic;
 $user_role = $_SESSION['user_role'] ?? 'store manager';
-$storeId = $_SESSION['store_id'] ?? '';
+
+try {
+    $storeId = $_SESSION['store_id'] ?? '';
+} catch (\Throwable $th) {
+    $err = urlencode($th); 
+    header("Location: dashboard.php&error=$err");
+}
 $modelController = new ModelCtrl();
 $models = $modelController->getAllModels();
 
@@ -45,6 +54,22 @@ foreach ($models as $model) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 </head>
 <body>
+    <div id="messages">
+    <?php if (isset($success) && $success !== ''): ?>
+        <div class="message-box success">
+            <span class="close-btn" onclick="closeMessage(this)">×</span>
+            <p>Success: <br> <?= $success ?></p>
+        </div>
+    <?php endif; ?>
+
+    <?php if (isset($error) && $error !== ''): ?>
+        <div class="message-box error">
+            <span class="close-btn" onclick="closeMessage(this)">×</span>
+            <p>Error: <br> <?= $error ?></p>
+        </div>
+    <?php endif; ?>
+    </div>
+
     <div id="dashboardMainContainer">
         <?php
             if ($user_role == 'admin') {

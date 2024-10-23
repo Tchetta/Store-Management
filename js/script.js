@@ -50,3 +50,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+// Message box
+function closeMessage(element) {
+    const messageBox = element.parentElement;
+    messageBox.style.opacity = '0'; // Fade out
+    setTimeout(() => messageBox.style.display = 'none', 300); // Hide after fading out
+}

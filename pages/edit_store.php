@@ -2,7 +2,7 @@
 require_once '../includes/class_autoloader.inc.php';
 
 if (!isset($_GET['id'])) {
-    header("Location: ../pages/dashboard.php?page=store_list&error=nostoreselected");
+    header("Location: ../pages/dashboard.php?page=store_list&error=no+store+selected");
     exit();
 }
 
@@ -11,7 +11,7 @@ $storeController = new StoreCtrl();
 $store = $storeController->getStoreById($_GET['id']);
 
 if (!$store) {
-    header("Location: ../pages/dashboard.php?page=store_list&error=storenotfound");
+    header("Location: ../pages/dashboard.php?page=store_list&error=store+not+found");
     exit();
 }
 

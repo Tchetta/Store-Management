@@ -8,7 +8,7 @@ if (isset($_POST['submit'])) {
 
     // Basic validation
     if (empty($storeId)) {
-        header("Location: ../pages/dashboard.php?page=edit_store&id=$storeId&error=emptyfields");
+        header("Location: ../pages/dashboard.php?page=edit_store&id=$storeId&error=empty+fields");
         exit();
     }
 
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
 
     try {
         $storeController->updateStore($storeId, $data);
-        header("Location: ../pages/dashboard.php?page=store_list&success=storeupdated");
+        header("Location: ../pages/dashboard.php?page=store_list&success=store+updated");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=edit_store&id=$storeId&error=" . urlencode($e->getMessage()));
     }

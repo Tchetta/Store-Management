@@ -47,8 +47,13 @@ class Login extends Dbh {
 
         if ($_SESSION['user_role'] === 'store manager') {
             $storeCtrl = new StoreCtrl();
-            $storeId = $storeCtrl->getStoreByManagerId($user['user_id']);
-            $_SESSION['store_id'] = $storeId;
+            try {
+                $storeId = $storeCtrl->getStoreByManagerId($user['user_id']);
+                $_SESSION['store_id'] = $storeId;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+            
         }
 
         return true;
