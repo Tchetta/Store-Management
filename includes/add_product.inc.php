@@ -19,8 +19,8 @@ if (isset($_POST['submit'])) {
 
                 // Example: Insert the product details into the database
                 // Assuming you have a ProductCtrl class to handle the insertion
-                $productCtrl = new ProductCtrl();
-                $productCtrl->addProduct($store_id, $model_id, $quantity, $serial);
+                // $productCtrl = new ProductCtrl();
+                // $productCtrl->addProduct($store_id, $model_id, $quantity, $serial);
             }
         }
 
