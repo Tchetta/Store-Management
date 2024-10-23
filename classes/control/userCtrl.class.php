@@ -56,11 +56,26 @@ class User extends Dbh {
         }
     }
 
-    public function setUserPassword($uId, $password = '12345678') {
+    public function setUserPassword($uId, $password) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE users SET password = ? WHERE user_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$hashedPassword, $uid]);
+    }
+
+    // Method to verify if the old password matches the current password of the user
+    public function verifyOldPassword($userId, $oldPassword) {
+        // Query the database for the user's current password hash
+        $stmt = $this->connect()->prepare("SELECT password FROM users WHERE user_id = :userId");
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchColumn();
+
+        // Verify the old password with the hashed password in the database
+        if ($result && password_verify($oldPassword, $result)) {
+            return true;
+        }
+        return false;
     }
 
     // Delete a user by ID

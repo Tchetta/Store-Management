@@ -7,6 +7,7 @@ if (isset($_GET['id'])) {
     
     // Fetch user by ID
     $user = $userController->getUserById($_GET['id']);
+    $personal = $_GET['actor'] ?? '';
 
     if ($user) {
         ?>
@@ -30,17 +31,10 @@ if (isset($_GET['id'])) {
                     <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
                 </div>
 
-                <div class="model_form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-
-                <div class="model_form-group">
-                    <label for="confirm_password">Confirm Password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
-                </div>
+                <?php if (isset($personal) && $personal == 'me') : ?>
+                    <a href="dashboard.php?page=change_password&id=<?php echo htmlspecialchars($user['user_id']); ?>">Change password</a>
+                <?php endif; ?>
                 
-
                 <div  class="model_form-group">
                     <label for="role">Role:</label>
                     <select id="role" name="role" required <?php

@@ -12,7 +12,7 @@ if (isset($_GET['id'])) {
         $userController->deleteUser($user_id);
 
         // Redirect back to the user list with a success message
-        header("Location: ../pages/dashboard.php?page=user_list&success=userdeleted");
+        header("Location: ../pages/dashboard.php?page=user_list&success=user+deleted");
         exit();
     } catch (Exception $e) {
         // Redirect to the user list with an error message
@@ -21,6 +21,6 @@ if (isset($_GET['id'])) {
     }
 } else {
     // Redirect if no user ID was provided
-    header("Location: ../pages/dashboard.php?page=user_list&error=nouserid");
+    header("Location: ../pages/dashboard.php?page=user_list&error=no+user+id");
     exit();
 }

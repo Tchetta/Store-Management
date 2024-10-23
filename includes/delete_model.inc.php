@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
 
     try {
         $modelController->deleteModel($modelId);
-        header("Location: ../pages/dashboard.php?page=model_list&success=modeldeleted");
+        header("Location: ../pages/dashboard.php?page=model_list&success=model+deleted");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=model_list&error=" . urlencode($e->getMessage()));
     }

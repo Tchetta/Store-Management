@@ -10,7 +10,7 @@ if (isset($_POST['submit'])) {
 
     try {
         $categoryCtrl->updateCategory($categoryId, $categoryName, $quantity);
-        header("Location: ../pages/dashboard.php?page=category_list&success=categoryupdated");
+        header("Location: ../pages/dashboard.php?page=category_list&success=category+updated");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=edit_category&id=$categoryId&error=" . urlencode($e->getMessage()));
     }

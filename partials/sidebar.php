@@ -43,6 +43,13 @@
             </ul>
 
         </li>
+        <!-- Others -->
+        <li class="menu-item <?php echo ($page === 'edit_user' || $page === 'brand_list' || $page === 'category_list') ? 'active' : ''; ?>">
+            <a href="dashboard.php?page=edit_user&actor=me&id=<?=$user_id?>" class="menu-link" >
+                <i class="fas fa-user"></i>
+                <span class="menuText">Account settings</span>
+            </a>
+        </li>
 
         <!-- Add more menu items here for other management sections as needed -->
     </ul>

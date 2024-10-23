@@ -9,7 +9,7 @@ if (isset($_GET['model_id']) && isset($_GET['port_type_id'])) {
 
     try {
         $modelPortTypeCtrl->removePortType($modelId, $portTypeId);
-        header("Location: ../pages/dashboard.php?page=model_port_types&success=porttyperemoved");
+        header("Location: ../pages/dashboard.php?page=model_port_types&success=port+type+removed");
     } catch (Exception $e) {
         header("Location: ../pages/dashboard.php?page=model_port_types&error=" . urlencode($e->getMessage()));
     }

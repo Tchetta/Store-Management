@@ -47,7 +47,9 @@ if (isset($_POST['submit'])) {
             $eventCtrl->additionEvent($modelId, 1, 'IN');
 
             // Redirect on success
-            header("Location: ../pages/dashboard.php?page=add_equipment&success=true");
+            $success = 'Equipment added successfully\nSN: ' . $serial_num . '\nStore:' . $storeId;
+            $success = urlencode($success);
+            header("Location: ../pages/dashboard.php?page=add_equipment&success=$success");
             exit();
 
         } catch (Exception $e) {

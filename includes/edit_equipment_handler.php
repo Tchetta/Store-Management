@@ -19,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $equipmentCtrl->updateBrand($id, $brand);
     $equipmentCtrl->updateEquipmentState($id, $equipment_state);
 
-    header("Location: ../pages/dashboard.php?page=equipment_list&success=updated");
+    $success = 'Equipment updated successfully\nSN: ' . $serial_num . '\nStore:' . $store_id. '\nState:' . $equipment_state;
+    $success = urlencode($success);
+    header("Location: ../pages/dashboard.php?page=equipment_list&success=$success");
     exit();
 } else {
     header("Location: ../pages/dashboard.php?page=equipment_list&error=invalid_request");

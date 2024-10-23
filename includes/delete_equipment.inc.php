@@ -1,8 +1,8 @@
 <?php
 require_once '../includes/class_autoloader.inc.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $id = $_GET['id'];
 
     $equipmentCtrl = new EquipmentCtrl();
     $modelId = $equipmentCtrl->getModelId($id);
@@ -15,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $eventCtrl = new Event();
     $eventCtrl->deletionEvent($modelId, 1, 'OUT');
 
-    header("Location: ../pages/dashboard.php?page=equipment_list&success=deleted");
+    $success = 'Equipment deleted successfully\nSN: ' . $id;
+    $success = urlencode($success);
+    header("Location: ../pages/dashboard.php?page=equipment_list&success=$success");
     exit();
 } else {
     header("Location: ../pages/dashboard.php?page=equipment_list&error=invalid_request");

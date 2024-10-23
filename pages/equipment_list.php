@@ -41,7 +41,6 @@ $modelCtrl = new ModelCtrl();
                 echo '<td>' . $item['store_id'] . '</td>';
             }
             ?>
-            <td><?= $item['store_id'] ?></td>
             <td>
                 <?php 
                     $modelName = $modelCtrl->getModelName($item['model_id']);
@@ -53,9 +52,7 @@ $modelCtrl = new ModelCtrl();
             <td><?= $item['equipment_state'] ?></td>
             <td>
                 <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" class="edit-action">Edit</a>
-                <form action="../includes/delete_equipment.php" method="POST" style="display:inline;">
-                    <input type="hidden" name="id" value="<?= $item['id'] ?>">
-                    <a href="../includes/delete_equipment.inc.php?id=<?php echo htmlspecialchars($user['user_id']); ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
+                <a style="display:inline;" href="../includes/delete_equipment.inc.php?id=<?= $item['id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>

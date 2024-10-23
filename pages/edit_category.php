@@ -11,11 +11,11 @@ if (isset($_GET['id'])) {
     $category = $categoryController->getCategoryById($categoryId);
 
     if (!$category) {
-        header("Location: dashboard.php?page=category_list&error=categorynotfound");
+        header("Location: dashboard.php?page=category_list&error=category+not+found");
         exit();
     }
 } else {
-    header("Location: dashboard.php?page=category_list&error=missingid");
+    header("Location: dashboard.php?page=category_list&error=missing+id");
     exit();
 }
 ?>
