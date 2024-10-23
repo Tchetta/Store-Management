@@ -29,16 +29,19 @@ if (isset($_GET['id'])) {
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
                 </div>
+                <div class="model_form-group password-container">
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <span class="eye-icon" onclick="togglePassword()">
+        <i class="fas fa-eye" id="eyeIcon"></i>
+    </span>
+</div>
 
-                <div class="model_form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
+<div class="model_form-group">
+    <label for="confirm_password">Confirm Password:</label>
+    <input type="password" id="confirm_password" name="confirm_password" required>
+</div>
 
-                <div class="model_form-group">
-                    <label for="confirm_password">Confirm Password:</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required>
-                </div>
                 
 
                 <div  class="model_form-group">
@@ -78,3 +81,19 @@ if (isset($_GET['id'])) {
     echo '<p>Invalid user ID.</p>';
 }
 ?>
+<script>
+function togglePassword() {
+    var passwordField = document.getElementById("password");
+    var eyeIcon = document.getElementById("eyeIcon");
+    
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        eyeIcon.classList.remove("fa-eye");
+        eyeIcon.classList.add("fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        eyeIcon.classList.remove("fa-eye-slash");
+        eyeIcon.classList.add("fa-eye");
+    }
+}
+</script>

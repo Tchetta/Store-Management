@@ -122,22 +122,23 @@ img {
     padding-left: 0;
 }
 
-/* Each menu item, now with relative positioning */
+/* Styling for each menu item */
 .sidebar ul li {
-    position: relative; /* Add this to position submenus correctly */
+    position: relative; /* Ensure correct positioning for submenus */
     padding: 15px 20px;
     display: flex;
-    align-items: flex-start; /* Ensure text stays at the top */
+    align-items: flex-start; /* Keeps text aligned at the top */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* Smooth background change on hover */
 }
 
+/* Hover and active state for menu items */
 .sidebar ul li:hover,
 .sidebar ul li.active {
-    background-color: #adc8f7;
+    background-color: #adc8f7; /* Change background color when hovering or active */
 }
 
-.sidebar ul li::before,
+/* Vertical line for active menu items */
 .sidebar ul li.active::before {
     content: "";
     position: absolute;
@@ -146,7 +147,17 @@ img {
     bottom: 0;
     width: 5px;
     background-color: #6b89eb;
-    border-radius: 0 20px 20px 0;
+    border-radius: 0 20px 20px 0; /* Rounded corners for the line */
+}
+
+/* Ensure the strip is only visible for active items */
+.sidebar ul li.active::before {
+    content: "";
+}
+
+/* Remove the strip for non-active items */
+.sidebar ul li:not(.active)::before {
+    content: none;
 }
 
 /* Submenu styles */
@@ -310,4 +321,30 @@ img.model-image {
 
 .back-arrow:hover {
     color: #0056b3;
+}
+/* Password container to hold the eye icon */
+.password-container {
+    position: relative;
+    width: 65%; /* Ensure the password container has the same width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Password field and eye icon */
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%; /* Full width for the password field */
+    padding-right: 40px; /* Add space for the eye icon */
+}
+
+.password-container .eye-icon {
+    position: absolute;
+    right: 10px; /* Adjust this to control the distance from the right */
+    top: 50%; /* Align vertically */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888; /* Adjust icon color if needed */
+}
+
+.password-container .eye-icon:hover {
+    color: #333; /* Change color on hover */
 }
