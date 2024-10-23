@@ -1,67 +1,66 @@
+/* General body and layout */
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    display: flex; /* Use flexbox for layout */
-    background: rgb(63, 63, 63); /* White background */
+    display: flex;
+    background: rgb(63, 63, 63);
 }
 
 .logo-container {
-    flex: 0 0 60%; /* Logo takes up 60% of the width */
+    flex: 0 0 60%;
     display: flex;
-    justify-content: center; /* Center logo horizontally */
-    align-items: center; /* Center logo vertically */
-    height:auto;
+    justify-content: center;
+    align-items: center;
 }
 
 .logo-container img {
-    max-width: 80%; /* Responsive logo size */
-    height: 80%; /* Maintain aspect ratio */
+    max-width: 80%;
+    height: 80%;
 }
 
 div.loginBody {
-    flex: 0 0 40%; /* Login form takes up 40% of the width */
-    display: flex; /* Use flexbox for centering */
-    justify-content: flex-startr; /* Center form horizontally */
-    align-items: center; /* Center form vertically */
-    padding: 0px; /* Optional padding for better spacing */
-    right:20px
+    flex: 0 0 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0px;
 }
 
 div.loginBody form {
-    width: 100%; /* Full width of the login body */
-    max-width: 400px; /* Maximum width of the login form */
-    background: transparent; /* Slightly transparent white */
+    width: 100%;
+    max-width: 400px;
+    background: transparent;
     padding: 20px;
-    border: 2px solid #9b9b9e; /* Updated border color */
+    border: 2px solid #9b9b9e;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6); /* Soft shadow for depth */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
     text-align: center;
-    height:70%;
+    height: 70%;
 }
 
-/* Rest of your existing styles remain unchanged */
-
-
-/* Rest of your existing styles */
-
+/* General header and button styles */
 div.loginHeader {
     text-align: center;
-    margin-bottom: 30px; /* Adjusted margin for better spacing */
+    margin-bottom: 30px;
 }
-div.loginButtonContainer {
-    margin-top: 20px; /* Space above button */
+
+/* Update the input container width to be consistent for both fields */
+div.loginInputContainer {
+    position: relative; /* Position relative to ensure the icon aligns within the container */
+    width: 80%; /* Same width for both containers */
+    margin: 0 auto; /* Center the containers */
 }
 div.loginInputContainer h1 {
-    font-size: 50px; /* Smaller font size for better balance */
+    font-size: 50px;
     font-weight: bold;
     color: #5ba5eb;
 }
 
 div.loginInputContainer p {
     color: #5ba5eb;
-    font-size: 20px; /* Smaller font size for better balance */
-    margin: 0px;
+    font-size: 20px;
+    margin: 0;
     display: inline-block;
     text-transform: uppercase;
 }
@@ -69,17 +68,23 @@ div.loginInputContainer p {
 div.loginInputContainer label {
     display: block;
     text-transform: uppercase;
-    font-size: 14px; /* Smaller font size for better balance */
+    font-size: 14px;
     font-weight: bold;
-    color: #333; /* Changed color for better contrast */
+    color: #333;
     margin-bottom: 2px;
-  
-
 }
 
+/* Update the input container width to be consistent for both fields */
+div.loginInputContainer {
+    position: relative; /* Position relative to ensure the icon aligns within the container */
+    width: 80%; /* Same width for both containers */
+    margin: 0 auto; /* Center the containers */
+}
+
+/* Input fields */
 div.loginInputContainer input {
     height: 35px; /* Increased height for better accessibility */
-    width:80%; /* Full width for better alignment */
+    width: 100%; /* Full width for both input fields */
     border: 2px solid #757575;
     padding: 10px;
     text-align: center;
@@ -87,29 +92,58 @@ div.loginInputContainer input {
     border-radius: 10px;
     box-sizing: border-box;
     margin-bottom: 10px;
-    margin-top:50px;
 }
 
+/* Password container to hold the eye icon */
+.password-container {
+    position: relative;
+    width: 65%; /* Ensure the password container has the same width */
+    margin: 0 auto; /* Center the container */
+}
+
+/* Password field and eye icon */
+.password-container input[type="password"],
+.password-container input[type="text"] {
+    width: 100%; /* Full width for the password field */
+    padding-right: 40px; /* Add space for the eye icon */
+}
+
+.password-container .eye-icon {
+    position: absolute;
+    right: 10px; /* Adjust this to control the distance from the right */
+    top: 50%; /* Align vertically */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888; /* Adjust icon color if needed */
+}
+
+.password-container .eye-icon:hover {
+    color: #333; /* Change color on hover */
+}
+
+
+/* Button styles */
 div.loginButtonContainer button {
-    font-size: 16px; /* Slightly larger font size */
-    padding: 10px 20px; /* Adjusted padding for a better button size */
-    background: #5ba5eb; /* Updated button color */
+    font-size: 16px;
+    padding: 10px 20px;
+    background: #5ba5eb;
     border: none;
     color: #fff;
-    cursor: pointer; /* Pointer on hover */
-    transition: background 0.3s; /* Smooth transition */
-    border-radius:15px;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 15px;
 }
 
 div.loginButtonContainer button:hover {
-    background: #5a6ba0; /* Darker shade on hover */
+    background: #5a6ba0;
 }
 
+/* Error message styles */
 div.errorMessage {
     background: #fff;
     text-align: center;
     color: red;
-    font-size: 14px; /* Smaller font size for error messages */
+    font-size: 14px;
     padding: 10px;
-    margin-top: 10px; /* Space above error message */
+    margin-top: 10px;
 }
