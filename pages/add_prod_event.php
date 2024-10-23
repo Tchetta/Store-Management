@@ -14,7 +14,7 @@ $stores = $storeController->getAllStores();
 <select name="model_id" id="">
     <?php foreach ($models as $model) {
       ?>
-    <option value="<?php echo $model['model_id']; ?>"><?php echo $model['model_name']; ?></option>
+    <option value="<?php echo $model['model_id']; ?>"><?php echo $model['model_name']. ' (' . $model['model_id'] . ')'; ?></option>
     <?php  } ?>
 </select>
 <input type="number" name="qty" id="">
