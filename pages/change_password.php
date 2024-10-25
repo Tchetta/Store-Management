@@ -7,7 +7,7 @@ if(isset($_GET['id'])) {
 ?>
 <div class="model_container model_mt-5">
     <form action="../includes/change_password.inc.php" method="post">
-        <input type="hidden" name="user_id">
+        <input type="hidden" name="user_id" value="<?= $user_id ?>">
         
         <div class="model_form-group password-container">    
             <label for="old_password">Old Password:</label>
