@@ -15,7 +15,7 @@
             <ul id="product_submenu" class="submenu">
                 <li><a href="dashboard.php?page=add_equipment" class="<?php echo ($page === 'add_equipment') ? 'active' : ''; ?>">Add Products</a></li>
                 <li><a href="dashboard.php?page=equipment_list" class="<?php echo ($page === 'equipment_list') ? 'active' : ''; ?>">View Products</a></li>
-                <li><a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>">Others</a></li>
+                <li><a href="dashboard.php?page=remove" class="<?php echo ($page === 'remove') ? 'active' : ''; ?>">Remove</a></li>
             </ul>
 
         </li>
