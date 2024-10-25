@@ -54,7 +54,8 @@ foreach ($models as $model) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 </head>
 <body>
-    <div id="messages">
+    
+<div id="messages">
     <?php if (isset($success) && $success !== ''): ?>
         <div class="message-box success">
             <span class="close-btn" onclick="closeMessage(this)">×</span>
@@ -68,7 +69,9 @@ foreach ($models as $model) {
             <p>Error: <br> <?= $error ?></p>
         </div>
     <?php endif; ?>
-    </div>
+</div>
+
+
 
     <div id="dashboardMainContainer">
         <?php
