@@ -60,7 +60,7 @@ class User extends Dbh {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $sql = "UPDATE users SET password = ? WHERE user_id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$hashedPassword, $uid]);
+        $stmt->execute([$hashedPassword, $uId]);
     }
 
     // Method to verify if the old password matches the current password of the user
@@ -70,12 +70,13 @@ class User extends Dbh {
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchColumn();
+        return $result;
 
         // Verify the old password with the hashed password in the database
-        if ($result && password_verify($oldPassword, $result)) {
+        /* if ($result && password_verify($oldPassword, $result)) {
             return true;
         }
-        return false;
+        return false; */
     }
 
     // Delete a user by ID

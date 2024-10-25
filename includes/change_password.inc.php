@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Assuming you have a logged-in user, retrieve user ID from session
     if (!isset($userId)) {
         $error = "No user selected.";
-        header("Location: ../pages/dashboard.php?page=change_password&&error=" . urlencode($error));
+        header("Location: ../pages/dashboard.php?page=change_password&error=" . urlencode($error));
         exit();
     }
     
@@ -27,26 +27,36 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Check if the new password and confirmation password match
     if ($newPassword !== $confirmPassword) {
         $error = "New password and confirmation do not match.";
-        header("Location: ../pages/dashboard.php?page=change_password&&error=" . urlencode($error));
+        header("Location: ../pages/dashboard.php?page=change_password&error=" . urlencode($error));
         exit();
     }
+
+    echo $newPassword .' = ' . $confirmPassword;
+    echo $oldPassword;
+    $user = $
+    $h_oldPassword = $userCtrl->verifyOldPassword($userId, $oldPassword);
+    echo ' Hashed old password' . $h_oldPassword;
+
+    $result = password_verify($oldPassword, $h_oldPassword) ? 'True' : 'False';
+    echo '<br>'. $result;
+
 
     // Verify the old password
-    if (!$userCtrl->verifyOldPassword($userId, $oldPassword)) { 
+    /* if (!$userCtrl->verifyOldPassword($userId, $oldPassword)) { 
         $error = "Old password is incorrect.";
-        header("Location: ../pages/dashboard.php?page=change_password&&error=" . urlencode($error));
+        header("Location: ../pages/dashboard.php?page=change_password&error=" . urlencode($error));
         exit();
-    }
+    } */
 
     // If no errors, proceed to change the password
-    if ($userCtrl->setUserPassword($userId, $newPassword)) {
+    /* if ($userCtrl->setUserPassword($userId, $newPassword)) {
         $success = "Password successfully changed.";
-        header("Location: ../pages/dashboard.php?page=change_password&&success=" . urlencode($success));
+        header("Location: ../pages/dashboard.php?page=change_password&success=" . urlencode($success));
     } else {
         $error = "An error occurred while changing the password.";
-        header("Location: ../pages/dashboard.php?page=change_password&&error=" . urlencode($error));
+        header("Location: ../pages/dashboard.php?page=change_password&error=" . urlencode($error));
     }
-    exit();
+    exit(); */
 } else {
     // Redirect back if not accessed through form submission
     header("Location: ../change_password.php");

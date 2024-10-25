@@ -51,9 +51,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// Message box
+    // Function to close the message when the close button is clicked
 function closeMessage(element) {
     const messageBox = element.parentElement;
     messageBox.style.opacity = '0'; // Fade out
     setTimeout(() => messageBox.style.display = 'none', 300); // Hide after fading out
 }
+
+
+    // Automatically hide messages after 60 seconds (60000 ms)
+    function autoHideMessages() {
+        const messageBoxes = document.querySelectorAll('.message-box');
+        messageBoxes.forEach(function(messageBox) {
+            setTimeout(function() {
+                messageBox.style.display = 'none';
+            }, 60000); // 60 seconds
+        });
+    }
+
+    // Call the function to auto-hide messages
+    window.onload = autoHideMessages;
+
