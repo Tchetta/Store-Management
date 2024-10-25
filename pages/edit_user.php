@@ -30,13 +30,6 @@ if (isset($_GET['id'])) {
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
                 </div>
-                <div class="model_form-group password-container">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
-    <span class="eye-icon" onclick="togglePassword()">
-        <i class="fas fa-eye" id="eyeIcon"></i>
-    </span>
-</div>
 
 
                 <?php if (isset($personal) && $personal == 'me') : ?>

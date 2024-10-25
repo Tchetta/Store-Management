@@ -66,17 +66,19 @@ class User extends Dbh {
     // Method to verify if the old password matches the current password of the user
     public function verifyOldPassword($userId, $oldPassword) {
         // Query the database for the user's current password hash
-        $stmt = $this->connect()->prepare("SELECT password FROM users WHERE user_id = :userId");
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->execute();
-        $result = $stmt->fetchColumn();
-        return $result;
+        $userCtrl = new UserCtrl();
+        $user = $userCtrl->getUserById($userId);
+        $password = $user['password'];
 
-        // Verify the old password with the hashed password in the database
-        /* if ($result && password_verify($oldPassword, $result)) {
-            return true;
+        if ($password) {
+            // Verify the old password with the hashed password in the database
+            if (password_verify($oldPassword, $password)) {
+                return true;
+            }
+            return false;
+        } else {
+            throw new Exception("Error: no such user in the system", 1);
         }
-        return false; */
     }
 
     // Delete a user by ID
