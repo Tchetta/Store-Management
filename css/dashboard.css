@@ -383,7 +383,7 @@ img.model-image {
 /* Password container to hold the eye icon */
 .password-container {
     position: relative;
-    width: 65%; /* Ensure the password container has the same width */
+    width: 100%; /* Ensure the password container has the same width */
     margin: 0 auto; /* Center the container */
 }
 
@@ -397,7 +397,7 @@ img.model-image {
 .password-container .eye-icon {
     position: absolute;
     right: 10px; /* Adjust this to control the distance from the right */
-    top: 50%; /* Align vertically */
+    top: 40%; /* Align vertically */
     transform: translateY(-50%);
     cursor: pointer;
     color: #888; /* Adjust icon color if needed */
