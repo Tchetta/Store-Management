@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     // Log the event (assuming `Event` class has proper protection)
     $eventCtrl = new Event();
-    $eventCtrl->deletionEvent($modelId, 1, 'OUT');
+    $eventCtrl->deletionEvent($modelId, 1, 'OUT', $id);
 
     $success = 'Equipment deleted successfully\nSN: ' . $id;
     $success = urlencode($success);
