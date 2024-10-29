@@ -55,11 +55,11 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                                 <!-- Edit button -->
                                 <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?php echo $model['model_id']; ?>">Edit</a>
                                 <?php if ($user_role === 'admin') : ?>
-                                    <a class="action-link delete" href="../includes/delete_model.inc.php?id=<?php echo $model['model_id']; ?>" onclick="return confirm('Are you sure to Delete this Model?')">Delete Model</a>
+                                    <a class="action-link delete" href="../includes/delete_model.inc.php?id=<?php echo $model['model_id']; ?>" onclick="return confirm('Are you sure to Delete this Model?')">Delete </a>
                                 <?php else : ?>
-                                    <a class="action-link delete" href="dashboard.php?page=remove_equipment&model_id=<?php echo $model['model_id']; ?>">Delete Equipments</a>
+                                    <a class="action-link delete" href="dashboard.php?page=remove_equipments&model_id=<?php echo $model['model_id']; ?>">Delete</a>
                                 <?php endif; ?>
-                                <a class="action-link More" href="dashboard.php?page=equipment_list&model_id=<?php echo $model['model_id']; ?>">More</a>
+                                <a class="action-link More" href="dashboard.php?page=equipment_list&model_id=<?php echo $model['model_id']; ?>">More..</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

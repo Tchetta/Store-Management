@@ -5,7 +5,9 @@ $categories = $categoryCtrl->getAllCategories();
 <div class="view-store-container">
     <!-- Links to other operations -->
 <div class="create_container">
+<?php if ($user_role === 'admin') : ?>
     <a href="dashboard.php?page=create_category" class="create-link">Create New Product category</a>
+    <?php endif; ?>
 </div>
 
 <h2 class="h2"> Product Category</h2>
