@@ -37,7 +37,7 @@ $selectedCategory = $_GET['category'] ?? '';
 ?>
 
 <div class="model_container model_mt-5">
-<h2 class="model_mb-4">Add Product</h2>
+<h2 class="model_mb-4">Remove Product</h2>
 
 <!-- Form to select brand and category -->
 <form action="../includes/fetch_models.inc.php" method="post" id="filterForm">

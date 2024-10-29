@@ -9,7 +9,7 @@
             <a href="dashboard.php?page=model_list">View Models</a>
         </div>
     </div>
-
+    <?php if ($user_role === 'admin') : ?>
     <!-- Brands Button -->
     <div class="manage-section">
         <button class="manage-btn" onclick="toggleDropdown('brands')">Brands</button>
@@ -18,7 +18,8 @@
             <a href="dashboard.php?page=brand_list">View Brands</a>
         </div>
     </div>
-
+    <?php endif; ?>
+    <?php if ($user_role === 'admin') : ?>
     <!-- Categories Button -->
     <div class="manage-section">
         <button class="manage-btn" onclick="toggleDropdown('categories')">Categories</button>
@@ -26,6 +27,8 @@
             <a href="dashboard.php?page=create_category">Create Category</a>
             <a href="dashboard.php?page=category_list">View Categories</a>
         </div>
+    </div>
+    <?php endif; ?>
     </div>
 </div>
 
