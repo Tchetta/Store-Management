@@ -15,12 +15,13 @@ if($user_role === 'store manager') {
     if (!isset($storeId) || empty($storeId)) {
         $error = 'you (' . $user_name . ') are not the manager of any store.';
         $error = urlencode($error);
-        header("Location: dashboard.php?error=$error");
+        header("Location: dashboard.php?add_equipment&error=$error");
     }
 }
     
 
 $models =  $_GET['models'] ?? [];
+$modelId = $_GET['model_id'] ?? '';
 
 ?>
 
@@ -62,7 +63,7 @@ $selectedCategory = $_GET['category'] ?? '';
 </form>
 
 <!-- Form for submitting product -->
-<form action="../includes/add_equipment.inc.php" method="POST">
+<form action="../includes/remove_equipments.inc.php" method="POST">
     <div class="model_form-group">
         <input type="hidden" name="category" value="<?= $selectedCategory ?>">
         <input type="hidden" name="brand" value="<?= $selectedBrand ?>">
@@ -78,28 +79,27 @@ $selectedCategory = $_GET['category'] ?? '';
     <div class="model_form-group">
         <label for="model">Model:</label>
         <select id="model" name="model_id" required>
+            <?php if (isset($modelId) && $modelId != '') :
+                        $modelName = $modelCtrl->getModelName($modelId);
+                ?>
+                <option value="<?= $modelId ?>"><?= $modelName ?></option>
+            <?php else : ?>            
             <option value="">Select Model</option>
             <?php if (!empty($models)): ?>
                 <?php foreach ($models as $model): ?>
                     <option value="<?= $model['model_id'] ?>"><?= $model['model_name'] ?></option>
                 <?php endforeach; ?>
-            <?php endif; ?>
+            <?php endif; endif;?>
         </select>
     </div>
 
     <div class="model_form-group">
-        <label for="serial_number">Serial Number(s):</label>
-        <textarea id="serial_number" name="serial_num" placeholder="Enter serial numbers, separated by commas"></textarea>
+        <label for="serial_number">Serial Number:</label>
+        <input type="text" id="serial_number" name="serial_num" placeholder="Optional">
     </div>
-
-    <div class="model_form-group">
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity if no serial numbers are specified">
-    </div>
-
    
 
-    <button type="submit" name="submit">Add Product</button>
+    <button type="submit" name="submit">Remove Equipments</button>
     <div class="back-arrow-container">
     <a href="javascript:history.back()" class="back-arrow">
         &#8592; Back

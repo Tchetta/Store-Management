@@ -19,45 +19,74 @@ if (isset($_POST['submit'])) {
     }
 
     // Sanitize the serial number (it's optional)
-    $serial_num = isset($_POST['serial_num']) ? htmlspecialchars($_POST['serial_num']) : '';
+    $serial_num = isset($_POST['serial_num']) ? htmlspecialchars(trim($_POST['serial_num'])) : '';
+
+    // Validation: Ensure either serial numbers or quantity is provided
+    if (empty($serial_num) && $quantity <= 0) {
+        $errors[] = "You must provide either serial numbers or a quantity.";
+    }
+
+    // Process serial numbers if provided
+    $serial_numbers = [];
+    if (!empty($serial_num)) {
+        // Split serial numbers by commas, trim whitespace, and remove any empty values
+        $serial_numbers = array_filter(array_map('trim', explode(',', $serial_num)));
+
+        if (count($serial_numbers) === 0) {
+            $errors[] = "Invalid serial numbers format. Please separate serial numbers by commas.";
+        }
+    }
 
     // If there are no errors, proceed with the operation
+    // Check for errors before proceeding
     if (empty($errors)) {
         try {
-            // Using a controller to add equipment
+            // Instantiate controllers
             $equipmentController = new EquipmentCtrl();
-            $equipmentController->addEquipment($serial_num, $storeId, $modelId, $category, $brand);
-
-            // Update the model quantity
             $modelController = new ModelCtrl();
-            $modelController->updateModelQuantity($modelId);
 
+            // Fetch brand and category if needed
             $brand = $modelController->getBrandByModel($modelId);
             $category = $modelController->getCategoryByModel($modelId);
 
-            // Log the event (assuming `Event` class has proper protection)
-            $eventCtrl = new Event();
-            $sn = $serial_num;
-            $eventCtrl->additionEvent($modelId, 1, 'IN', $sn);
+            // Add each serial number individually if provided
+            if (!empty($serial_numbers)) {
+                foreach ($serial_numbers as $sn) {
+                    $equipmentController->addEquipment($sn, $storeId, $modelId, $category, $brand);
+                    // Log event
+                    $eventCtrl = new Event();
+                    $eventCtrl->additionEvent($modelId, 1, 'IN', $sn);
+                }
+            } else {
+                // Increase model quantity directly if no serial numbers were specified
+                $modelController->increaseQuantity($modelId, $quantity);
+                $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
+            }
+
+            
 
             // Redirect on success
-            $success = 'Equipment added successfully<br>SN: ' . $serial_num . '<br>Store:' . $storeId;
+            $success = 'Equipment added successfully';
+            if (!empty($serial_numbers)) {
+                $success .= "<br>SN: " . implode(', ', $serial_numbers);
+            } else {
+                $success .= "<br>Quantity: $quantity";
+            }
+            $success .= "<br>Store: $storeId";
             $success = urlencode($success);
             header("Location: ../pages/dashboard.php?page=add_equipment&success=$success");
             exit();
-
         } catch (Exception $e) {
-            // Handle any exceptions or errors during the process
             header("Location: ../pages/dashboard.php?page=add_equipment&error=" . urlencode($e->getMessage()));
             exit();
         }
     } else {
-        // If there are validation errors, redirect back with error messages
-        $errorString = implode(", ", $errors);
-        header("Location: ../pages/dashboard.php?page=add_equipment&error=" . urlencode($errorString));
+        // Redirect with errors
+        $error = implode('<br>', $errors);
+        header("Location: ../pages/dashboard.php?page=add_equipment&error=" . urlencode($error));
         exit();
     }
-} else {
+    } else {
     // Handle case where the form wasn't submitted properly
     header("Location: ../pages/dashboard.php?page=add_equipment&error=nothing+submitted");
     exit();

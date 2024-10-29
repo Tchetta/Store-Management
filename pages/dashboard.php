@@ -21,16 +21,12 @@ $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $
 $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SESSION['image_path'] : $defaultProfilePic;
 $user_role = $_SESSION['user_role'] ?? 'store manager';
 
-if (isset($_GET['store_id']) && $_GET['store_id'] != '') {
-    $storeId = $_GET['store_id'];
-} else {
     try {
         $storeId = $_SESSION['store_id'] ?? '';
     } catch (\Throwable $th) {
         $err = urlencode($th); 
         header("Location: dashboard.php&error=$err");
     }
-}
 
 $modelController = new ModelCtrl();
 $models = $modelController->getAllModels();
@@ -100,7 +96,6 @@ foreach ($models as $model) {
                             include($pageFile);
                         } else {
                             include('equipment_list.php');
-                                  
                         }
                     ?>
                 </div>
