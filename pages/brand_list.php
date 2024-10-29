@@ -6,7 +6,9 @@ $categoryController = new ProductCategoryCtrl();
 <div class="view-store-container">
     <!-- Links to other operations -->
 <div class="create_container">
+<?php if ($user_role === 'admin') : ?>
     <a href="dashboard.php?page=create_brand" class="create-link">Create New Brand</a>
+    <?php endif; ?>
 </div>
 
 <h2 class="h2">Brand List</h2>
