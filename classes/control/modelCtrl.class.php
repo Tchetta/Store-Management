@@ -34,6 +34,26 @@ class Model extends Dbh {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllModelsWithQuantity() {
+        $sql = "SELECT * FROM model WHERE quantity > 0";
+        $stmt = $this->connect()->query($sql);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getModelsInStoreWithQuantity($storeId) {
+        $sql = "
+            SELECT m.*
+            FROM model m
+            INNER JOIN equipment e ON m.model_id = e.model_id
+            WHERE e.store_id = :storeId
+            GROUP BY m.model_id
+            HAVING COUNT(e.model_id) > 0
+        ";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':storeId', $storeId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     // Getters for each column
     protected function getModelName($modelId) {
@@ -77,6 +97,28 @@ class Model extends Dbh {
         $stmt->execute(['model_id' => $modelId]);
         return $stmt->fetchColumn();
     }
+
+    public function getQuantityByStore($modelId, $storeId = '') {
+        $sql = "
+            SELECT COUNT(*) as quantity 
+            FROM equipment 
+            WHERE model_id = :model_id 
+        ";
+        if (isset($storeId)) {
+            $sql .= " AND store_id = :store_id";
+        }
+        
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':model_id', $modelId, PDO::PARAM_INT);
+    
+        // Only bind `store_id` if `$storeId` is provided
+        if (isset($storeId)) {
+            $stmt->bindParam(':store_id', $storeId, PDO::PARAM_INT);
+        }
+    
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }       
 
     protected function getCategory($modelId) {
         $sql = "SELECT category FROM model WHERE model_id = :model_id";
