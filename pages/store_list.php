@@ -62,6 +62,7 @@ if (isset($_GET['error'])) {
                     <td>
                         <a class="action-link" href="dashboard.php?page=edit_store&id=<?php echo $store['store_id']; ?>">Edit</a> |
                         <a class="action-link delete" href="../includes/delete_store.inc.php?id=<?php echo $store['store_id']; ?>" onclick="return confirm('Are you sure you want to delete this store?');">Delete</a>
+                        <a class="action-link More" href="dashboard.php?page=equipment_list&store_id=<?php echo $store['store_id']; ?>" onclick="return confirm('Are you sure you want to delete this store?');">Delete</a>
                     </td>
                 </tr>
             <?php endforeach; ?>
