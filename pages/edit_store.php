@@ -43,6 +43,11 @@ if (isset($_GET['error'])) {
             <label for="store_location">Store Location:</label>
             <input type="text" name="store_location" id="store_location" value="<?php echo htmlspecialchars($store['store_location']); ?>" required>
         </div>
+        
+        <div class="model_form-group">
+            <label for="manager_id">Manager Id:</label>
+            <input type="text" name="manager_id" id="manager_id" value="<?php echo htmlspecialchars($store['manager_id']); ?>" required>
+        </div>
 
         <button type="submit" name="submit">Update Store</button>
     </form>

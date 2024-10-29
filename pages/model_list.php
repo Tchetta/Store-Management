@@ -41,7 +41,7 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                             <td><?php echo htmlspecialchars($model['model_name']); ?></td>
                             <td><?php echo htmlspecialchars($model['brand']); ?></td>
                             <td><?php echo htmlspecialchars($model['category']); ?></td>
-                            <td><?php echo $storeId . ': ' .$modelCtrl->getQuantityByStore($model['model_id'], $storeId) ?></td>
+                            <td><?php echo $storeId . ': ' . $modelCtrl->getQuantityByStore($model['model_id'], $storeId) ?></td>
                             <td><?php echo htmlspecialchars($model['specification']); ?></td>
                             <td>
                                 <?php
@@ -57,7 +57,7 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                                 <?php if ($user_role === 'admin') : ?>
                                     <a class="action-link delete" href="../includes/delete_model.inc.php?id=<?php echo $model['model_id']; ?>" onclick="return confirm('Are you sure to Delete this Model?')">Delete Model</a>
                                 <?php else : ?>
-                                    <a class="action-link delete" href="dashboard.php?page=remove_equipments&model_id=<?php echo $model['model_id']; ?>">Delete Equipments</a>
+                                    <a class="action-link delete" href="dashboard.php?page=remove_equipment&model_id=<?php echo $model['model_id']; ?>">Delete Equipments</a>
                                 <?php endif; ?>
                                 <a class="action-link More" href="dashboard.php?page=equipment_list&model_id=<?php echo $model['model_id']; ?>">More</a>
                             </td>
