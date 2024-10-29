@@ -41,7 +41,7 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                             <td><?php echo htmlspecialchars($model['model_name']); ?></td>
                             <td><?php echo htmlspecialchars($model['brand']); ?></td>
                             <td><?php echo htmlspecialchars($model['category']); ?></td>
-                            <td><?php echo $storeId . ': ' .$modelCtrl->getQuantityByStore($model['model_id'], $storeId) ?></td>
+                            <td><?php echo $storeId . ': ' . $modelCtrl->getQuantityByStore($model['model_id'], $storeId) ?></td>
                             <td><?php echo htmlspecialchars($model['specification']); ?></td>
                             <td>
                                 <?php

@@ -98,27 +98,28 @@ class Model extends Dbh {
         return $stmt->fetchColumn();
     }
 
-    public function getQuantityByStore($modelId, $storeId = '') {
+    public function getQuantityByStore($modelId, $storeId = null) {
         $sql = "
             SELECT COUNT(*) as quantity 
             FROM equipment 
             WHERE model_id = :model_id 
         ";
-        if (isset($storeId)) {
+        // Add `store_id` condition only if `$storeId` is non-empty and not null
+        if (!empty($storeId)) {
             $sql .= " AND store_id = :store_id";
         }
         
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':model_id', $modelId, PDO::PARAM_INT);
     
-        // Only bind `store_id` if `$storeId` is provided
-        if (isset($storeId)) {
-            $stmt->bindParam(':store_id', $storeId, PDO::PARAM_INT);
+        // Bind `store_id` only if it has a valid value
+        if (!empty($storeId)) {
+            $stmt->bindParam(':store_id', $storeId, PDO::PARAM_STR);
         }
     
         $stmt->execute();
         return $stmt->fetchColumn();
-    }       
+    }          
 
     protected function getCategory($modelId) {
         $sql = "SELECT category FROM model WHERE model_id = :model_id";

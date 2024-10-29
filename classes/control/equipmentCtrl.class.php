@@ -89,6 +89,36 @@ class EquipmentCtrl extends Dbh
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function removeEquipmentBySerial($modelId, $serialNum) {
+        // Check if the equipment with the specific serial number exists for the given model
+        $sql1 = 'SELECT COUNT(*) FROM equipment WHERE model_id = :model_id AND serial_num = :serial_num';
+        $stmt1 = $this->connect()->prepare($sql1);
+        $stmt1->bindParam(':model_id', $modelId, PDO::PARAM_INT);
+        $stmt1->bindParam(':serial_num', $serialNum, PDO::PARAM_STR);
+        $stmt1->execute();
+        
+        if ($stmt1->fetchColumn() > 0) {
+            // Proceed with deletion if the serial number exists
+            $sql = "DELETE FROM equipment WHERE model_id = :model_id AND serial_num = :serial_num";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->bindParam(':model_id', $modelId, PDO::PARAM_INT);
+            $stmt->bindParam(':serial_num', $serialNum, PDO::PARAM_STR);
+            $stmt->execute();
+        } else {
+            // Throw an exception if no matching serial number is found
+            throw new Exception("Error: No such serial number: {$serialNum} found for model ID {$modelId}.", 1);
+        }
+    }
+    
+
+    public function removeEquipmentByQuantity($modelId, $quantity) {
+        $sql = "DELETE FROM equipment WHERE model_id = :model_id LIMIT :quantity";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':model_id', $modelId, PDO::PARAM_INT);
+        $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
     // Fetch all equipment by modelId
     public function getAllEquipmentByModelId($modelId) {
         $sql = "SELECT * FROM equipment WHERE model_id = ?";
