@@ -10,8 +10,8 @@ if (!isset($_SESSION['user_id'])) {
 // Check if there's a page to load
 $page = isset($_GET['page']) ? $_GET['page'] : 'welcome';
 
-$error = isset($_GET['error']) ? htmlspecialchars(urldecode($_GET['error'])) : '';
-$success = isset($_GET['success']) ? htmlspecialchars(urldecode($_GET['success'])) : '';
+/* $error = isset($_GET['error']) ? htmlspecialchars(urldecode($_GET['error'])) : '';
+$success = isset($_GET['success']) ? htmlspecialchars(urldecode($_GET['success'])) : ''; */
 
 
 $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
@@ -48,6 +48,7 @@ foreach ($models as $model) {
     <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="../css/dashboard.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="../css/display_items.css"> <!-- Use your provided styles -->
+    <link rel="stylesheet" href="../css/error_success.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="../model.css"> <!-- Use your provided styles -->
     <!--  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
     <link rel="stylesheet" href="../css/user_management.css"> <!-- Link to user_management.css -->
@@ -56,23 +57,7 @@ foreach ($models as $model) {
 </head>
 <body>
     
-<div id="messages">
-    <?php if (isset($success) && $success !== ''): ?>
-        <div class="message-box success">
-            <span class="close-btn" onclick="closeMessage(this)">×</span>
-            <p>Success: <br> <?= $success ?></p>
-        </div>
-    <?php endif; ?>
-
-    <?php if (isset($error) && $error !== ''): ?>
-        <div class="message-box error">
-            <span class="close-btn" onclick="closeMessage(this)">×</span>
-            <p>Error: <br> <?= $error ?></p>
-        </div>
-    <?php endif; ?>
-</div>
-
-
+<?php require_once 'display_result.php'; ?>
 
     <div id="dashboardMainContainer">
         <?php
