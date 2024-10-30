@@ -3,17 +3,15 @@ ob_start();
 require_once '../includes/class_autoloader.inc.php';
 require '../vendor/autoload.php';  // Ensure TCPDF is loaded
 
-//use TCPDF;
-
 $modelCtrl = new ModelCtrl();
 $models = $modelCtrl->getAllModelsWithQuantity();
 
-$pdf = new TCPDF();
+$pdf = new TCPDF('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false); // 'L' for landscape
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Camtel Stores');
 $pdf->SetTitle('Models List');
 $pdf->SetMargins(10, 10, 10);
-$pdf->AddPage();
+$pdf->AddPage(); // Landscape orientation already set in constructor
 $pdf->SetFont('Helvetica', '', 12);
 
 // Add table headers
@@ -54,6 +52,6 @@ $tbl .= '</tbody></table>';
 // Close and clean output buffer before generating PDF
 ob_end_clean();
 $pdf->writeHTML($tbl, true, false, false, false, '');
-$pdf->Output('Models_List.pdf', 'D');
+$pdf->Output('Models_List.pdf', 'I');
 exit();
 ?>
