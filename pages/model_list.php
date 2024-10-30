@@ -72,6 +72,12 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
         </table>
     </div>
 
+    <div class="export-buttons">
+        <a href="../includes/export_to_excel.php" class="btn btn-success">Export to Excel</a>
+        <a href="../includes/export_to_pdf.php" class="btn btn-danger">Export to PDF</a>
+    </div>
+
+
    
     
     
