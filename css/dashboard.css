@@ -323,63 +323,6 @@ img.model-image {
     color: #0056b3;
 }
 
-
-/* Message Box Style */
-.message-box {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 500px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.message-box.success {
-    background-color: #4CAF50; /* Green for success */
-}
-
-.message-box.error {
-    background-color: #f44336; /* Red for error */
-}
-
-/* Close button */
-.close-btn {
-    font-size: 20px;
-    color: white;
-    cursor: pointer;
-    padding-left: 15px;
-    margin-left: 15px;
-    font-weight: bold;
-}
-
-.close-btn:hover {
-    color: #ddd;
-}
-
-/* Animation for fade-in effect */
-@keyframes slideDown {
-    0% {
-        top: -50px;
-        opacity: 0;
-    }
-    100% {
-        top: 20px;
-        opacity: 1;
-    }
-}
-
-.message-box {
-    animation: slideDown 0.5s ease-out;
-}
-
 /* Password container to hold the eye icon */
 .password-container {
     position: relative;
