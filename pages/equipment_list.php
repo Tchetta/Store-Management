@@ -24,13 +24,13 @@ if (isset($_GET['store_id']) && $_GET['store_id'] != '') {
 
 <?php
     if ($user_role === 'admin' || (isset($storeId) && $storeId !== '')) {
-        if ((isset($storeId) && $storeId !== '') || (isset($modelId) && $storeId !== '')) {
+        if ((isset($storeId) && $storeId !== '') || (isset($modelId) && $modelId !== '')) {
             // Get filtered equipment based on available filters
             $equipments = $equipmentCtrl->getFilteredEquipment($storeId ?? null, $modelId ?? null);
-    
+            echo '<br>Equipments Filtered<br>StoreId = ' . $storeId;
             // Display the filter criteria in the title
             $title = "Equipment List";
-            if (isset($storeId)) {
+            if (isset($storeId) && $storeId != '') {
                 $title .= " in Store {$storeId}";
             }
             if (isset($modelId)) {

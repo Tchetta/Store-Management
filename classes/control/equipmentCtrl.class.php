@@ -73,7 +73,7 @@ class EquipmentCtrl extends Dbh
         $query = "SELECT * FROM equipment WHERE 1=1";
         $params = [];
 
-        if (!empty($storeId)) {
+        if (!empty($storeId) && $storeId !== '') {
             $query .= " AND store_id = :storeId";
             $params[':storeId'] = $storeId;
         }

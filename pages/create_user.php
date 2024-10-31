@@ -39,7 +39,7 @@
             <select id="role" name="role" required>
                 <option value="admin">Admin</option>
                 <option value="superadmin">SuperAdmin</option>
-                <option value="storemanager">StoreManager</option>
+                <option value="store manager">Store Manager</option>
             </select>
         </div>
 

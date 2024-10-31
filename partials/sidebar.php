@@ -32,19 +32,19 @@
 
         <!-- Product Management -->
         <li class="menu-item <?php echo ($page === 'equipment_list' || $page === 'add_equipment') ? 'active' : ''; ?>">
-            <a href="dashboard.php?page=others" >
+            <a href="#" class="menu-link submenu-toggle" data-submenu="product_submenu">
+            <!-- <a href="dashboard.php?page=others" > -->
                 <i class="fas fa-box-open"></i>
                 <span class="menuText">Product Management</span>
             </a>
-      <!--       <ul id="product_submenu" class="submenu">
+            <ul id="product_submenu" class="submenu">
                 <li><a href="dashboard.php?page=add_equipment" class="<?php echo ($page === 'add_equipment') ? 'active' : ''; ?>">Add Products</a></li>
                 <li><a href="dashboard.php?page=equipment_list" class="<?php echo ($page === 'equipment_list') ? 'active' : ''; ?>">View Products</a></li>
                 <li><a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>">Others</a></li>
             </ul>
- -->
         </li>
         <!-- Others -->
-        <li class="menu-item <?php echo ($page === 'edit_user' || $page === 'brand_list' || $page === 'category_list') ? 'active' : ''; ?>">
+        <li class="menu-item <?php echo ($page === "edit_user&actor=me&id={$user_id}" ) ? 'active' : ''; ?>">
             <a href="dashboard.php?page=edit_user&actor=me&id=<?=$user_id?>" class="menu-link" >
                 <i class="fas fa-user"></i>
                 <span class="menuText">Account settings</span>
