@@ -23,8 +23,11 @@ $user_role = $_SESSION['user_role'] ?? 'store manager';
 
 $storeId = $_SESSION['store_id'] ?? null;
 if ($storeId === null) {
-    $err = urlencode("No store assigned to this manager.");
-    header("Location: dashboard.php?error=$err");
+    $err = urlencode("{$_SESSION['error']}");
+    //header("Location: dashboard.php?error=$err");
+    echo "$err";
+    echo 'Store ID = ' . $_SESSION['store_id'];
+    error_log($err);
     //exit; // Always use exit() after header redirection to prevent further code execution
 }
 
