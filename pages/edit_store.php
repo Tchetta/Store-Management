@@ -9,6 +9,8 @@ if (!isset($_GET['id'])) {
 // Fetch the store details
 $storeController = new StoreCtrl();
 $store = $storeController->getStoreById($_GET['id']);
+$userController = new UserCtrl();
+$users = $userController->getAllUsers();
 
 if (!$store) {
     header("Location: ../pages/dashboard.php?page=store_list&error=store+not+found");
@@ -46,8 +48,15 @@ if (isset($_GET['error'])) {
         
         <div class="model_form-group">
             <label for="manager_id">Manager Id:</label>
-            <input type="text" name="manager_id" id="manager_id" value="<?php echo htmlspecialchars($store['manager_id']); ?>" required>
+            <select name="manager_id" id="manager_id">
+                <?php foreach ($users as $user) : ?>
+                    <option value="<?= $user['user_id']; ?>" <?= ($store['manager_id'] === $user['user_id']) ? 'selected' : ''; ?>>
+                        <?= $user['user_id'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
+
 
         <button type="submit" name="submit">Update Store</button>
     </form>

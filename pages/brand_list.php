@@ -18,7 +18,9 @@ $categoryController = new ProductCategoryCtrl();
         <th>Brand Name</th>
         <th>Description</th>
         <th>Quantity</th>
+        <?php if($user_role === 'admin') :?>
         <th>Actions</th>
+        <?php endif; ?>
     </tr>
     <?php foreach ($brands as $brand) : ?>
     <tr>
@@ -26,10 +28,13 @@ $categoryController = new ProductCategoryCtrl();
         <td><?php echo $brand['brand_name']; ?></td>
         <td><?php echo $brand['description']; ?></td>
         <td><?php echo $brand['quantity']; ?></td>
+        <?php if($user_role === 'admin') :?>
         <td>
             <a class="action-link" href="dashboard.php?page=edit_brand&brand_id=<?php echo $brand['brand_id']; ?>">Edit</a> | 
             <a class="action-link delete" href="../includes/delete_brand.inc.php?brand_id=<?php echo $brand['brand_id']; ?>">Delete</a>
         </td>
+        <?php endif; ?>
+
     </tr>
     <?php endforeach; ?>
 </table>

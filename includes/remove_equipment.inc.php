@@ -1,53 +1,66 @@
 <?php
-require_once '../includes/class_Autoloader.inc.php';
+require_once 'class_autoloader.inc.php';
 
-if (isset($_POST['remove_submit'])) {
-    $modelId = $_POST['model_id'];
-    $removeSerialNums = $_POST['remove_serial_num'];
-    $removeQuantity = $_POST['remove_quantity'];
+if (isset($_POST['submit'])) {
+    $errors = [];
 
-    $equipmentCtrl = new EquipmentCtrl();
+    // Validate store_id and model_id
+    $storeId = $_POST['store_id'] ?? '';
+    $modelId = $_POST['model_id'] ?? '';
+    $serial_num = isset($_POST['serial_num']) ? htmlspecialchars(trim($_POST['serial_num'])) : '';
+    $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 0;
 
-    // Check for serial numbers
-    if (!empty($removeSerialNums)) {
-        $serialNumbers = array_map('trim', explode(',', $removeSerialNums));
-        
-        $errors = [];  // Array to collect errors
+    if (empty($storeId) || !preg_match("/^[a-zA-Z0-9_-]+$/", $storeId)) {
+        $errors[] = "Invalid store selected.";
+    }
+    if (empty($modelId) || !filter_var($modelId, FILTER_VALIDATE_INT)) {
+        $errors[] = "Invalid model selected.";
+    }
+    if (empty($serial_num) && $quantity <= 0) {
+        $errors[] = "Provide either serial numbers or a quantity to remove.";
+    }
 
-        foreach ($serialNumbers as $serial) {
-            try {
-                $equipmentCtrl->removeEquipmentBySerial($modelId, $serial);
-            } catch (Exception $e) {
-                // Store the error message for this serial number
-                $errors[] = "Error with serial number {$serial}: " . $e->getMessage();
+    // Process serial numbers
+    $serial_numbers = [];
+    if (!empty($serial_num)) {
+        $serial_numbers = array_filter(array_map('trim', explode(',', $serial_num)));
+        if (count($serial_numbers) === 0) {
+            $errors[] = "Invalid serial numbers format. Please separate serial numbers by commas.";
+        }
+    }
+
+    if (empty($errors)) {
+        try {
+            $equipmentController = new EquipmentCtrl();
+            $modelController = new ModelCtrl();
+
+            if (!empty($serial_numbers)) {
+                foreach ($serial_numbers as $sn) {
+                    $equipmentController->removeEquipment($sn, $storeId, $modelId);
+                    $eventCtrl = new Event();
+                    $eventCtrl->removalEvent($modelId, 1, 'OUT', $sn);
+                }
+            } else {
+                $modelController->decreaseQuantity($modelId, $quantity);
+                $eventCtrl = new Event();
+                $eventCtrl->removalEvent($modelId, $quantity, 'OUT', '');
             }
-        }
 
-        // Redirect with errors if any
-        if (!empty($errors)) {
-            // Convert errors to a query parameter
-            $errorString = urlencode(implode(', ', $errors));
-            header("Location: ../pages/dashboard.php?page=remove_equipment&error={$errorString}");
+            $success = 'Equipment removed successfully';
+            $success = urlencode($success);
+            header("Location: ../pages/dashboard.php?page=remove_equipment&success=$success");
             exit();
-        } else {
-            // Redirect to success page if no errors
-            header("Location: ../pages/dashboard.php?page=remove_equipment&success=Equipment removed successfully");
+        } catch (Exception $e) {
+            header("Location: ../pages/dashboard.php?page=remove_equipment&error=" . urlencode($e->getMessage()));
             exit();
         }
-
-        
-        $message = count($serialNumbers) . " equipment items removed based on serial numbers.";
-    } 
-    // Check for quantity if serial numbers are not provided
-    elseif (!empty($removeQuantity)) {
-        $equipmentCtrl->removeEquipmentByQuantity($modelId, $removeQuantity);
-        $message = "$removeQuantity items removed from inventory.";
     } else {
-        $error = "Please provide either serial numbers or a quantity to remove.";
+        $error = implode('<br>', $errors);
         header("Location: ../pages/dashboard.php?page=remove_equipment&error=" . urlencode($error));
         exit();
     }
-
-    header("Location: ../pages/dashboard.php?page=remove_equipment&success=" . urlencode($message));
+} else {
+    header("Location: ../pages/dashboard.php?page=remove_equipment&error=nothing+submitted");
     exit();
 }
+?>

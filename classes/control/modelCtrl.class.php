@@ -504,31 +504,57 @@ public function getModelsByCategory($categoryId) {
     $stmt->execute(['brand' => $brand, 'category' => $category]);
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 } */
-    public function getModelsByBrandOrCategory($brand = null, $category = null) {
-        $sql = "SELECT * FROM model WHERE";
-
-        if ($brand) {
-            $sql .= " brand = :brand";
+    public function getModelsByBrandOrCategory($brand, $category) {
+        $sql = "SELECT * FROM model WHERE ";
+        $params = [];
+        
+        if (!empty($brand)) {
+            $sql .= "brand = :brand ";
+            $params[':brand'] = $brand;
         }
-
-        if ($category) {
-            $sql .= " OR category = :category";
+        
+        if (!empty($category)) {
+            if (!empty($brand)) {
+                $sql .= "OR ";
+            }
+            $sql .= "category = :category ";
+            $params[':category'] = $category;
         }
-
+        
         $stmt = $this->connect()->prepare($sql);
-        
-        if ($brand) {
-            $stmt->bindParam(':brand', $brand);
-        }
-        
-        if ($category) {
-            $stmt->bindParam(':category', $category);
-        }
-
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
     }
 
+    public function addNewModel($modelName) {
+        try {
+            // Prepare the SQL statement to insert the new model
+            $sql = "INSERT INTO model (model_name) VALUES (:model_name)";
+            $stmt = $this->connect()->prepare($sql);
+            
+            // Bind parameters
+            $stmt->bindParam(':model_name', $modelName);
+            
+            // Execute the statement
+            $stmt->execute();
+            
+            // Return the ID of the newly created model
+            return $this->connect()->lastInsertId();
+        } catch (PDOException $e) {
+            // Handle errors (optional logging)
+            throw new Exception("Failed to add new model: " . $e->getMessage());
+        }
+    }
 
+    public function getModelIdByName($modelName) {
+        $sql = "SELECT model_id FROM model WHERE model_name = :model_name";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':model_name', $modelName);
+        $stmt->execute();
+    
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['model_id'] : false;
+    }    
+    
 
 }

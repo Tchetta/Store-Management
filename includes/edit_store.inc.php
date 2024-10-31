@@ -5,6 +5,7 @@ if (isset($_POST['submit'])) {
     $storeId = $_POST['store_id'];
     $storeName = $_POST['store_name'];
     $storeLocation = $_POST['store_location'];
+    $manager_id = $_POST['manager_id'] ?? '';
 
     // Basic validation
     if (empty($storeId)) {
@@ -16,7 +17,8 @@ if (isset($_POST['submit'])) {
 
     $data = [
         'store_name' => $storeName,
-        'store_location' => $storeLocation
+        'store_location' => $storeLocation,
+        'manager_id' => $manager_id
     ];
 
     try {

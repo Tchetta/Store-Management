@@ -3,7 +3,9 @@ require_once 'class_autoloader.inc.php';
 
 if (isset($_POST['submit'])) {
     // Initialize error array
-    $errors = [];
+    $errors = [];   
+    $modelController = new ModelCtrl();
+    $quantity = $_POST['quantity'] ?? 0;
 
     // Validate store_id and model_id - ensure they are valid integers
     if (empty($_POST['store_id']) || !preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['store_id'])) {
@@ -12,12 +14,28 @@ if (isset($_POST['submit'])) {
         $storeId = $_POST['store_id']; // Assumed to be a valid integer
     }
 
-    if (empty($_POST['model_id']) || !filter_var($_POST['model_id'], FILTER_VALIDATE_INT)) {
-        $errors[] = "Invalid model selected.";
+    $newModelName = htmlspecialchars(trim($_POST['new_model_name']));
+  
+    // Check if new model name was provided
+    if (empty($_POST['model_id']) && !empty($newModelName)) {
+        // Create new model and retrieve ID
+        $modelId = $modelController->addNewModel($newModelName);
+        // Check if the model already exists
+        $existingModelId = $modelController->getModelIdByName($newModelName);
+    
+        // If the model does not exist, add it
+        if (!$existingModelId) {
+            $modelId = $modelCtrl->addNewModel($newModelName);
+        } else {
+            $modelId = $existingModelId;
+        }
     } else {
-        $modelId = $_POST['model_id']; // Assumed to be a valid integer
+        if (empty($_POST['model_id']) || !filter_var($_POST['model_id'], FILTER_VALIDATE_INT)) {
+            $errors[] = "Invalid model selected.";
+        } else {
+            $modelId = $_POST['model_id']; // Assumed to be a valid integer
+        }       
     }
-
     // Sanitize the serial number (it's optional)
     $serial_num = isset($_POST['serial_num']) ? htmlspecialchars(trim($_POST['serial_num'])) : '';
 
@@ -37,13 +55,14 @@ if (isset($_POST['submit'])) {
         }
     }
 
+    $equipmentController = new EquipmentCtrl();
+    $eventCtrl = new Event();
+
     // If there are no errors, proceed with the operation
     // Check for errors before proceeding
     if (empty($errors)) {
         try {
             // Instantiate controllers
-            $equipmentController = new EquipmentCtrl();
-            $modelController = new ModelCtrl();
 
             // Fetch brand and category if needed
             $brand = $modelController->getBrandByModel($modelId);
@@ -54,14 +73,17 @@ if (isset($_POST['submit'])) {
                 foreach ($serial_numbers as $sn) {
                     $equipmentController->addEquipment($sn, $storeId, $modelId, $category, $brand);
                     // Log event
-                    $eventCtrl = new Event();
                     $eventCtrl->additionEvent($modelId, 1, 'IN', $sn);
                 }
             } else {
                 // Increase model quantity directly if no serial numbers were specified
-                $modelController->increaseQuantity($modelId, $quantity);
-                $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
-            }
+
+                    for ($i=0; $i < $quantity; $i++) { 
+                        $equipmentController->addEquipment('', $storeId, $modelId);
+                    }
+                    $modelController->increaseQuantity($modelId, $quantity);
+                    $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
+                }
 
             
 

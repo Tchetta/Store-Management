@@ -31,6 +31,14 @@
         </li>
 
         <!-- Product Management -->
+        <?php if ($user_role === 'admin') : ?>
+            <li class="menu-item <?php 
+                $substrings = ["others", "model", "category", "brand"];
+                echo (array_filter($substrings, fn($substr) => str_contains($page, $substr))) ? 'active' : ''; ?>">
+                <a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>"><i class="fas fa-ellipsis-h"></i>
+                Others</a>
+            </li>
+        <?php elseif ($user_role === 'store manager') : ?>
         <li class="menu-item <?php echo ($page === 'equipment_list' || $page === 'add_equipment') ? 'active' : ''; ?>">
             <a href="#" class="menu-link submenu-toggle" data-submenu="product_submenu">
             <!-- <a href="dashboard.php?page=others" > -->
@@ -43,6 +51,8 @@
                 <li><a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>">Others</a></li>
             </ul>
         </li>
+        <?php endif; ?>
+
         <!-- Others -->
         <li class="menu-item <?php echo ($page === "edit_user&actor=me&id={$user_id}" ) ? 'active' : ''; ?>">
             <a href="dashboard.php?page=edit_user&actor=me&id=<?=$user_id?>" class="menu-link" >

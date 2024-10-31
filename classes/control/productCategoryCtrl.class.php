@@ -91,7 +91,7 @@ class ProductCategoryCtrl extends ProductCategory {
             throw new Exception("Category ID is required.");
         }
 
-        $this->updateCategory($categoryId, $categoryName, $quantity);
+        parent::updateCategory($categoryId, $categoryName, $quantity);
     }
 
     // Delete a category by ID

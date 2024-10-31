@@ -45,18 +45,16 @@ class Login extends Dbh {
         $_SESSION['user_role'] = $user['role'];
         $_SESSION['image_path'] = $user['image_path'];
 
-        if ($user['user_role'] === 'store manager') {
+        if ($_SESSION['user_role'] === 'store manager') {
             $storeCtrl = new StoreCtrl();
             try {
                 $storeId = $storeCtrl->getStoreByManagerId($user['user_id']);
-                $_SESSION['store_id'] = $storeId;
-            } catch (Exception $th) {
-                // Set session error for later access
-                $_SESSION['error'] = "Warning: " . $th->getMessage();
-                $_SESSION['store_id'] = null; // Clear store_id if none is available
+                $_SESSION['store_id'] = $storeId ?? null;
+            } catch (\Throwable $th) {
+                $_SESSION['error'] = $th->getMessage();
             }
+            
         }
-        
 
         return true;
         $stmt = null; // Close the statement

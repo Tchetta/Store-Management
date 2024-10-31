@@ -3,7 +3,7 @@ require_once '../includes/class_autoloader.inc.php';
 
 class EquipmentCtrl extends Dbh
 {
-    public function addEquipment($serial_num, $store_id, $model_id, $category, $brand) {
+    public function addEquipment($serial_num, $store_id, $model_id, $category = '', $brand = '') {
         $sql = "INSERT INTO equipment (serial_num, store_id, model_id, category, brand) values (?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$serial_num, $store_id, $model_id, $category, $brand]);

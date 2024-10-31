@@ -41,7 +41,9 @@ if (isset($_GET['error'])) {
             <th>Store Name</th>
             <th>Store Location</th>
             <th>Store Manager</th>
-            <th>Actions</th>
+            <?php if($user_role === 'admin') :?>
+        <th>Actions</th>
+        <?php endif; ?>
         </tr>
     </thead>
     <tbody>
@@ -59,11 +61,13 @@ if (isset($_GET['error'])) {
                         <?php echo htmlspecialchars($manager['first_name']); ?>
                         <?php echo htmlspecialchars($manager['last_name']); ?>
                     </td>
+                    <?php if($user_role === 'admin') :?>
                     <td>
                         <a class="action-link" href="dashboard.php?page=edit_store&id=<?php echo $store['store_id']; ?>">Edit</a> |
                         <a class="action-link delete" href="../includes/delete_store.inc.php?id=<?php echo $store['store_id']; ?>" onclick="return confirm('Are you sure you want to delete this store?');">Delete</a> |
                         <a class="action-link More" href="dashboard.php?page=equipment_list&store_id=<?php echo $store['store_id']; ?>">More...</a>
                     </td>
+        <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php else: ?>
