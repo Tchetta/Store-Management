@@ -12,13 +12,12 @@ $stores = $storeCtrl->getAllStores(); // Fetch all categories
 
 if($user_role === 'store manager') {
     $storeId = $storeCtrl->getStoreByManagerId($user_id);
-    if (!isset($storeId) || empty($storeId)) {
+    if (!isset($storeId) || $storeId == '') {
         $error = 'you (' . $user_name . ') are not the manager of any store.';
         $error = urlencode($error);
         header("Location: dashboard.php?error=$error");
     }
 }
-    
 
 $models =  $_GET['models'] ?? [];
 

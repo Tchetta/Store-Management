@@ -21,12 +21,12 @@ $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $
 $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SESSION['image_path'] : $defaultProfilePic;
 $user_role = $_SESSION['user_role'] ?? 'store manager';
 
-    try {
-        $storeId = $_SESSION['store_id'] ?? '';
-    } catch (\Throwable $th) {
-        $err = urlencode($th); 
-        header("Location: dashboard.php&error=$err");
-    }
+$storeId = $_SESSION['store_id'] ?? null;
+if ($storeId === null) {
+    $err = urlencode("No store assigned to this manager.");
+    header("Location: dashboard.php?error=$err");
+    //exit; // Always use exit() after header redirection to prevent further code execution
+}
 
 $modelController = new ModelCtrl();
 $models = $modelController->getAllModels();

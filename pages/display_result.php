@@ -20,5 +20,3 @@ $success = isset($_GET['success']) ? htmlspecialchars(urldecode($_GET['success']
         </div>
     <?php endif; ?>
 </div>
-
-<script src="../js/script.js"></script>
