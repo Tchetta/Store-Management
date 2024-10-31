@@ -21,14 +21,12 @@ $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $
 $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SESSION['image_path'] : $defaultProfilePic;
 $user_role = $_SESSION['user_role'] ?? 'store manager';
 
-$storeId = $_SESSION['store_id'] ?? null;
-if ($storeId === null) {
-    $err = urlencode("{$_SESSION['error']}");
-    //header("Location: dashboard.php?error=$err");
-    echo "$err";
-    echo 'Store ID = ' . $_SESSION['store_id'];
-    error_log($err);
-    //exit; // Always use exit() after header redirection to prevent further code execution
+
+try {
+    $storeId = $_SESSION['store_id'] ?? '';
+} catch (\Throwable $th) {
+    $err = urlencode($th); 
+    header("Location: dashboard.php&error=$err");
 }
 
 $modelController = new ModelCtrl();
