@@ -49,9 +49,9 @@ class Login extends Dbh {
             $storeCtrl = new StoreCtrl();
             try {
                 $storeId = $storeCtrl->getStoreByManagerId($user['user_id']);
-                $_SESSION['store_id'] = $storeId;
+                $_SESSION['store_id'] = $storeId ?? null;
             } catch (\Throwable $th) {
-                throw $th;
+                $_SESSION['error'] = $th->getMessage();
             }
             
         }

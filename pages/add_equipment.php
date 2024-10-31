@@ -13,7 +13,8 @@ $stores = $storeCtrl->getAllStores(); // Fetch all categories
 if($user_role === 'store manager') {
     $storeId = $storeCtrl->getStoreByManagerId($user_id);
     if (!isset($storeId) || $storeId == '') {
-        $error = 'you (' . $user_name . ') are not the manager of any store.';
+        $error = 'No store assigned to you (' . $user_name;
+        $error = 'No store assigned to you';
         $error = urlencode($error);
         header("Location: dashboard.php?error=$error");
     }
@@ -76,7 +77,7 @@ $selectedCategory = $_GET['category'] ?? '';
 
     <div class="model_form-group">
         <label for="model">Model:</label>
-        <select id="model" name="model_id" required>
+        <select id="model" name="model_id">
             <option value="">Select Model</option>
             <?php if (!empty($models)): ?>
                 <?php foreach ($models as $model): ?>
@@ -84,7 +85,10 @@ $selectedCategory = $_GET['category'] ?? '';
                 <?php endforeach; ?>
             <?php endif; ?>
         </select>
+        <!-- Input for new model name -->
+        <input type="text" id="new_model_name" name="new_model_name" placeholder="Enter new model name if not listed">
     </div>
+
 
     <div class="model_form-group">
         <label for="serial_number">Serial Number(s):</label>

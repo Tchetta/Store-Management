@@ -43,8 +43,9 @@ if (isset($_GET['store_id']) && $_GET['store_id'] != '') {
             echo '<h2>All Equipment List</h2>';
         }    
     } else {
-        $error = 'You are not a manager of any store';
+        $error = 'No store assigned to you';
         header("Location: dashboard.php?error={$error}");
+        
     }
 
     // Display equipment

@@ -81,7 +81,7 @@ foreach ($models as $model) {
                         if (file_exists($pageFile)) {
                             include($pageFile);
                         } else {
-                            include('equipment_list.php');
+                            echo '<h2>Welcome</h2>';
                         }
                     ?>
                 </div>

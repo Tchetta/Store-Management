@@ -9,6 +9,8 @@
         } elseif (isset($_GET['success'])) {
             echo '<p class="success-message">Store created successfully!</p>';
         }
+        $userController = new UserCtrl();
+        $users = $userController->getAllUsers();
         ?>
  <div class="model_container model_mt-5">
         <h2  class="model_mb-4">Create Store</h2>
@@ -25,9 +27,14 @@
             <label for="store_location">Store Location:</label>
             <input type="text" name="store_location" id="store_location">
         </div>
+        
         <div class="model_form-group">
-            <label for="manager_id">Store Manager (optional):</label>
-            <input type="text" name="manager_id" id="manager_id" placeholder="Enter Manager ID">
+            <label for="manager_id">Manager Id (Optional):</label>
+            <select name="manager_id" id="manager_id" required>
+                <?php foreach ($users as $user) : ?>
+                <option value="<?php $user['user_id'] ?>" <?php echo ($user_id === $user['user_id']) ? 'selected' : ''; ?>><?=$user['user_id']?></option>;
+                <?php endforeach; ?>
+            </select>
         </div>
             <button type="submit" name="submit">Create Store</button>
         </form>

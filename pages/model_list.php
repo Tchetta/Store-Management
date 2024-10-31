@@ -30,7 +30,10 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                     <th>Specifications</th>
                     <th>Port Types</th>
                     <th>Description</th>
+                    <?php if($user_role === 'admin') :?>
                     <th>Actions</th>
+                    <?php endif; ?>
+
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +54,7 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                                 ?>
                             </td>
                             <td><?php echo htmlspecialchars($model['description']); ?></td>
+                            <?php if($user_role === 'admin') :?>
                             <td>
                                 <!-- Edit button -->
                                 <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?php echo $model['model_id']; ?>">Edit</a>
@@ -61,6 +65,7 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                                 <?php endif; ?>
                                 <a class="action-link More" href="dashboard.php?page=equipment_list&model_id=<?php echo $model['model_id']; ?>">More..</a>
                             </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

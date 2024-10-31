@@ -80,7 +80,14 @@ class Store extends Dbh {
         $sql = "SELECT store_id FROM stores WHERE manager_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$manId]);
-        return $stmt->fetchColumn();
+        $storeId = $stmt->fetchColumn();
+        if ($storeId && $storeId !== null) {
+            return $storeId;
+        } else {
+            return null;
+            throw new Exception("Error: No store assigned to $manId", 1);
+            
+        }
     }
 
     public function getStoresByPage($start, $limit) {
