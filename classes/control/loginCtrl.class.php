@@ -51,9 +51,9 @@ class Login extends Dbh {
                 $storeId = $storeCtrl->getStoreByManagerId($user['user_id']);
                 $_SESSION['store_id'] = $storeId;
             } catch (Exception $th) {
-                // Instead of throwing an exception, we handle the absence of a store ID gracefully
-                $_SESSION['store_id'] = null;
-                error_log("Warning: {$th->getMessage()}"); // Optionally log this
+                // Set session error for later access
+                $_SESSION['error'] = "Warning: " . $th->getMessage();
+                $_SESSION['store_id'] = null; // Clear store_id if none is available
             }
         }
         
