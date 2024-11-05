@@ -47,10 +47,10 @@ class EquipmentCtrl extends Dbh
     }
 
     // Delete equipment
-    public function deleteEquipment($id) {
+    public function deleteEquipment($serial_num) {
         $sql = "DELETE FROM equipment WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$serial_num]);
     }
 
     // Fetch all equipment to display
@@ -130,7 +130,7 @@ class EquipmentCtrl extends Dbh
     public function getModelId($eqId) {
         $sql = "SELECT model_id FROM equipment WHERE id = ?";
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$eqId]);
         return $stmt->fetchColumn();
     }
 

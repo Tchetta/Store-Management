@@ -382,8 +382,8 @@ class ModelCtrl extends Model {
     }
 
     // Decrease model quantity and update brand and category quantities
-    public function decreaseQuantity($modelName, $quantity) {
-        parent::decreaseQuantity($modelName, $quantity);
+    public function decreaseQuantity($modelId, $quantity) {
+        parent::decreaseQuantity($modelId, $quantity);
 
         $brandCtrl = new BrandCtrl();
         $categoryCtrl = new ProductCategoryCtrl();

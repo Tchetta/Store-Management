@@ -90,7 +90,7 @@ if (isset($_GET['store_id']) && $_GET['store_id'] != '') {
             <td><?= $item['equipment_state'] ?></td>
             <?php if ($user_role !== 'admin') : ?>
             <td>
-                <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" class="edit-action">Edit</a>
+                <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" class="edit-action">Edit</a> |
                 <a style="display:inline;" href="../includes/delete_equipment.inc.php?id=<?= $item['id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
             </td>
             <?php endif; ?>
