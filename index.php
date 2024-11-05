@@ -1,9 +1,9 @@
 <?php 
-  session_start();
-  if (isset($_SESSION['user_id'])) {
-      header("Location: pages/dashboard.php");
-      exit();
-  }
+session_start();
+if (isset($_SESSION['user_id'])) {
+    header("Location: pages/dashboard.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="shortcut icon" href="https://www.svgrepo.com/show/406079/letter-s.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../css/error_success.css"> <!-- Use your provided styles -->
+    <link rel="stylesheet" href="../css/error_success.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
-    <!-- Font Awesome for the eye icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -32,7 +31,6 @@
             <input type="text" name="username" placeholder="Username">
         </div>
         <div class="loginInputContainer password-container">
-            <!-- Password input with eye icon inside -->
             <input type="password" name="password" id="password" placeholder="Password">
             <span class="eye-icon" onclick="togglePassword()">
                 <i class="fas fa-eye" id="eyeIcon"></i>
@@ -54,7 +52,6 @@
     ?>
 </div>
 
-<!-- JavaScript to toggle password visibility -->
 <script>
 function togglePassword() {
     var passwordField = document.getElementById("password");
@@ -71,6 +68,5 @@ function togglePassword() {
     }
 }
 </script>
-<script src="js/script.js"></script>
 </body>
 </html>

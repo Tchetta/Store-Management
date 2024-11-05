@@ -139,3 +139,25 @@ button[type="submit"]:hover {
     margin-left: 10px; /* Space between checkboxes */
 }
 
+/* CSS for styling the export strip */
+.export-strip {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e8e8e8; /* Light background for contrast */
+    padding: 10px 0; /* Adjust padding as needed */
+    border-bottom: 1px solid #ccc; /* Optional: adds a subtle separator */
+    margin-bottom: 20px; /* Space below the strip */
+}
+
+.export-link {
+    margin: 0 10px; /* Space between links */
+    text-decoration: none;
+    color: #007bff; /* Link color */
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+.export-link:hover {
+    color: #0056b3; /* Darker color on hover */
+}

@@ -189,28 +189,30 @@ img {
     width: 80%;
     background: #f4f6f9;
     transition: width 0.3s ease;
+    overflow: hidden; /* Prevent overflow in the parent */
 }
 
-.dashboard_content {
-    /* This will be the parent container */
-    background-color: #f4f4f9; /* Optional background color */
-    padding: 20px;
-    height: 100vh; /* Ensure the parent takes up the full viewport height */
-    display: flex;
-    flex-direction: column; /* So content within can be arranged vertically */
-}
-
-.dashboard_content_main {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 100%;
-    overflow-y: auto; /* Enables vertical scrolling inside this container */
-    flex-grow: 1; /* Fills the remaining space inside .dashboard_content */
-    height: auto; /* Allows the height to adjust dynamically */
-}
+    .dashboard_content {
+        background-color: #f4f4f9;
+        padding: 20px;
+        height: 100vh; /* Full viewport height */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* Prevent overflow in the parent */
+    }
+    
+    .dashboard_content_main {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        overflow-y: auto; /* Enables vertical scrolling here */
+        flex-grow: 1; /* Expands to use available height */
+        max-height: calc(100vh - 40px); /* Adjust based on parent padding */
+    }
+    
 
 
 .welcome-message {
