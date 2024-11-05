@@ -14,7 +14,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'welcome';
 $success = isset($_GET['success']) ? htmlspecialchars(urldecode($_GET['success'])) : ''; */
 
 
-$defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
+//$defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
 // Get user information from session
 $user_id = $_SESSION['user_id'];
 $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] : '';
@@ -22,20 +22,8 @@ $user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SE
 $user_role = $_SESSION['user_role'] ?? 'store manager';
 
 
-try {
+
     $storeId = $_SESSION['store_id'] ?? '';
-} catch (\Throwable $th) {
-    $err = urlencode($th); 
-    header("Location: dashboard.php&error=$err");
-}
-
-$modelController = new ModelCtrl();
-$models = $modelController->getAllModels();
-
-foreach ($models as $model) {
-    $modelId = $model['model_id'];
-    $modelController->updateModelQuantity($modelId);
-}
 
 ?>
 

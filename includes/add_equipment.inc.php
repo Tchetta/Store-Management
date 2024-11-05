@@ -78,12 +78,14 @@ if (isset($_POST['submit'])) {
             } else {
                 // Increase model quantity directly if no serial numbers were specified
 
-                    for ($i=0; $i < $quantity; $i++) { 
-                        $equipmentController->addEquipment('', $storeId, $modelId);
-                    }
-                    $modelController->increaseQuantity($modelId, $quantity);
-                    $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
+                for ($i=0; $i < $quantity; $i++) { 
+                    $equipmentController->addEquipment('', $storeId, $modelId);
                 }
+                $modelController->increaseQuantity($modelId, $quantity);
+                $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
+            }
+
+            $modelController->updateModelQuantity($modelId);
 
             
 

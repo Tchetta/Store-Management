@@ -36,15 +36,18 @@ if (isset($_POST['submit'])) {
 
             if (!empty($serial_numbers)) {
                 foreach ($serial_numbers as $sn) {
-                    $equipmentController->removeEquipment($sn, $storeId, $modelId);
+                    $equipmentController->deleteEquipment($sn);
                     $eventCtrl = new Event();
-                    $eventCtrl->removalEvent($modelId, 1, 'OUT', $sn);
+                    $eventCtrl->deletionEvent($modelId, 1, 'OUT', $sn);
                 }
             } else {
+                $equipmentController->removeEquipmentByQuantity($modelId, $quantity);
                 $modelController->decreaseQuantity($modelId, $quantity);
                 $eventCtrl = new Event();
-                $eventCtrl->removalEvent($modelId, $quantity, 'OUT', '');
+                $eventCtrl->deletionEvent($modelId, $quantity, 'OUT', '');
             }
+            
+            $modelController->updateModelQuantity($modelId);
 
             $success = 'Equipment removed successfully';
             $success = urlencode($success);

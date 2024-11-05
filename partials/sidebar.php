@@ -31,14 +31,14 @@
         </li>
 
         <!-- Product Management -->
-        <?php if ($user_role === 'admin') : ?>
+       <!--  <?php if ($user_role === 'admin') : ?>
             <li class="menu-item <?php 
-                $substrings = ["others", "model", "category", "brand"];
-                echo (array_filter($substrings, fn($substr) => str_contains($page, $substr))) ? 'active' : ''; ?>">
-                <a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>"><i class="fas fa-ellipsis-h"></i>
+                //$substrings = ["others", "model", "category", "brand"];
+                //echo (array_filter($substrings, fn($substr) => str_contains($page, $substr))) ? 'active' : ''; ?>">
+                <a href="dashboard.php?page=others" class="<?php //echo ($page === 'others') ? 'active' : ''; ?>"><i class="fas fa-ellipsis-h"></i>
                 Others</a>
             </li>
-        <?php elseif ($user_role === 'store manager') : ?>
+        <?php //elseif ($user_role === 'store manager') : ?> -->
         <li class="menu-item <?php echo ($page === 'equipment_list' || $page === 'add_equipment') ? 'active' : ''; ?>">
             <a href="#" class="menu-link submenu-toggle" data-submenu="product_submenu">
             <!-- <a href="dashboard.php?page=others" > -->
@@ -46,7 +46,7 @@
                 <span class="menuText">Product Management</span>
             </a>
             <ul id="product_submenu" class="submenu">
-                <li><a href="dashboard.php?page=add_equipment" class="<?php echo ($page === 'add_equipment') ? 'active' : ''; ?>">Add Products</a></li>
+                <!-- <li><a href="dashboard.php?page=add_equipment" class="<?php //echo ($page === 'add_equipment') ? 'active' : ''; ?>">Add Products</a></li> -->
                 <li><a href="dashboard.php?page=equipment_list" class="<?php echo ($page === 'equipment_list') ? 'active' : ''; ?>">View Products</a></li>
                 <li><a href="dashboard.php?page=others" class="<?php echo ($page === 'others') ? 'active' : ''; ?>">Others</a></li>
             </ul>
