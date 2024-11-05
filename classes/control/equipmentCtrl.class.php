@@ -54,7 +54,7 @@ class EquipmentCtrl extends Dbh
     }
 
     // Fetch all equipment to display
-    public function getAllEquipment() {
+    public function getAllEquipments() {
         $sql = "SELECT * FROM equipment";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute();
@@ -62,7 +62,7 @@ class EquipmentCtrl extends Dbh
     }
 
     // Fetch all equipment by storeId
-    public function getAllEquipmentByStoreId($storeId) {
+    public function getAllEquipmentsByStoreId($storeId) {
         $sql = "SELECT * FROM equipment WHERE store_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$storeId]);
@@ -111,16 +111,16 @@ class EquipmentCtrl extends Dbh
     }
     
 
-    public function removeEquipmentByQuantity($modelId, $quantity) {
+    /* public function removeEquipmentByQuantity($modelId, $quantity) {
         $sql = "DELETE FROM equipment WHERE model_id = :model_id LIMIT :quantity";
         $stmt = $this->connect()->prepare($sql);
         $stmt->bindParam(':model_id', $modelId, PDO::PARAM_INT);
         $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
         $stmt->execute();
-    }
+    } */
 
     // Fetch all equipment by modelId
-    public function getAllEquipmentByModelId($modelId) {
+    public function getAllEquipmentsByModelId($modelId) {
         $sql = "SELECT * FROM equipment WHERE model_id = ?";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$modelId]);
@@ -141,4 +141,92 @@ class EquipmentCtrl extends Dbh
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
+
+    public function removeEquipmentBySerialNumber($serialNumber, $storeId) {
+        $sql = "DELETE FROM equipment 
+                WHERE serial_num = :serialNumber AND store_id = :storeId 
+                LIMIT 1";
+        
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':serialNumber', $serialNumber, PDO::PARAM_STR);
+        $stmt->bindParam(':storeId', $storeId, PDO::PARAM_STR);
+        
+        if ($stmt->execute()) {
+            return true; // Success
+        } else {
+            throw new Exception("Failed to remove equipment with Serial Number: $serialNumber");
+        }
+    }
+
+    public function removeEquipmentByQuantity($storeId, $modelId, $quantity) {
+        // Start a transaction to ensure atomicity
+        $this->connect()->beginTransaction();
+    
+        try {
+            // Select the serial numbers of the equipment to be removed
+            $selectSql = "SELECT serial_num FROM equipment 
+                          WHERE store_id = :storeId AND model_id = :modelId 
+                          ORDER BY serial_num ASC 
+                          LIMIT :quantity";
+            
+            $stmtSelect = $this->connect()->prepare($selectSql);
+            $stmtSelect->bindParam(':storeId', $storeId, PDO::PARAM_STR);
+            $stmtSelect->bindParam(':modelId', $modelId, PDO::PARAM_INT);
+            $stmtSelect->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+            $stmtSelect->execute();
+    
+            $serialNumbers = $stmtSelect->fetchAll(PDO::FETCH_COLUMN);
+    
+            // Verify if there are enough equipment items to remove
+            if (count($serialNumbers) < $quantity) {
+                throw new Exception("Not enough equipment available to remove the specified quantity.");
+            }
+    
+            // Delete the selected equipment items by serial number
+            $deleteSql = "DELETE FROM equipment 
+                          WHERE serial_num = :serialNumber 
+                          AND store_id = :storeId";
+            
+            $stmtDelete = $this->connect()->prepare($deleteSql);
+            $stmtDelete->bindParam(':storeId', $storeId, PDO::PARAM_STR);
+    
+            foreach ($serialNumbers as $serialNumber) {
+                $stmtDelete->bindParam(':serialNumber', $serialNumber, PDO::PARAM_STR);
+                $stmtDelete->execute();
+            }
+    
+            // Commit the transaction after successful deletion
+            $this->connect()->commit();
+    
+            return count($serialNumbers); // Return the count of removed items
+    
+        } catch (Exception $e) {
+            // Roll back on failure
+            $this->connect()->rollBack();
+            throw new Exception("Failed to remove equipment by quantity: " . $e->getMessage());
+        }
+    }
+
+        // EquipmentCtrl.php
+    public function searchEquipment($query) {
+        $sql = "
+            SELECT e.*, s.store_name, c.category_name
+            FROM equipment AS e
+            LEFT JOIN stores AS s ON e.store_id = s.store_id
+            LEFT JOIN product_category AS c ON e.category_id = c.category_id
+            WHERE e.model_name LIKE :query
+            OR s.store_name LIKE :query
+            OR c.category_name LIKE :query
+            OR e.serial_num LIKE :query
+        ";
+        
+        $stmt = $this->connect()->prepare($sql);
+        $searchTerm = '%' . $query . '%';
+        $stmt->bindParam(':query', $searchTerm, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    
 }
