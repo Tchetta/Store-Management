@@ -39,7 +39,7 @@ if (isset($_GET['store_id']) && $_GET['store_id'] != '') {
             }
             echo "<h2>$title</h2>";
         } else if ($user_role === 'admin') {
-            $equipments = $equipmentCtrl->getAllEquipment();
+            $equipments = $equipmentCtrl->getAllEquipments();
             echo '<h2>All Equipment List</h2>';
         }    
     } else {
