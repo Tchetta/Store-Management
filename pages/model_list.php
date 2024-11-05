@@ -13,10 +13,18 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
 ?>
 
     <div class="view-store-container">
-    <div class="create_container">
+  
+         <!-- HTML for the export links strip -->
+<div class="export-strip">
+    <a href="../includes/export_to_excel.php" class="export-link">Export to Excel</a>
+    <a href="../includes/export_to_pdf.php" class="export-link">Export to PDF</a>
+</div>
+<div class="create_coantainer">
         <?php if ($user_role === 'admin') : ?>
     <a href="dashboard.php?page=create_model" class="create-link">Create New Model</a>
             <?php endif; ?>
+            
+
 </div>
         <h2 class="h2">Models List</h2>
         <table class="store-table">
@@ -76,12 +84,6 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
             </tbody>
         </table>
     </div>
-
-    <div class="export-buttons">
-        <a href="../includes/export_to_excel.php" class="btn btn-success">Export to Excel</a>
-        <a href="../includes/export_to_pdf.php" class="btn btn-danger">Export to PDF</a>
-    </div>
-
 
    
     
