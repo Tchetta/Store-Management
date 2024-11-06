@@ -89,6 +89,91 @@ class EquipmentCtrl extends Dbh
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getFilteredEquipments($query = '', $field = 'all', $sort = 'id_asc', $storeId = null) {
+        $sql = "SELECT e.id, e.serial_num, s.store_name AS store_name, 
+                       m.model_name, m.category AS category_name, 
+                       m.brand, e.equipment_state, m.specification, 
+                       m.description 
+                FROM equipment e 
+                LEFT JOIN stores s ON e.store_id = s.store_id 
+                LEFT JOIN model m ON e.model_id = m.model_id 
+                WHERE 1";
+    
+        // Consider the store
+        if (isset($storeId) && $storeId !== "") {
+            $sql .= " AND e.store_id = :storeId";
+        }
+
+        // Filtering based on field selection
+        if (!empty($query)) {
+            switch ($field) {
+                case 'store':
+                    $sql .= " AND s.store_name LIKE :query";
+                    break;
+                case 'category':
+                    $sql .= " AND m.category LIKE :query";
+                    break;
+                case 'brand':
+                    $sql .= " AND m.brand LIKE :query";
+                    break;
+                case 'model':
+                    $sql .= " AND m.model_name LIKE :query";
+                    break;
+                case 'all':
+                default:
+                    $sql .= " AND (s.store_name LIKE :query 
+                                OR e.equipment_state LIKE :query 
+                                OR m.category LIKE :query 
+                                OR m.brand LIKE :query 
+                                OR m.model_name LIKE :query 
+                                OR m.specification LIKE :query 
+                                OR m.description LIKE :query)";
+                    break;
+            }
+        }
+    
+        // Sorting
+        switch ($sort) {
+            case 'id_desc':
+                $sql .= " ORDER BY e.id DESC";
+                break;
+            case 'name_asc':
+                $sql .= " ORDER BY m.model_name ASC";
+                break;
+            case 'name_desc':
+                $sql .= " ORDER BY m.model_name DESC";
+                break;
+            case 'category':
+                $sql .= " ORDER BY m.category DESC";
+                break;
+            case 'brand':
+                $sql .= " ORDER BY m.brand DESC";
+                break;
+            case 'store':
+                $sql .= " ORDER BY e.store_id DESC";
+                break;
+            default:
+                $sql .= " ORDER BY e.id ASC";
+                break;
+        }
+    
+        // Prepare and execute the query
+        $stmt = $this->connect()->prepare($sql);
+    
+        // Bind query parameter if there is a search term
+        if (!empty($query)) {
+            $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
+        }
+
+        if (isset($storeId) && $storeId !== "") {
+            $stmt->bindValue(':storeId', $storeId, PDO::PARAM_STR);
+        }
+    
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
     public function removeEquipmentBySerial($modelId, $serialNum) {
         // Check if the equipment with the specific serial number exists for the given model
         $sql1 = 'SELECT COUNT(*) FROM equipment WHERE model_id = :model_id AND serial_num = :serial_num';

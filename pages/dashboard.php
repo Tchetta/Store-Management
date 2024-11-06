@@ -23,7 +23,7 @@ $user_role = $_SESSION['user_role'] ?? 'store manager';
 
 
 
-    $storeId = $_SESSION['store_id'] ?? '';
+$storeId = $_SESSION['store_id'] ?? '';
 
 ?>
 

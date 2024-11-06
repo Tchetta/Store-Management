@@ -71,7 +71,7 @@ $models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
                                 <?php else : ?>
                                     <a class="action-link delete" href="dashboard.php?page=remove_equipments&model_id=<?php echo $model['model_id']; ?>">Delete</a>
                                 <?php endif; ?>
-                                <a class="action-link More" href="dashboard.php?page=equipment_list&model_id=<?php echo $model['model_id']; ?>">More..</a>
+                                <a class="action-link More" href="dashboard.php?page=equipment_list_with_search&model_id=<?php echo $model['model_id']; ?>">More..</a>
                             </td>
                             <?php endif; ?>
                         </tr>

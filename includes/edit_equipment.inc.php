@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $success = 'Equipment updated successfully\nSN: ' . $serial_num . '\nStore:' . $store_id. '\nState:' . $equipment_state;
     $success = urlencode($success);
-    header("Location: ../pages/dashboard.php?page=equipment_list&success=$success");
+    header("Location: ../pages/dashboard.php?page=equipment_list_with_search&success=$success");
     exit();
 } else {
-    header("Location: ../pages/dashboard.php?page=equipment_list&error=invalid_request");
+    header("Location: ../pages/dashboard.php?page=equipment_list_with_search&error=invalid_request");
     exit();
 }
