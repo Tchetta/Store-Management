@@ -25,9 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`../includes/search_equipment.inc.php?query=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log("Response data:", data); // Check the data received
                     displayResults(data);
                 })
-                .catch(error => console.error("Error fetching search results:", error));
+                .catch(error => {
+                    console.error("Error fetching search results:", error);
+                    resultsContainer.innerHTML = "<p>An error occurred. Please try again.</p>";
+                });
         } else {
             resultsContainer.innerHTML = "";
         }

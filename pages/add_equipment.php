@@ -14,7 +14,6 @@ if($user_role === 'store manager') {
     $storeId = $storeCtrl->getStoreByManagerId($user_id);
     if (!isset($storeId) || $storeId == '') {
         $error = 'No store assigned to you (' . $user_name;
-        $error = 'No store assigned to you';
         $error = urlencode($error);
         header("Location: dashboard.php?error=$error");
     }
