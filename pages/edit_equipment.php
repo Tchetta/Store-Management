@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
 <div class="model_container model_mt-5">    
 <h1>Edit Equipment</h1>
 
-<form action="../includes/edit_equipment_handler.php" method="POST">
+<form action="../includes/edit_equipment.inc.php" method="POST">
     <input type="hidden" name="id" value="<?= $equipment['id'] ?>">
     <div class="model_form-group">
     <label for="serial_num">Serial Number:</label>
