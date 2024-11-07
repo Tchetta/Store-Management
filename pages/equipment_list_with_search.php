@@ -55,7 +55,7 @@ $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, 
         <script>
         function exportTo(format) {
             const equipments = JSON.stringify(<?= json_encode($equipments); ?>);
-            const storeId = <?= isset($_GET['store_id']) ? json_encode($_GET['store_id']) : 'null'; ?>;
+            const storeId = <?= isset($storeId) ? json_encode($storeId) : 'null'; ?>;
             
             // Encode data for URL
             const params = new URLSearchParams();
