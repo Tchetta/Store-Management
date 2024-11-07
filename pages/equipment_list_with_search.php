@@ -48,9 +48,30 @@ $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, 
 
         <!-- Export Buttons -->
         <div class="export-buttons">
-            <button onclick="window.location.href='export_to_pdf.php'" class="btn-small">PDF</button>
-            <button onclick="window.location.href='export_to_excel.php'" class="btn-small">Excel</button>
+            <button onclick="exportTo('pdf')" class="btn-small">PDF</button>
+            <button onclick="exportTo('excel')" class="btn-small">Excel</button>
         </div>
+
+        <script>
+        function exportTo(format) {
+            const equipments = JSON.stringify(<?= json_encode($equipments); ?>);
+            const storeId = <?= isset($_GET['store_id']) ? json_encode($_GET['store_id']) : 'null'; ?>;
+            
+            // Encode data for URL
+            const params = new URLSearchParams();
+            params.append('equipments', equipments);
+            if (storeId) {
+                params.append('store_id', storeId);
+            }
+            
+            // Redirect to the respective export file with parameters
+            const url = format === 'pdf' 
+                ? '../includes/export_equipment_to_pdf.inc.php?' + params.toString() 
+                : '../includes/export_equipment_to_excel.inc.php?' + params.toString();
+            
+            window.location.href = url;
+        }
+        </script>
     </div>
 
     <!-- View Toggle Buttons -->

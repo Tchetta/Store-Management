@@ -91,7 +91,8 @@ class EquipmentCtrl extends Dbh
 
     public function getFilteredEquipments($query = '', $field = 'all', $sort = 'id_asc', $storeId = null) {
         $sql = "SELECT e.id, e.serial_num, s.store_name AS store_name, 
-                       m.model_name, m.category AS category_name, 
+                       m.model_name, m.category AS category_name,
+                       e.indate, m.port_types, 
                        m.brand, e.equipment_state, m.specification, 
                        m.description 
                 FROM equipment e 
