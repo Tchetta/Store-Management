@@ -7,6 +7,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 if (isset($_GET['equipments'])) {
     // Decode JSON data
@@ -18,12 +19,18 @@ if (isset($_GET['equipments'])) {
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-        $store = isset($_GET['store_id']) ? 'in store ' . $_GET['store_id'] : 'All Stores';
-        $sheet->setTitle("Equipment List {$store}");
+        $store = isset($_GET['store_id']) ? 'Store: ' . $_GET['store_id'] : 'All Stores';
+        $sheet->setTitle("Equipment List");
 
-        // Set headers
+        // Set heading
+        $sheet->setCellValue('A1', "Equipment List - {$store}");
+        $sheet->mergeCells('A1:J1'); // Merge cells for the heading
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+        // Set headers below the heading (starting from row 3)
         $headers = ['Serial Number', 'Specifications', 'Model', 'Brand', 'Category', 'State', 'Input Date', 'Port Types', 'Description', 'Store'];
-        $sheet->fromArray($headers, NULL, 'A1');
+        $sheet->fromArray($headers, NULL, 'A3');
 
         // Style headers
         $headerStyle = [
@@ -40,23 +47,27 @@ if (isset($_GET['equipments'])) {
                 'vertical' => Alignment::VERTICAL_CENTER,
             ],
         ];
+        $sheet->getStyle('A3:J3')->applyFromArray($headerStyle);
 
-        $sheet->getStyle('A1:J1')->applyFromArray($headerStyle);
-
+        // Set Row A's Height
+        for ($i = 1; $i <= $sheet->getHighestRow(); $i++) {
+            $sheet->getRowDimension($i)->setRowHeight(30); // Sets each row's height to 30
+        }
+         
         // Set specific column widths
         $sheet->getColumnDimension('A')->setWidth(15);
         $sheet->getColumnDimension('B')->setWidth(20);
         $sheet->getColumnDimension('C')->setWidth(15);
-        $sheet->getColumnDimension('D')->setWidth(15);
-        $sheet->getColumnDimension('E')->setWidth(10);
-        $sheet->getColumnDimension('F')->setWidth(30);
-        $sheet->getColumnDimension('G')->setWidth(30);
-        $sheet->getColumnDimension('H')->setWidth(40);
-        $sheet->getColumnDimension('I')->setWidth(40);
-        $sheet->getColumnDimension('J')->setWidth(40);
+        $sheet->getColumnDimension('D')->setWidth(10);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(10);
+        $sheet->getColumnDimension('G')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('I')->setWidth(20);
+        $sheet->getColumnDimension('J')->setWidth(10);
 
-        // Fill in data rows
-        $row = 2;
+        // Fill in data rows starting from row 4
+        $row = 4;
         foreach ($equipments as $equipment) {
             $sheet->setCellValue("A$row", $equipment['serial_num']);
             $sheet->setCellValue("B$row", $equipment['specification']);
@@ -69,18 +80,30 @@ if (isset($_GET['equipments'])) {
             $sheet->setCellValue("I$row", $equipment['description']);
             $sheet->setCellValue("J$row", $equipment['store_name']);
 
+            // Center align all cells in the row
             $sheet->getStyle("A$row:J$row")->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-            $sheet->getStyle('B2:B' . $row)->getAlignment()->setWrapText(true);
-            $sheet->getStyle('F2:F' . $row)->getAlignment()->setWrapText(true);
-            $sheet->getStyle('H2:H' . $row)->getAlignment()->setWrapText(true);
-            $sheet->getStyle('I2:I' . $row)->getAlignment()->setWrapText(true);
+            
+            // Set text wrapping for long fields
+            $sheet->getStyle("B$row")->getAlignment()->setWrapText(true);
+            $sheet->getStyle("F$row")->getAlignment()->setWrapText(true);
+            $sheet->getStyle("H$row")->getAlignment()->setWrapText(true);
+            $sheet->getStyle("I$row")->getAlignment()->setWrapText(true);
+
+            // Apply alternate row color
+            if ($row % 2 == 0) {
+                $sheet->getStyle("A$row:J$row")->getFill()->setFillType(Fill::FILL_SOLID)
+                      ->getStartColor()->setARGB('FFDDEEEE'); // Light gray for even rows
+            }
 
             $row++;
         }
 
+        // Apply borders to the full table (from header row to last row of data)
+        $sheet->getStyle("A3:J" . ($row - 1))->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+
         // Output to browser as downloadable Excel file
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="Equipment_List.xlsx"');
+        header('Content-Disposition: attachment;filename="Equipment_List_'.$store.'.xlsx"');
         header('Cache-Control: max-age=0');
 
         $writer = new Xlsx($spreadsheet);
