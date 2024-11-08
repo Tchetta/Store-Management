@@ -109,7 +109,7 @@ $selectedCategory = $_GET['category'] ?? '';
 </div>
 
 <div class="link-container">
-    <a href="dashboard.php?page=equipment_list" class="link">View All Product</a>
+    <a href="dashboard.php?page=equipment_list_with_search" class="link">View All Product</a>
 </div>
 </form>
 

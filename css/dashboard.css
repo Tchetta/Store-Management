@@ -25,7 +25,7 @@ img {
     color: white;
     height: 100vh;
    /*  padding-top: 20px; */
-    border-radius: 0 20px 20px 0;
+ 
     transition: width 0.3s ease, transform 0.3s ease;
     overflow-y: auto; /* Allow vertical scroll if content exceeds height */
 }
@@ -128,7 +128,7 @@ img {
     padding: 15px 20px;
     display: flex;
     align-items: flex-start; /* Keeps text aligned at the top */
-    cursor: pointer;
+    cursor: 56pointer;
     transition: background-color 0.3s ease; /* Smooth background change on hover */
 }
 
