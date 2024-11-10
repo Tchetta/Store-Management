@@ -74,7 +74,7 @@ $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, 
             </div>
 
             <!-- Card View -->
-            <div id="cardView" style="display: <?= $_GET['view'] === 'card' ? 'block' : 'none' ?>;">
+            <div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
                 <?php if (!empty($equipments)) : ?>
                     <?php foreach ($equipments as $item) : ?>
                         <div class="card">
