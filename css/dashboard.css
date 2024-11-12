@@ -406,3 +406,21 @@ img.model-image {
 .card p { 
     margin: 2px 0; 
 }
+
+.quantity-highlight {
+    font-weight: bold;
+    color: #007bff; /* Adjust color as needed */
+    font-size: large;
+}
+
+.card-image {
+    text-align: center;
+}
+.card-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}

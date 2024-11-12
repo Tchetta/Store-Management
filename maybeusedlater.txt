@@ -1,0 +1,20 @@
+
+
+## from equipment_list_with_search.php
+<label for="field">By:</label>
+                <select name="field" class="select-small">
+                    <option value="all" <?= $searchField === 'all' ? 'selected' : '' ?>>All Fields</option>
+                    <option value="store" <?= $searchField === 'store' ? 'selected' : '' ?>>Store</option>
+                    <option value="category" <?= $searchField === 'category' ? 'selected' : '' ?>>Category</option>
+                    <option value="brand" <?= $searchField === 'brand' ? 'selected' : '' ?>>Brand</option>
+                    <option value="model" <?= $searchField === 'model' ? 'selected' : '' ?>>Model</option>
+                </select>
+
+## from model_list.php
+<label for="field">By:</label>
+            <select name="field" class="select-small">
+                <option value="all" <?= $searchField === 'all' ? 'selected' : '' ?>>All Fields</option>
+                <option value="brand" <?= $searchField === 'brand' ? 'selected' : '' ?>>Brand</option>
+                <option value="category" <?= $searchField === 'category' ? 'selected' : '' ?>>Category</option>
+                <option value="model" <?= $searchField === 'model' ? 'selected' : '' ?>>Model</option>
+            </select>

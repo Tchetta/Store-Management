@@ -1,5 +1,5 @@
 <?php
-require_once('../includes/class_autoloader.inc.php');
+// require_once('../includes/class_autoloader.inc.php');
 
 class ProductCategory extends Dbh {
     // Method to add a new product category
@@ -27,6 +27,85 @@ class ProductCategory extends Dbh {
         $stmt = $this->connect()->query($sql);
         return $stmt->fetchAll();
     }
+
+// In CategoryCtrl class
+public function getCategoriesWithQuantities($searchQuery = '', $sortOrder = 'category_asc', $storeId = null) {
+    // Start with base query selecting categories (distinct)
+    $query = "SELECT DISTINCT category FROM model WHERE category IS NOT NULL";
+    $params = [];
+
+    // Apply search conditions if searchQuery is provided
+    if (!empty($searchQuery)) {
+        $query .= " AND category LIKE :searchQuery";
+        $params[':searchQuery'] = '%' . $searchQuery . '%';
+    }
+
+    // Apply sorting
+    switch ($sortOrder) {
+        case 'category_asc':
+            $query .= " ORDER BY category ASC";
+            break;
+        case 'category_desc':
+            $query .= " ORDER BY category DESC";
+            break;
+        default:
+            $query .= " ORDER BY category ASC";
+    }
+
+    // Prepare and execute the query to get categories
+    $stmt = $this->connect()->prepare($query);
+    $stmt->execute($params);
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    
+
+    // Process categories to calculate the total quantity in each category
+    // $categoriesWithQuantities = [];
+    $validCategories = [];
+    foreach ($categories as &$category) {
+        $categoryName = $category['category'];
+
+        $sql2 = "SELECT * FROM product_category WHERE category_name = :cname";
+        $stmt2 = $this->connect()->prepare($sql2);
+        $stmt2->execute([":cname" => $categoryName]);
+        $validCategory = $stmt2->fetch(PDO::FETCH_ASSOC);
+
+        $quantity = $this->getQuantityInCategory($categoryName, $storeId);
+
+
+        if ($quantity > 0) {
+            $validCategory['quantity'] = $quantity;
+            $validCategories[] = $validCategory;
+        }
+
+    }
+
+    return $validCategories;
+}
+
+public function getQuantityInCategory($categoryName, $storeId) {
+    // Sum the quantity of models that belong to this category in the specified store
+    $query = "SELECT COUNT(*) AS total_quantity
+              FROM equipment e
+              JOIN model m ON e.model_id = m.model_id
+              WHERE m.category = :categoryName";
+    
+    if ($storeId !== null) {
+        $query .= " AND e.store_id = :storeId";
+    }
+    
+    $stmt = $this->connect()->prepare($query);
+    $params = [':categoryName' => $categoryName];
+    if ($storeId !== null) {
+        $params[':storeId'] = $storeId;
+    }
+    $stmt->execute($params);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $result['total_quantity'] ?? 0; // Default to 0 if no result
+}
+
+
 
     // Method to update category details
     public function updateCategory($categoryId, $categoryName, $quantity) {

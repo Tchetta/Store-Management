@@ -1,94 +1,119 @@
 <?php
-// Include necessary files and initialize ModelCtrl
 require_once '../includes/class_autoloader.inc.php';
 
 $modelCtrl = new ModelCtrl();
 
-if($user_role != 'admin' && $storeId != '') {
-$models = $modelCtrl->getModelsInStoreWithQuantity($storeId);
-} else {
-$models = $modelCtrl->getAllModelsWithQuantity(); // Fetch all models
-}
+// Variables for search and filter
+$searchQuery = $_GET['query'] ?? '';
+$searchField = $_GET['field'] ?? 'all';
+$sortOrder = $_GET['sort'] ?? 'id_asc';
 
+$models = $modelCtrl->getFilteredModelsInStoreWithQuantity($searchQuery, $searchField, $sortOrder, $storeId);
+
+// Set the page-specific data (this will be accessed in the JS file)
+echo "<script>window.pageData = " . json_encode($models) . ";</script>";
 ?>
 
-    <div class="view-store-container">
-  
-         <!-- HTML for the export links strip -->
-<div class="export-strip">
-    <a href="../includes/export_to_excel.php" class="export-link">Export to Excel</a>
-    <a href="../includes/export_to_pdf.php" class="export-link">Export to PDF</a>
+<!-- Top Navigation for Export and View Options -->
+<div class="top-nav">
+    <ul class="nav-buttons">
+        <li><a href="#" onclick="exportTo('pdf')">PDF</a></li>
+        <li><a href="#" onclick="exportTo('excel')">Excel</a></li>
+        <li><a href="#" onclick="toggleView('table')">Table View</a></li>
+        <li><a href="#" onclick="toggleView('card')">Card View</a></li>
+    </ul>
 </div>
-<div class="create_coantainer">
-        <?php if ($user_role === 'admin') : ?>
-    <a href="dashboard.php?page=create_model" class="create-link">Create New Model</a>
-            <?php endif; ?>
-            
 
-</div>
-        <h2 class="h2">Models List</h2>
-        <table class="store-table">
-            <thead>
-                <tr>
-                    <th>Model IMAGE</th>
-                    <th>Model Name</th>
-                    <th>Brand</th>
-                    <th>Category</th>
-                    <th>Quantity</th>
-                    <th>Specifications</th>
-                    <th>Port Types</th>
-                    <th>Description</th>
-                    <?php if($user_role === 'admin') :?>
-                    <th>Actions</th>
-                    <?php endif; ?>
+<div class="content-area">
+    <div class="display-container">
+        <p class="result-count">Results found: <?= count($models) ?></p>
 
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($models) > 0): ?>
-                    <?php foreach ($models as $model): ?>
-                        <tr>
-                            <td><img class="model-image" src="../uploads/model_image/<?= $model['image_path'] ?>" alt="model image"></td>
-                            <td><?php echo htmlspecialchars($model['model_name']); ?></td>
-                            <td><?php echo htmlspecialchars($model['brand']); ?></td>
-                            <td><?php echo htmlspecialchars($model['category']); ?></td>
-                            <td><?php echo $storeId . ': ' . $modelCtrl->getQuantityByStore($model['model_id'], $storeId) ?></td>
-                            <td><?php echo htmlspecialchars($model['specification']); ?></td>
-                            <td>
-                                <?php
-                                // Display port types as a comma-separated list
-                                $portTypes = $modelCtrl->getPortTypes($model['model_id']);
-                                echo htmlspecialchars($portTypes);
-                                ?>
-                            </td>
-                            <td><?php echo htmlspecialchars($model['description']); ?></td>
-                            <?php if($user_role === 'admin') :?>
-                            <td>
-                                <!-- Edit button -->
-                                <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?php echo $model['model_id']; ?>">Edit</a>
-                                <?php if ($user_role === 'admin') : ?>
-                                    <a class="action-link delete" href="../includes/delete_model.inc.php?id=<?php echo $model['model_id']; ?>" onclick="return confirm('Are you sure to Delete this Model?')">Delete </a>
-                                <?php else : ?>
-                                    <a class="action-link delete" href="dashboard.php?page=remove_equipments&model_id=<?php echo $model['model_id']; ?>">Delete</a>
-                                <?php endif; ?>
-                                <a class="action-link More" href="dashboard.php?page=equipment_list_with_search&model_id=<?php echo $model['model_id']; ?>">More..</a>
-                            </td>
-                            <?php endif; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
+        <!-- Table View -->
+        <div id="tableView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
+            <table>
+                <thead>
                     <tr>
-                        <td colspan="9">No models found.</td>
+                        <th>Model IMAGE</th>
+                        <th>Model Name</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Quantity</th>
+                        <th>Specifications</th>
+                        <th>Port Types</th>
+                        <th>Description</th>
+                        <?php if ($user_role === 'admin') : ?>
+                            <th>Actions</th>
+                        <?php endif; ?>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php if (!empty($models)) : ?>
+                        <?php foreach ($models as $model) : ?>
+                            <tr>
+                                <td><img class="model-image" src="../uploads/model_image/<?= $model['image_path'] ?>" alt="model image"></td>
+                                <td><a href="dashboard.php?page=equipment_list_with_search&query=<?= $model['model_name'] ?>"><?= htmlspecialchars($model['model_name']) ?></a></td>
+                                <td><?= htmlspecialchars($model['brand']) ?></td>
+                                <td><?= htmlspecialchars($model['category']) ?></td>
+                                <td><?= htmlspecialchars($model['quantity']) ?></td>
+                                <td><?= htmlspecialchars($model['specification']) ?></td>
+                                <td><?= htmlspecialchars($model['port_types']) ?></td>
+                                <td><?= htmlspecialchars($model['description']) ?></td>
+                                <?php if ($user_role === 'admin') : ?>
+                                    <td>
+                                        <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
+                                        <a href="../includes/delete_model.inc.php?id=<?= $model['model_id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this model?');">Delete</a>
+                                    </td>
+                                <?php endif; ?>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <tr><td colspan="10">No models found.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Card View -->
+        <div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'block' : 'none' ?>;">
+            <?php if (!empty($models)) : ?>
+                <?php foreach ($models as $model) : ?>
+                    <div class="card">
+                        <a href="dashboard.php?page=equipment_list_with_search?query=<?= $model['model_name'] ?>">
+                            <div class="card-content">
+                                <div class="card-image">
+                                    <img class="model-image" src="../uploads/model_image/<?= $model['image_path'] ?>" alt="model image">
+                                </div>
+                                <p><?= htmlspecialchars($model['category']) ?></p>
+                                <p class="uppercase"><?= htmlspecialchars($model['brand']) ?></p>
+                                <h4><?= htmlspecialchars($model['model_name']) ?></h4>
+                                <p><strong>Quantity:</strong> <span class="quantity-highlight"><?= htmlspecialchars($model['quantity']) ?></span></p>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No models found.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
-   
-    
-    
+    <!-- Right Sidebar for Search and Sort -->
+    <div class="right-sidebar">
+        <form method="GET" action="dashboard.php" class="search-form">
+            <input type="hidden" name="page" value="model_list">
+            <input type="text" name="query" placeholder="Search..." value="<?= htmlspecialchars($searchQuery) ?>" class="input-small">
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+            <label for="sort">Sort:</label>
+            <select name="sort" class="select-small">
+                <option value="id_asc" <?= $sortOrder === 'id_asc' ? 'selected' : '' ?>>ID Asc</option>
+                <option value="id_desc" <?= $sortOrder === 'id_desc' ? 'selected' : '' ?>>ID Desc</option>
+                <option value="name_asc" <?= $sortOrder === 'name_asc' ? 'selected' : '' ?>>Name Asc</option>
+                <option value="name_desc" <?= $sortOrder === 'name_desc' ? 'selected' : '' ?>>Name Desc</option>
+            </select>
 
+            <button type="submit" class="btn-small">GO</button>
+        </form>
+    </div>
+</div>
+
+<script src="../js/display.js"></script>

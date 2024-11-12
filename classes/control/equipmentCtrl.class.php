@@ -4,10 +4,15 @@ require_once '../includes/class_autoloader.inc.php';
 class EquipmentCtrl extends Dbh
 {
     public function addEquipment($serial_num, $store_id, $model_id, $category = '', $brand = '') {
+        if (empty($model_id)) {
+            throw new Exception("Invalid model ID provided.");
+        }
+    
         $sql = "INSERT INTO equipment (serial_num, store_id, model_id, category, brand) values (?, ?, ?, ?, ?)";
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$serial_num, $store_id, $model_id, $category, $brand]);
     }
+    
 
     // Update individual fields
     public function updateSerialNum($id, $serial_num) {

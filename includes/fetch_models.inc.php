@@ -8,19 +8,24 @@ $category = $_POST['category'] ?? null;
 $remove = $_POST['remove'] ?? null;
 $modelId = $_POST['model_id'] ?? null;
 
-// Fetch models based on the selected brand or category
-$models = $modelCtrl->getModelsByBrandOrCategory($brand, $category);
-
-// Serialize the models array to pass it via URL (Alternatively, use sessions or store data differently)
-$models = urlencode(serialize($models));
-
-// Redirect back to the page with the models in the URL
-if (isset($remove) && $remove) {
-    header("Location: ../pages/dashboard.php?page=remove&models={$models}&brand={$brand}&category={$category}&model_id={$modelId}");
-    exit();
+if (isset($remove) && $remove !== '') {
+    $page = 'remove';
 } else {
-    header("Location: ../pages/dashboard.php?page=add_equipment&models={$models}&brand={$brand}&category={$category}&model_id={$modelId}");
+    $page = 'add_equipment';
+}
+// Fetch models based on the selected brand or category
+try {
+    $models = $modelCtrl->getModelsByBrandOrCategory($brand, $category);
+    $models = urlencode(serialize($models));
+} catch (PDOException $th) {
+    $error = "Select a valid brand";
+    header("Location: ../pages/dashboard.php?page=$page&error=$error");
     exit();
 }
 
+// Serialize the models array to pass it via URL (Alternatively, use sessions or store data differently)
+
+// Redirect back to the page with the models in the URL
+header("Location: ../pages/dashboard.php?page=$page&models={$models}&brand={$brand}&category={$category}&model_id={$modelId}");
+exit();
 ?>

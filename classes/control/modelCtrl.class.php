@@ -268,6 +268,89 @@ class ModelCtrl extends Model {
         parent::createModel($modelName, $brand, $numPorts, $portTypes, $category, $specification, $description, $imagePath);
     }
 
+    public function getQuantityInStore($modelId, $storeId) {
+        $query = "SELECT COUNT(*) AS quantity 
+                  FROM equipment 
+                  WHERE model_id = :modelId AND store_id = :storeId";
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute([
+            ':modelId' => $modelId,
+            ':storeId' => $storeId
+        ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        return $result['quantity'] ?? 0; // Default to 0 if no result
+    }
+    
+
+    public function getFilteredModelsInStoreWithQuantity($searchQuery = '', $searchField = 'all', $sortOrder = 'id_asc', $storeId = null) {
+        // Start with base query selecting models
+        $query = "SELECT * FROM model WHERE quantity > 0";
+        $params = [];
+    
+        // Apply search conditions
+        if (!empty($searchQuery)) {
+            switch ($searchField) {
+                case 'model':
+                    $query .= " AND model_name LIKE :searchQuery";
+                    break;
+                case 'brand':
+                    $query .= " AND brand LIKE :searchQuery";
+                    break;
+                case 'category':
+                    $query .= " AND category LIKE :searchQuery";
+                    break;
+                default: // 'all' or unspecified field
+                    $query .= " AND (model_name LIKE :searchQuery 
+                                OR brand LIKE :searchQuery 
+                                OR category LIKE :searchQuery)";
+            }
+            $params[':searchQuery'] = '%' . $searchQuery . '%';
+        }
+    
+        // Apply sorting
+        switch ($sortOrder) {
+            case 'name_asc':
+                $query .= " ORDER BY model_name ASC";
+                break;
+            case 'name_desc':
+                $query .= " ORDER BY model_name DESC";
+                break;
+            case 'category':
+                $query .= " ORDER BY category ASC";
+                break;
+            case 'brand':
+                $query .= " ORDER BY brand ASC";
+                break;
+            default: // id_asc
+                $query .= " ORDER BY model_id ASC";
+        }
+    
+        // Prepare and execute main query to get all filtered models
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute($params);
+        $models = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Process models to set the correct quantity for each
+        $filteredModels = [];
+        foreach ($models as &$model) {
+            if ($storeId && $storeId !== '') {
+                // Use equipment count in the specified store
+                $model['quantity'] = $this->getQuantityInStore($model['model_id'], $storeId);
+            }
+            
+            // Only add models with a quantity greater than zero to the filtered list
+            if ($model['quantity'] > 0) {
+                $filteredModels[] = $model;
+            }
+        }
+
+        return $filteredModels;
+
+    }
+    
+    
+
     // Get all models
     public function getAllModels() {
         return parent::getAllModels();
@@ -526,25 +609,35 @@ public function getModelsByCategory($categoryId) {
         return $stmt->fetchAll();
     }
 
-    public function addNewModel($modelName) {
+    public function addNewModel($modelName, $brand = null, $category = null) {
         try {
             // Prepare the SQL statement to insert the new model
-            $sql = "INSERT INTO model (model_name) VALUES (:model_name)";
+            $sql = "INSERT INTO model (model_name, brand, category) VALUES (:model_name, :brand, :category)";
             $stmt = $this->connect()->prepare($sql);
             
             // Bind parameters
             $stmt->bindParam(':model_name', $modelName);
+            $stmt->bindValue(':brand', $brand ?? null, PDO::PARAM_NULL);
+            $stmt->bindValue(':category', $category ?? null, PDO::PARAM_NULL);
             
             // Execute the statement
-            $stmt->execute();
-            
-            // Return the ID of the newly created model
-            return $this->connect()->lastInsertId();
+            if ($stmt->execute()) {
+                // Log the lastInsertId to ensure it's correct
+                $modelId = $this->connect()->lastInsertId();
+                error_log("New model ID: " . $modelId);  // Debugging line
+                
+                return $modelId;
+            } else {
+                throw new Exception("Failed to execute the insert query.");
+            }
         } catch (PDOException $e) {
-            // Handle errors (optional logging)
+            // Optional: log the error message for debugging purposes
+            error_log($e->getMessage());
             throw new Exception("Failed to add new model: " . $e->getMessage());
         }
     }
+    
+    
 
     public function getModelIdByName($modelName) {
         $sql = "SELECT model_id FROM model WHERE model_name = :model_name";

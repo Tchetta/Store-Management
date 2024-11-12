@@ -8,7 +8,12 @@ $searchField = $_GET['field'] ?? 'all';
 $sortOrder = $_GET['sort'] ?? 'id_asc';
 
 // Fetch equipment based on filters and search
-$equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, $sortOrder, $storeId);
+$equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField,  $sortOrder, $storeId);
+
+// Set the page-specific data (this will be accessed in the JS file)
+echo "<script>window.equipments = " . json_encode($equipments) . ";</script>";
+echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'null') . ";</script>";
+
 ?>
 
 
@@ -78,11 +83,11 @@ $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, 
                 <?php if (!empty($equipments)) : ?>
                     <?php foreach ($equipments as $item) : ?>
                         <div class="card">
+                            <h5><?= htmlspecialchars($item['category_name']) ?></h5>
+                            <p class="uppercase"><?= htmlspecialchars($item['brand']) ?></p>
                             <h4><?= htmlspecialchars($item['model_name']) ?></h4>
                             <p><strong>Serial Number:</strong> <?= htmlspecialchars($item['serial_num']) ?></p>
                             <p><strong>Store:</strong> <?= htmlspecialchars($item['store_name']) ?></p>
-                            <p><strong>Category:</strong> <?= htmlspecialchars($item['category_name']) ?></p>
-                            <p><strong>Brand:</strong> <?= htmlspecialchars($item['brand']) ?></p>
                             <p><strong>State:</strong> <?= htmlspecialchars($item['equipment_state']) ?></p>
                             <?php if ($user_role !== 'admin') : ?>
                                 <div>
@@ -103,15 +108,6 @@ $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, 
             <form method="GET" action="dashboard.php" class="search-form">
                 <input type="hidden" name="page" value="equipment_list_with_search">
                 <input type="text" name="query" placeholder="Search..." value="<?= htmlspecialchars($searchQuery) ?>" class="input-small">
-                
-                <label for="field">By:</label>
-                <select name="field" class="select-small">
-                    <option value="all" <?= $searchField === 'all' ? 'selected' : '' ?>>All Fields</option>
-                    <option value="store" <?= $searchField === 'store' ? 'selected' : '' ?>>Store</option>
-                    <option value="category" <?= $searchField === 'category' ? 'selected' : '' ?>>Category</option>
-                    <option value="brand" <?= $searchField === 'brand' ? 'selected' : '' ?>>Brand</option>
-                    <option value="model" <?= $searchField === 'model' ? 'selected' : '' ?>>Model</option>
-                </select>
 
                 <label for="sort">Sort:</label>
                 <select name="sort" class="select-small">
@@ -129,29 +125,5 @@ $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField, 
         </div>
     </div>
 
+<script src="../js/display.js"></script>
 
-<script>
-    function exportTo(format) {
-        const equipments = JSON.stringify(<?= json_encode($equipments); ?>);
-        const storeId = <?= isset($storeId) ? json_encode($storeId) : 'null'; ?>;
-        
-        // Encode data for URL
-        const params = new URLSearchParams();
-        params.append('equipments', equipments);
-        if (storeId) {
-            params.append('store_id', storeId);
-        }
-        
-        // Redirect to the respective export file with parameters
-        const url = format === 'pdf' 
-            ? '../includes/export_equipment_to_pdf.inc.php?' + params.toString() 
-            : '../includes/export_equipment_to_excel.inc.php?' + params.toString();
-        
-        window.location.href = url;
-    }
-
-    function toggleView(view) {
-        document.getElementById('tableView').style.display = view === 'table' ? 'block' : 'none';
-        document.getElementById('cardView').style.display = view === 'card' ? 'block' : 'none';
-    }
-</script>
