@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $eventCtrl = new Event();
     $eventCtrl->deletionEvent($modelId, 1, 'OUT', $id);
 
-    $success = 'Equipment deleted successfully\nSN: ' . $id;
+    $success = 'Equipment deleted successfully <br> SN: ' . $id;
     $success = urlencode($success);
     header("Location: ../pages/dashboard.php?page=equipment_list_with_search&success=$success");
     exit();

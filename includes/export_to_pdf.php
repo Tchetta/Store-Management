@@ -24,7 +24,7 @@ $tbl = '<table border="1" cellpadding="4">
                 <th>Category</th>
                 <th>Quantity</th>
                 <th>Specifications</th>
-                <th>Port Types</th>
+                <th>Port</th>
                 <th>Description</th>
             </tr>
         </thead>
@@ -42,7 +42,7 @@ foreach ($models as $model) {
                 <td>' . htmlspecialchars($model['category']) . '</td>
                 <td>' . $modelCtrl->getQuantityByStore($model['model_id']) . '</td>
                 <td>' . htmlspecialchars($model['specification']) . '</td>
-                <td>' . htmlspecialchars($modelCtrl->getPortTypes($model['model_id'])) . '</td>
+                <td>' . htmlspecialchars($model['number_of_ports']) . '</td>
                 <td>' . htmlspecialchars($model['description']) . '</td>
             </tr>';
 }

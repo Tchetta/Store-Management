@@ -17,7 +17,7 @@ $sheet = $spreadsheet->getActiveSheet();
 $sheet->setTitle('Models List');
 
 // Set headers
-$headers = ['Model Image', 'Model Name', 'Brand', 'Category', 'Quantity', 'Specifications', 'Port Types', 'Description'];
+$headers = ['Model Image', 'Model Name', 'Brand', 'Category', 'Quantity', 'Specifications', 'Port', 'Description'];
 $sheet->fromArray($headers, NULL, 'A1');
 
 // Style headers
@@ -55,7 +55,7 @@ foreach ($models as $model) {
     $sheet->setCellValue("D$row", $model['category']);
     $sheet->setCellValue("E$row", $model['quantity']);
     $sheet->setCellValue("F$row", $model['specification']);
-    $sheet->setCellValue("G$row", $model['port_types']);
+    $sheet->setCellValue("G$row", $model['number_of_ports']);
     $sheet->setCellValue("H$row", $model['description']);
     
     // Center align each cell in the row
