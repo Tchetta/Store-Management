@@ -8,47 +8,18 @@ if (isset($_POST['submit'])) {
     $quantity = $_POST['quantity'] ?? 0;
     $state = $_POST['state'] ?? 'New';
 
-    // Validate store_id and model_id - ensure they are valid integers
+    // Validate store_id and model_id - ensure they are valid identifiers
     if (empty($_POST['store_id']) || !preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['store_id'])) {
         $errors[] = "Invalid store selected.";
     } else {
         $storeId = $_POST['store_id'];
     }
 
-    $newModelName = htmlspecialchars(trim($_POST['new_model_name']));
-  
-    // Check if new model name was provided
-    if (empty($_POST['model_id']) && !empty($newModelName)) {
-        
-        // Check if the model already exists
-        $existingModelId = $modelController->getModelIdByName($newModelName);
-
-        // Fetch brand and category from POST
-        $brand = $_POST['brand'] ?? '';
-        $category = $_POST['category'] ?? '';
-
-        // If the model does not exist, add it with the selected brand and category
-        if (!$existingModelId) {
-            // Create new model and retrieve ID
-            //try {
-                $modelId = $modelController->addNewModel($newModelName, $brand, $category);
-                header('Location: ../pages/dashboard.php?modelId='.$modelId);
-                exit();
-            //} catch (PDOException $th) {
-             //   throw $th;
-            //}
-        } else {
-            // Model exists, so we ignore brand and category
-            $modelId = $existingModelId;
-            $brand = '';       // Clear brand
-            $category = '';    // Clear category
-        }
+    // Validate and retrieve model ID
+    if (empty($_POST['model_id']) || !filter_var($_POST['model_id'], FILTER_VALIDATE_INT)) {
+        $errors[] = "Invalid model selected.";
     } else {
-        if (empty($_POST['model_id']) || !filter_var($_POST['model_id'], FILTER_VALIDATE_INT)) {
-            $errors[] = "Invalid model selected.";
-        } else {
-            $modelId = $_POST['model_id'];
-        }       
+        $modelId = $_POST['model_id'];
     }
 
     // Sanitize the serial number (it's optional)
@@ -75,48 +46,29 @@ if (isset($_POST['submit'])) {
 
     // Check for errors before proceeding
     if (empty($errors)) {
-        //try {
-            // Fetch brand and category if they were not set during model selection
-            if (empty($brand) && empty($category)) {
-                $brand = $modelController->getBrandByModel($modelId);
-                $category = $modelController->getCategoryByModel($modelId);
-            }
+        try {
+            // Fetch brand and category based on the selected model
+            $brand = $modelController->getBrandByModel($modelId);
+            $category = $modelController->getCategoryByModel($modelId);
 
             // Add each serial number individually if provided
             if (!empty($serial_numbers)) {
-                //try{
                 foreach ($serial_numbers as $sn) {
                     $equipmentController->addEquipment($sn, $storeId, $modelId, $category, $brand, $state);
                     // Log event
                     $eventCtrl->additionEvent($modelId, 1, 'IN', $sn);
                 }
-            //} catch (\Exception $e) {
-                //$error = urlencode("With Serial Number: <br/>{$e->getMessage()}");
-                //header("Location: ../pages/dashboard.php?page=add_equipment&error=$error");
-                //exit();  
-            //}
             } else {
                 // Increase model quantity directly if no serial numbers were specified
-                try{
                 for ($i = 0; $i < $quantity; $i++) { 
                     $equipmentController->addEquipment('', $storeId, $modelId, $category, $brand, $state);
                 }
                 $modelController->increaseQuantity($modelId, $quantity);
                 $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
-            } catch (\Exception $e) {
-                $error = urlencode("Without Serial Number: <br/>{$e->getMessage()}");
-                header("Location: ../pages/dashboard.php?page=add_equipment&error=$error");
-                exit();
-            } 
-            try {
-                $modelController->updateModelQuantity($modelId);
-            } catch (\Exception $e) {
-                $error = urlencode("Trying to update model qty <br/>{$e->getMessage()}");
-                header("Location: ../pages/dashboard.php?page=add_equipment&error=$error");
-                exit();
-            }
             }
 
+            // Update model quantity after addition
+            $modelController->updateModelQuantity($modelId);
 
             // Redirect on success
             $success = 'Equipment added successfully';
@@ -129,12 +81,13 @@ if (isset($_POST['submit'])) {
             $success = urlencode($success);
             header("Location: ../pages/dashboard.php?page=add_equipment&success=$success");
             exit();
-        //} //catch (Exception $e) {
-            //header("Location: ../pages/dashboard.php?page=add_equipment&error=" . urlencode($e->getMessage()));
-            //exit();
-        //}
+        } catch (Exception $e) {
+            // Redirect with error if any exceptions occur
+            header("Location: ../pages/dashboard.php?page=add_equipment&error=" . urlencode($e->getMessage()));
+            exit();
+        }
     } else {
-        // Redirect with errors
+        // Redirect with errors if validation fails
         $error = implode('<br>', $errors);
         header("Location: ../pages/dashboard.php?page=add_equipment&error=" . urlencode($error));
         exit();

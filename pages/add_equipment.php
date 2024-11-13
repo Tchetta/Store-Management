@@ -84,8 +84,10 @@ $selectedCategory = $_GET['category'] ?? '';
                 <?php endforeach; ?>
             <?php endif; ?>
         </select>
-        <!-- Input for new model name -->
-        <input type="text" id="new_model_name" name="new_model_name" placeholder="Enter new model name if not listed">
+        <!-- Add this button instead -->
+        <a href='dashboard.php?page=create_model' class="btn btn-primary">
+            Create New Model
+        </a>
     </div>
 
 
@@ -111,8 +113,6 @@ $selectedCategory = $_GET['category'] ?? '';
             <?php endforeach; ?>
         </select>
     </div>
-
-   
 
     <button type="submit" name="submit">Add Product</button>
     <div class="back-arrow-container">
