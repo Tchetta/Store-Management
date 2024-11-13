@@ -98,6 +98,17 @@ $selectedCategory = $_GET['category'] ?? '';
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity if no serial numbers are specified">
     </div>
+    <!-- State selection box -->
+    <div class="model_form-group">
+        <label for="state">State:</label>
+        <select name="state" id="state">
+            <option value="new">New</option>
+            <option value="faulty">Faulty</option>
+            <option value="old">Old</option>
+            <option value="to_repair">To Repair</option>
+            <option value="maintained">Maintained</option>
+        </select>
+    </div>
 
    
 

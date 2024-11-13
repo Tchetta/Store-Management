@@ -30,7 +30,7 @@ if (isset($_GET['error'])) {
     echo '<p class="success-message">' . htmlspecialchars($_GET['success']) . '</p>';
 }
 ?>
- <div class="view-store-container">
+<!--  <div class="view-store-container"> -->
     <div class="create_container">
     <a href="dashboard.php?page=create_store" class="create-link">Create Store</a>
 </div>
