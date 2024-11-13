@@ -36,16 +36,20 @@ if (isset($_GET['id'])) {
     <label for="brand">Brand:</label>
     <input type="text" name="brand" value="<?= $equipment['brand'] ?>" required><br>
     </div>
+    <!-- State selection box -->
+    <?php
+        $stateController = new StateCtrl();
+        $states = $stateController->getAllStates();
+     ?>
     <div class="model_form-group">
-    <label for="equipment_state">State:</label>
- <select name="state" id="state">
-            <option value="new">New</option>
-            <option value="faulty">Faulty</option>
-            <option value="old">Old</option>
-            <option value="to_repair">To Repair</option>
-            <option value="maintained">Maintained</option>
+        <label for="state">State:</label>
+        <select name="state" id="state">
+            <?php  foreach ($states as $state): ?>
+                <option value="<?= $state['state_name'] ?>"><?= $state['state_name'] ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
+    
     <button type="submit">Update Equipment</button>
 </form>
 <div class="link-container">
