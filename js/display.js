@@ -38,3 +38,8 @@ function exportTo(format) {
     // Redirect to the export URL
     window.location.href = url;
 }
+
+// Set default view to 'table' on page load
+window.onload = function() {
+    toggleView('table');
+};

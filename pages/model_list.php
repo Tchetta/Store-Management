@@ -12,6 +12,8 @@ $models = $modelCtrl->getFilteredModelsInStoreWithQuantity($searchQuery, $search
 
 // Set the page-specific data (this will be accessed in the JS file)
 echo "<script>window.pageData = " . json_encode($models) . ";</script>";
+$view = 'table';
+
 ?>
 
 <!-- Top Navigation for Export and View Options -->
@@ -30,7 +32,7 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
         <p class="result-count">Results found: <?= count($models) ?></p>
 
         <!-- Table View -->
-        <div id="tableView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
+        <div id="tableView" style="display: <?= (isset($view) && $view === 'card') ? 'none' : 'block' ?>;">
             <table>
                 <thead>
                     <tr>
@@ -42,9 +44,7 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
                         <th>Specifications</th>
                         <th>Port Types</th>
                         <th>Description</th>
-                        <?php if ($user_role === 'admin') : ?>
-                            <th>Actions</th>
-                        <?php endif; ?>
+                        <th>Actions</th>                        
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +64,11 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
                                         <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
                                         <a href="../includes/delete_model.inc.php?id=<?= $model['model_id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this model?');">Delete</a>
                                     </td>
+                                <?php else : ?>
+                                    <td>
+                                        <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
+                                        <a href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add equipments</a> |
+                                    </td>
                                 <?php endif; ?>
                             </tr>
                         <?php endforeach; ?>
@@ -75,7 +80,7 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
         </div>
 
         <!-- Card View -->
-        <div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'block' : 'none' ?>;">
+        <div id="cardView" style="display: <?= (isset($view) && $view === 'card') ? 'block' : 'none' ?>;">
             <?php if (!empty($models)) : ?>
                 <?php foreach ($models as $model) : ?>
                     <div class="card">
@@ -90,6 +95,13 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
                                 <p><strong>Quantity:</strong> <span class="quantity-highlight"><?= htmlspecialchars($model['quantity']) ?></span></p>
                             </div>
                         </a>
+                        <?php if ($user_role === 'admin') : ?>
+                                    <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
+                                    <a href="../includes/delete_model.inc.php?id=<?= $model['model_id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this model?');">Delete</a>
+                                <?php else : ?>
+                                    <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
+                                    <a href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add equipments</a> |
+                                <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
             <?php else : ?>

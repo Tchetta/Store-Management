@@ -126,6 +126,6 @@ $selectedCategory = $_GET['category'] ?? '';
         </div>
 
         <button type="submit" name="submit">Remove Product</button>
-        <a href="dashboard.php?page=equipment_list">View All Product</a>
+        <a href="dashboard.php?page=equipment_list_with_search">View All Product</a>
     </form>
 </div>
