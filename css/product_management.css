@@ -262,20 +262,13 @@ button[type="submit"]:hover {
     }
 }
 
-.state-new {
-    color: green;
-    font-weight: bold;
-}
+/* Add this to your CSS file */
+.state-new { color: green; font-weight: bold; }
+.state-old { color: orange; font-weight: bold; }
+.state-faulty { color: red; font-weight: bold; }
+.state-to-repair { color: purple; font-weight: bold; }
+.state-maintained { color: yellow; font-weight: bold; }
 
-.state-old {
-    color: orange;
-    font-weight: bold;
-}
-
-.state-faulty {
-    color: red;
-    font-weight: bold;
-}
 .content-area {
     display: flex;
     gap: 20px; /* Adjust the space between the main content and sidebar */
