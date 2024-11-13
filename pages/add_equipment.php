@@ -19,19 +19,18 @@ if($user_role === 'store manager') {
     }
 }
 
-$models =  $_GET['models'] ?? [];
-
-?>
-
-<?php
 // Retrieve filtered models from URL if available
 $models = [];
 if (isset($_GET['models'])) {
     $models = unserialize(urldecode($_GET['models']));
+    $selectedBrand = $_GET['brand'] ?? '';
+    $selectedCategory = $_GET['category'] ?? '';
+} elseif (isset($_GET['model_id'])) {
+    $modelId =  $_GET['model_id'] ?? [];
+    $selectedBrand = $brandCtrl->getBrandByModelId($modelId);
+    $selectedCategory = $categoryCtrl->getCategoryByModelId($modelId);
 }
 
-$selectedBrand = $_GET['brand'] ?? '';
-$selectedCategory = $_GET['category'] ?? '';
 ?>
 
 <div class="model_container model_mt-5">
@@ -77,8 +76,10 @@ $selectedCategory = $_GET['category'] ?? '';
     <div class="model_form-group">
         <label for="model">Model:</label>
         <select id="model" name="model_id">
-            <option value="">Select Model</option>
-            <?php if (!empty($models)): ?>
+            <?php if ($modelId && !empty($modelId)): ?>
+                <option value="<?= $modelId ?>"><?= $modelCtrl->getModelName($modelId) ?></option>
+            <?php elseif (!empty($models)): ?>
+                <option value="">Select Model</option>
                 <?php foreach ($models as $model): ?>
                     <option value="<?= $model['model_id'] ?>"><?= $model['model_name'] ?></option>
                 <?php endforeach; ?>
@@ -102,7 +103,7 @@ $selectedCategory = $_GET['category'] ?? '';
     </div>
     <!-- State selection box -->
      <?php
-        $stateController = new StateCtrl();
+        $stateController = new StateCtrl;
         $states = $stateController->getAllStates();
      ?>
     <div class="model_form-group">

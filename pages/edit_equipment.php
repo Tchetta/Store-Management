@@ -53,6 +53,6 @@ if (isset($_GET['id'])) {
     <button type="submit">Update Equipment</button>
 </form>
 <div class="link-container">
-<a href="dashboard.php?page=equipment_list" class="link">View All Products</a>
+<a href="dashboard.php?page=equipment_list_with_search" class="link">View All Products</a>
 </div>
 </div>

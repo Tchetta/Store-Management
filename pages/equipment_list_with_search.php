@@ -20,6 +20,7 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
     <!-- Top Navigation for Export and View Options -->
     <div class="top-nav">
     <ul class="nav-buttons">
+        <li><a href="<?php echo ($user_role !== 'admin') ? 'dashboard.php?page=add_equipment' : ''; ?>">Add New Equipments</a></li>
         <li><a href="#" onclick="exportTo('pdf')">PDF</a></li>
         <li><a href="#" onclick="exportTo('excel')">Excel</a></li>
         <li><a href="#" onclick="toggleView('table')">Table View</a></li>

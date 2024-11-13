@@ -15,6 +15,16 @@ class Brand extends Dbh {
         $stmt->execute([$brandId]);
         return $stmt->fetch();
     }
+    public function getBrandByModelId($modelId) {
+        $sql = "SELECT b.brand_name
+            FROM brand b
+            INNER JOIN model m ON b.brand_name = m.brand
+            WHERE m.model_id = ?";
+        // $sql = "SELECT * FROM brand WHERE brand_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$modelId]);
+        return $stmt->fetch();
+    }
 
     // Method to get all brands
     protected function getAllBrands() {
@@ -194,6 +204,7 @@ class BrandCtrl extends Brand {
     public function getBrandById($brandId) {
         return parent::getBrandById($brandId); 
     }
+
 
     // Update the quantity of a brand based on models associated with it
     public function updateBrandQuantityFromModels($brandId) {

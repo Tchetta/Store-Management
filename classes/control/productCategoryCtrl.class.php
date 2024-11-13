@@ -83,6 +83,17 @@ public function getCategoriesWithQuantities($searchQuery = '', $sortOrder = 'cat
     return $validCategories;
 }
 
+public function getCategoryByModelId($modelId) {
+    $sql = "SELECT c.category_name
+        FROM product_category c
+        INNER JOIN model m ON c.category_name = m.category
+        WHERE m.model_id = ?";
+    // $sql = "SELECT * FROM brand WHERE brand_id = ?";
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->execute([$modelId]);
+    return $stmt->fetch();
+}
+
 public function getQuantityInCategory($categoryName, $storeId) {
     // Sum the quantity of models that belong to this category in the specified store
     $query = "SELECT COUNT(*) AS total_quantity
