@@ -52,55 +52,99 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($equipments)) : ?>
-                            <?php foreach ($equipments as $item) : ?>
-                                <tr>
-                                    <td><?= $item['serial_num'] ?></td>
-                                    <td><?= $item['store_name'] ?></td>
-                                    <td><?= $item['model_name'] ?></td>
-                                    <td><?= $item['category_name'] ?></td>
-                                    <td><?= $item['brand'] ?></td>
-                                    <td><?= $item['equipment_state'] ?></td>
-                                    <td><?= $item['specification'] ?></td>
-                                    <td><?= $item['description'] ?></td>
-                                    <?php if ($user_role !== 'admin') : ?>
-                                        <td>
-                                            <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" class="edit-action">Edit</a> |
-                                            <a href="../includes/delete_equipment.inc.php?id=<?= $item['id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-                                        </td>
-                                    <?php endif; ?>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <tr><td colspan="10">No equipment found.</td></tr>
-                        <?php endif; ?>
-                    </tbody>
+    <?php if (!empty($equipments)) : ?>
+        <?php foreach ($equipments as $item) : ?>
+            <?php
+                // Set state class based on equipment state
+                $stateClass = '';
+                switch ($item['equipment_state']) {
+                    case 'new':
+                        $stateClass = 'state-new';
+                        break;
+                    case 'old':
+                        $stateClass = 'state-old';
+                        break;
+                    case 'faulty':
+                        $stateClass = 'state-faulty';
+                        break;
+                    case 'to repair':
+                        $stateClass = 'state-to-repair';
+                        break;
+                    case 'maintained':
+                        $stateClass = 'state-maintained';
+                        break;
+                }
+            ?>
+            <tr>
+                <td><?= $item['serial_num'] ?></td>
+                <td><?= $item['store_name'] ?></td>
+                <td><?= $item['model_name'] ?></td>
+                <td><?= $item['category_name'] ?></td>
+                <td><?= $item['brand'] ?></td>
+                <td class="<?= $stateClass ?>"><?= $item['equipment_state'] ?></td>
+                <td><?= $item['specification'] ?></td>
+                <td><?= $item['description'] ?></td>
+                <?php if ($user_role !== 'admin') : ?>
+                    <td>
+                        <a href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" class="edit-action">Edit</a> |
+                        <a href="../includes/delete_equipment.inc.php?id=<?= $item['id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                    </td>
+                <?php endif; ?>
+            </tr>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <tr><td colspan="10">No equipment found.</td></tr>
+    <?php endif; ?>
+</tbody>
+
                 </table>
             </div>
 
             <!-- Card View -->
-            <div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
-                <?php if (!empty($equipments)) : ?>
-                    <?php foreach ($equipments as $item) : ?>
-                        <div class="card">
-                            <h5><?= htmlspecialchars($item['category_name']) ?></h5>
-                            <p class="uppercase"><?= htmlspecialchars($item['brand']) ?></p>
-                            <h4><?= htmlspecialchars($item['model_name']) ?></h4>
-                            <p><strong>Serial Number:</strong> <?= htmlspecialchars($item['serial_num']) ?></p>
-                            <p><strong>Store:</strong> <?= htmlspecialchars($item['store_name']) ?></p>
-                            <p><strong>State:</strong> <?= htmlspecialchars($item['equipment_state']) ?></p>
-                            <?php if ($user_role !== 'admin') : ?>
-                                <div>
-                                    <a class="action-link" href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>" >Edit</a> |
-                                    <a class="action-link delete" href="../includes/delete_equipment.inc.php?id=<?= $item['id'] ?>"  onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <p>No equipment found.</p>
+<div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
+    <?php if (!empty($equipments)) : ?>
+        <?php foreach ($equipments as $item) : ?>
+            <?php
+                // Set state class based on equipment state
+                $stateClass = '';
+                switch ($item['equipment_state']) {
+                    case 'new':
+                        $stateClass = 'state-new';
+                        break;
+                    case 'old':
+                        $stateClass = 'state-old';
+                        break;
+                    case 'faulty':
+                        $stateClass = 'state-faulty';
+                        break;
+                    case 'to repair':
+                        $stateClass = 'state-to-repair';
+                        break;
+                    case 'maintained':
+                        $stateClass = 'state-maintained';
+                        break;
+                }
+            ?>
+            <div class="card">
+                <h5><?= htmlspecialchars($item['category_name']) ?></h5>
+                <p class="uppercase"><?= htmlspecialchars($item['brand']) ?></p>
+                <h4><?= htmlspecialchars($item['model_name']) ?></h4>
+                <p><strong>Serial Number:</strong> <?= htmlspecialchars($item['serial_num']) ?></p>
+                <p><strong>Store:</strong> <?= htmlspecialchars($item['store_name']) ?></p>
+                <p><strong>State:</strong> <span class="<?= $stateClass ?>"><?= htmlspecialchars($item['equipment_state']) ?></span></p>
+                <?php if ($user_role !== 'admin') : ?>
+                    <div>
+                        <a class="action-link" href="dashboard.php?page=edit_equipment&id=<?= $item['id'] ?>">Edit</a> |
+                        <a class="action-link delete" href="../includes/delete_equipment.inc.php?id=<?= $item['id'] ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+                    </div>
                 <?php endif; ?>
             </div>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <p>No equipment found.</p>
+    <?php endif; ?>
+</div>
+
         </div>
 
         <!-- Right Sidebar for Search and Sort -->
