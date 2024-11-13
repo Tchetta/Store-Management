@@ -22,7 +22,7 @@ $totalStores = count($storeController->getAllStores());
 ?>
 
 <!-- User Table -->
-<div class="view-store-container">
+<!-- <div class="view-store-container"> -->
     <div class="create_container">
     <a href="dashboard.php?page=create_user" class="create-link">Add New Users</a>
 </div>

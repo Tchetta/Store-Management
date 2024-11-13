@@ -38,7 +38,13 @@ if (isset($_GET['id'])) {
     </div>
     <div class="model_form-group">
     <label for="equipment_state">State:</label>
-    <input type="text" name="equipment_state" value="<?= $equipment['equipment_state'] ?>" required><br>
+ <select name="state" id="state">
+            <option value="new">New</option>
+            <option value="faulty">Faulty</option>
+            <option value="old">Old</option>
+            <option value="to_repair">To Repair</option>
+            <option value="maintained">Maintained</option>
+        </select>
     </div>
     <button type="submit">Update Equipment</button>
 </form>
