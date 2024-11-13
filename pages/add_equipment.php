@@ -99,14 +99,16 @@ $selectedCategory = $_GET['category'] ?? '';
         <input type="number" id="quantity" name="quantity" min="1" placeholder="Enter quantity if no serial numbers are specified">
     </div>
     <!-- State selection box -->
+     <?php
+        $stateController = new StateCtrl();
+        $states = $stateController->getAllStates();
+     ?>
     <div class="model_form-group">
         <label for="state">State:</label>
         <select name="state" id="state">
-            <option value="new">New</option>
-            <option value="faulty">Faulty</option>
-            <option value="old">Old</option>
-            <option value="to_repair">To Repair</option>
-            <option value="maintained">Maintained</option>
+            <?php  foreach ($states as $state): ?>
+                <option value="<?= $state['state_name'] ?>"><?= $state['state_name'] ?></option>
+            <?php endforeach; ?>
         </select>
     </div>
 
