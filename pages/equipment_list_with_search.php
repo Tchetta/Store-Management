@@ -58,7 +58,7 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
                 // Set state class based on equipment state
                 $stateClass = '';
                 switch ($item['equipment_state']) {
-                    case 'New':
+                    case 'NEW':
                         $stateClass = 'state-new';
                         break;
                     case 'OLD':
@@ -67,10 +67,10 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
                     case 'FAULTY':
                         $stateClass = 'state-faulty';
                         break;
-                    case 'To repair':
+                    case 'TO REPAIR':
                         $stateClass = 'state-to-repair';
                         break;
-                    case 'Maintained':
+                    case 'MAINTAINED':
                         $stateClass = 'state-maintained';
                         break;
                 }
@@ -108,19 +108,19 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
                 // Set state class based on equipment state
                 $stateClass = '';
                 switch ($item['equipment_state']) {
-                    case 'new':
+                    case 'NEW':
                         $stateClass = 'state-new';
                         break;
-                    case 'old':
+                    case 'OLD':
                         $stateClass = 'state-old';
                         break;
-                    case 'faulty':
+                    case 'FAULTY':
                         $stateClass = 'state-faulty';
                         break;
-                    case 'to repair':
+                    case 'TO REPAIR':
                         $stateClass = 'state-to-repair';
                         break;
-                    case 'maintained':
+                    case 'MAINTAINED':
                         $stateClass = 'state-maintained';
                         break;
                 }
