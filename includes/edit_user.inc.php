@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
     $role = $_POST['role'] ?? 'store manager';
-    $profile_pic = $_FILES['profile_pic'];
+    $profile_pic = $_FILES['profile_pics'];
 
     // Basic input validation
     if (empty($first_name) || empty($last_name) || empty($email)) {
@@ -45,32 +45,9 @@ if (isset($_POST['submit'])) {
     $current_user = $userController->getUserById($user_id);
     $current_profile_pic = $current_user['image_path'];
 
-    // Handle profile picture update
-    if ($profile_pic['error'] === 0) {
-        $fileTmp = $profile_pic['tmp_name'];
-        $fileName = $profile_pic['name'];
-        $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowed = array('jpg', 'jpeg', 'png');
-
-        if (in_array($fileExt, $allowed)) {
-            $fileNameNew = uniqid('', true) . "." . $fileExt;
-            $fileDestination = '../uploads/profile_pics/' . $fileNameNew;
-
-            // Move uploaded file to the profile_pics directory
-            if (move_uploaded_file($fileTmp, $fileDestination)) {
-                // Successfully moved the file
-            } else {
-                header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=file+upload+failed");
-                exit();
-            }
-        } else {
-            header("Location: ../dashboard.php?page=edit_user&id=$user_id&error=invalid+file+type");
-            exit();
-        }
-    } else {
-        // No new image uploaded, keep the current profile pic
-        $fileNameNew = $current_profile_pic; // Set to existing profile pic path
-    }
+    // Handle image upload
+    $imageDir = '../uploads/profile_pics/';
+    $imagePath = handleImageUpload($_FILES['profile_pic'], $imageDir);
 
 
     try {

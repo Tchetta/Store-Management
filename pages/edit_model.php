@@ -49,7 +49,7 @@ if ($modelId) {
         <textarea name="portTypes" id="ports"><?php echo htmlspecialchars($model['port_types']); ?></textarea>
     </div>
     <div class="model_form-group">
-        <label for="model_image">Upload Image (optional) <br>Current Image: <img src="../uploads/model_image/<?= $model['image_path'] ?>" alt="current image"></label><br>
+        <label for="model_image">Upload Image (optional) <br>Current Image: <img src="<?php $path = '../uploads/model_image/'.$model['image_path']; echo file_exists($path) ? $path : $model['image_path']; ?>" alt="current image"></label><br>
         <input type="file" name="model_image" id="model_image">
     </div>
         <button type="submit" name="submit">Save Changes</button>

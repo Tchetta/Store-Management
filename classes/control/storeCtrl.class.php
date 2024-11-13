@@ -68,6 +68,65 @@ class Store extends Dbh {
         return $stmt->fetchAll();
     }
 
+    // Method to get the count of filtered stores
+    public function getFilteredStoreCount($searchQuery = '') {
+        $query = "SELECT COUNT(*) AS total FROM stores";
+        $params = [];
+
+        // Apply filtering based on search query
+        if (!empty($searchQuery)) {
+            $query .= " WHERE store_name LIKE :query OR store_location LIKE :query";
+            $params[':query'] = '%' . $searchQuery . '%';
+        }
+
+        $stmt = $this->connect()->prepare($query);
+        foreach ($params as $param => $value) {
+            $stmt->bindValue($param, $value);
+        }
+        
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $result['total'] ?? 0;
+    }
+
+    // Method to get filtered stores with pagination
+    public function getFilteredStores($searchQuery = '', $sortOrder = 'id_asc', $start = 0, $limit = 8) {
+        $query = "SELECT * FROM stores";
+        $params = [];
+
+        // Apply search query if provided
+        if (!empty($searchQuery)) {
+            $query .= " WHERE store_name LIKE :query OR store_location LIKE :query";
+            $params[':query'] = '%' . $searchQuery . '%';
+        }
+
+        // Apply sorting
+        if ($sortOrder === 'id_asc') {
+            $query .= " ORDER BY store_id ASC";
+        } elseif ($sortOrder === 'id_desc') {
+            $query .= " ORDER BY store_id DESC";
+        } else {
+            $query .= " ORDER BY store_name ASC";
+        }
+
+        // Add LIMIT and OFFSET
+        $query .= " LIMIT :start, :limit";
+        $stmt = $this->connect()->prepare($query);
+        
+        // Bind parameters
+        foreach ($params as $param => $value) {
+            $stmt->bindValue($param, $value);
+        }
+
+        // Bind start and limit as integers
+        $stmt->bindValue(':start', (int)$start, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Get store by ID
     public function getStoreById($storeId) {
         $sql = "SELECT * FROM stores WHERE store_id = ?";
@@ -84,19 +143,8 @@ class Store extends Dbh {
         if ($storeId && $storeId !== null) {
             return $storeId;
         } else {
-            return null;
-            throw new Exception("Error: No store assigned to $manId", 1);
-            
+            throw new Exception("Error: No store assigned to $manId", 1);       
         }
-    }
-
-    public function getStoresByPage($start, $limit) {
-        $sql = "SELECT * FROM stores LIMIT ?, ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->bind_param("ii", $start, $limit);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
     }
     
 }

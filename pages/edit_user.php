@@ -56,7 +56,7 @@ if (isset($_GET['id'])) {
 
                 <div  class="model_form-group">
                     <p>Current Profile Picture:</p>
-                    <img src="../uploads/profile_pics/<?php echo htmlspecialchars($user['image_path']); ?>" alt="Profile Picture" class="current-profile-pic">
+                    <img src="<?php $path = '../uploads/profile_pics/'.$user['image_path']; echo file_exists($path) ? $path : $user['image_path']; ?>" alt="Profile Picture" class="current-profile-pic">
                 </div>
 
                 <button type="submit" name="submit" >Update User</button>

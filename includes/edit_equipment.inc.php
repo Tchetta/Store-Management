@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $model_id = $_POST['model_id'];
     $category = $_POST['category'];
     $brand = $_POST['brand'];
-    $equipment_state = $_POST['state'];
+    $equipment_state = $_POST['state'] ?? "New";
 
     $equipmentCtrl = new EquipmentCtrl();
 

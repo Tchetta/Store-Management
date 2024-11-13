@@ -68,7 +68,7 @@ foreach ($models as $model) {
     $drawing = new Drawing();
     $drawing->setName('Model Image');
     $drawing->setDescription('Model Image');
-    $drawing->setPath('../uploads/model_image/' . $model['image_path']);
+    $drawing->setPath($model['image_path']);
     $drawing->setHeight(80);
     $drawing->setCoordinates("A$row");
     $drawing->setWorksheet($sheet);

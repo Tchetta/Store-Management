@@ -32,7 +32,7 @@ $tbl = '<table border="1" cellpadding="4">
 
 // Populate data
 foreach ($models as $model) {
-    $imagePath = __DIR__ . '/../uploads/model_image/' . $model['image_path'];
+    $imagePath = __DIR__ . '/' . $model['image_path'];
     $imageTag = file_exists($imagePath) ? '<img src="' . $imagePath . '" width="50" height="50">' : 'No Image';
 
     $tbl .= '<tr>
