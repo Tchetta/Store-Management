@@ -167,9 +167,7 @@ button[type="submit"]:hover {
 /* .top-nav { display: flex; justify-content: space-between; padding: 10px; background-color: #f1f1f1; } */
 .export-buttons, .view-toggle { display: flex; gap: 10px; }
 
-.content-area { display: flex; width: 100%; padding: 10px; }
-.display-container { flex: 1; padding: 0 10px; }
-.right-sidebar { width: 20%; padding: 20px; background-color: #f9f9f9; }
+
 
 .table, .card { width: 100%; margin: 10px 0; }
 .result-count { margin-bottom: 10px; }
@@ -180,9 +178,10 @@ button[type="submit"]:hover {
 .top-nav {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
+/*     margin-top: 10px; */
     background-color: #f4f4f4; /* Light background for contrast */
-    padding: 10px 0; /* Adds padding to make the bar taller */
+    padding: 5px 0; /* Adds padding to make the bar taller */
+    margin-bottom: 10px;
 }
 
 .nav-buttons {
@@ -209,10 +208,10 @@ button[type="submit"]:hover {
     transition: color 0.2s ease;
 }
 
-.nav-buttons a:hover {
+/* .nav-buttons li:hover {
     color: #007bff;
 }
-
+ */
 
 /* Card Container */
 .card {
@@ -276,4 +275,36 @@ button[type="submit"]:hover {
 .state-faulty {
     color: red;
     font-weight: bold;
+}
+.content-area {
+    display: flex;
+    gap: 20px; /* Adjust the space between the main content and sidebar */
+    width: 100%;
+     padding: 10px;
+}
+
+/* Style for the left display content */
+.display-container {
+    flex: 1;
+    padding-right: 20px; /* Space before the divider */
+    /* Other styles */
+}
+
+/* Divider line styling */
+.content-area::before {
+    content: "";
+    display: block;
+    width: 1px;
+    background-color: #ddd; /* Light gray for the divider */
+    margin: 0 10px; /* Adjust space around the divider */
+    height: 100%; /* Full height of the container */
+}
+
+.right-sidebar {
+    flex-basis: 20%; /* Width of the right sidebar */
+    padding-left: 20px; /* Space after the divider */
+    /* Other styles */
+    width: 20%; 
+    padding: 20px; 
+    background-color: #f9f9f9;
 }
