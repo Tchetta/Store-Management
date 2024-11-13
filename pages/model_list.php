@@ -17,6 +17,7 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
 <!-- Top Navigation for Export and View Options -->
 <div class="top-nav">
     <ul class="nav-buttons">
+        <li><a href="dashboard.php?page=create_model">Create Model</a></li>
         <li><a href="#" onclick="exportTo('pdf')">PDF</a></li>
         <li><a href="#" onclick="exportTo('excel')">Excel</a></li>
         <li><a href="#" onclick="toggleView('table')">Table View</a></li>

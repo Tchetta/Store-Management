@@ -6,6 +6,7 @@ if (isset($_POST['submit'])) {
     $errors = [];   
     $modelController = new ModelCtrl();
     $quantity = $_POST['quantity'] ?? 0;
+    $state = $_POST['state'] ?? 'New';
 
     // Validate store_id and model_id - ensure they are valid integers
     if (empty($_POST['store_id']) || !preg_match("/^[a-zA-Z0-9_-]+$/", $_POST['store_id'])) {
@@ -85,7 +86,7 @@ if (isset($_POST['submit'])) {
             if (!empty($serial_numbers)) {
                 //try{
                 foreach ($serial_numbers as $sn) {
-                    $equipmentController->addEquipment($sn, $storeId, $modelId, $category, $brand);
+                    $equipmentController->addEquipment($sn, $storeId, $modelId, $category, $brand, $state);
                     // Log event
                     $eventCtrl->additionEvent($modelId, 1, 'IN', $sn);
                 }
@@ -98,7 +99,7 @@ if (isset($_POST['submit'])) {
                 // Increase model quantity directly if no serial numbers were specified
                 try{
                 for ($i = 0; $i < $quantity; $i++) { 
-                    $equipmentController->addEquipment('', $storeId, $modelId, $category, $brand);
+                    $equipmentController->addEquipment('', $storeId, $modelId, $category, $brand, $state);
                 }
                 $modelController->increaseQuantity($modelId, $quantity);
                 $eventCtrl->additionEvent($modelId, $quantity, 'IN', '');
