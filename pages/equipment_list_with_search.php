@@ -58,19 +58,19 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
                 // Set state class based on equipment state
                 $stateClass = '';
                 switch ($item['equipment_state']) {
-                    case 'new':
+                    case 'New':
                         $stateClass = 'state-new';
                         break;
-                    case 'old':
+                    case 'OLD':
                         $stateClass = 'state-old';
                         break;
-                    case 'faulty':
+                    case 'FAULTY':
                         $stateClass = 'state-faulty';
                         break;
-                    case 'to repair':
+                    case 'To repair':
                         $stateClass = 'state-to-repair';
                         break;
-                    case 'maintained':
+                    case 'Maintained':
                         $stateClass = 'state-maintained';
                         break;
                 }
