@@ -9,7 +9,10 @@ if (isset($_POST['submit'])) {
     // $password = $_POST['password'];
     // $confirmPassword = $_POST['confirm_password'];
     $role = $_POST['role'];
-    $profilePic = $_FILES['profile_pic'];
+
+    // Handle image upload
+    $imageDir = '../uploads/profile_pics/';
+    $imagePath = handleImageUpload($_FILES['profile_pic'], $imageDir);
 
     // Basic input validation
     // if (empty($username) || empty($email) || empty($password) || empty($role) || empty($firstName) || empty($lastName)) {

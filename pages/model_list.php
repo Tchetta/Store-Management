@@ -51,7 +51,7 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
                     <?php if (!empty($models)) : ?>
                         <?php foreach ($models as $model) : ?>
                             <tr>
-                                <td><img class="model-image" src="../uploads/model_image/<?= $model['image_path'] ?>" alt="model image"></td>
+                                <td><img class="model-image" src="<?php $path = '../uploads/model_image/'.$model['image_path']; echo file_exists($path) ? $path : $model['image_path']; ?>" alt="model image"></td>
                                 <td><a href="dashboard.php?page=equipment_list_with_search&query=<?= $model['model_name'] ?>"><?= htmlspecialchars($model['model_name']) ?></a></td>
                                 <td><?= htmlspecialchars($model['brand']) ?></td>
                                 <td><?= htmlspecialchars($model['category']) ?></td>
@@ -82,7 +82,7 @@ echo "<script>window.pageData = " . json_encode($models) . ";</script>";
                         <a href="dashboard.php?page=equipment_list_with_search?query=<?= $model['model_name'] ?>">
                             <div class="card-content">
                                 <div class="card-image">
-                                    <img class="model-image" src="../uploads/model_image/<?= $model['image_path'] ?>" alt="model image">
+                                    <img class="model-image" src="<?php $path = '../uploads/model_image/'.$model['image_path']; echo file_exists($path) ? $path : $model['image_path']; ?>" alt="model image">
                                 </div>
                                 <p><?= htmlspecialchars($model['category']) ?></p>
                                 <p class="uppercase"><?= htmlspecialchars($model['brand']) ?></p>

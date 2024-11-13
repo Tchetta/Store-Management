@@ -14,14 +14,27 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'welcome';
 $success = isset($_GET['success']) ? htmlspecialchars(urldecode($_GET['success'])) : ''; */
 
 
-//$defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
+$defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
 // Get user information from session
 $user_id = $_SESSION['user_id'];
 $user_name = isset($_SESSION['first_name']) && isset($_SESSION['last_name']) ? $_SESSION['first_name'] . ' ' . $_SESSION['last_name'] : '';
-$user_image = isset($_SESSION['image_path']) ? '../uploads/profile_pics/' . $_SESSION['image_path'] : $defaultProfilePic;
+if (isset($_SESSION['image_path']) && $_SESSION['image_path'] !== '') {
+    // If the image path is a URL, use it directly
+    if (filter_var($_SESSION['image_path'], FILTER_VALIDATE_URL)) {
+        $user_image = $_SESSION['image_path'];
+    } elseif (file_exists($_SESSION['image_path'])) {
+        // If the image is a local file, check if it exists on the server
+        $user_image = $_SESSION['image_path'];
+    } else {
+        // Default to profile pics directory if file doesn't exist
+        $user_image = '../uploads/profile_pics/' . $_SESSION['image_path'];
+    }
+} else {
+    // Fallback to the default profile picture
+    $user_image = $defaultProfilePic;
+}
+
 $user_role = $_SESSION['user_role'] ?? 'store manager';
-
-
 
 $storeId = $_SESSION['store_id'] ?? '';
 

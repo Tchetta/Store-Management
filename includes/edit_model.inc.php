@@ -14,30 +14,9 @@ if (isset($_POST['submit'])) {
     $portTypes = $_POST['portTypes'];
     $imagePath = 'default.png'; // Default image path
 
-    // Handle image upload if a file was uploaded
-    if (isset($_FILES['model_image']) && $_FILES['model_image']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['model_image']['tmp_name'];
-        $fileName = $_FILES['model_image']['name'];
-        $fileSize = $_FILES['model_image']['size'];
-        $fileType = $_FILES['model_image']['type'];
-        $fileNameCmps = explode(".", $fileName);
-        $fileExtension = strtolower(end($fileNameCmps));
-
-        $allowedFileExtensions = array('jpg', 'gif', 'png', 'jpeg');
-        if (in_array($fileExtension, $allowedFileExtensions)) {
-            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
-            $uploadFileDir = '../uploads/';
-            $dest_path = $uploadFileDir . $newFileName;
-
-            if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                $imagePath = $newFileName; // Set image path to uploaded file
-            } else {
-                echo "Error moving the uploaded file.";
-            }
-        } else {
-            echo "Unsupported file extension.";
-        }
-    }
+    // Handle image upload
+    $imageDir = '../uploads/model_image/';
+    $imagePath = handleImageUpload($_FILES['model_image'], $imageDir);
 
     // Initialize ModelCtrl and update the model
     $modelCtrl = new ModelCtrl();

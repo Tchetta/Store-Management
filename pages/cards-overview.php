@@ -52,7 +52,7 @@
                 <h3><?php echo htmlspecialchars($store['store_name']); ?></h3>
                 <p><?php echo htmlspecialchars($store['store_location']); ?></p>
                 <p>Managed by: <?php echo htmlspecialchars($manager['first_name']); ?></p>
-                <img src="../uploads/profile_pics/<?php echo htmlspecialchars($manager['image_path']); ?>" alt="Profile Picture" class="profile-pic">
+                <img src="<?php $path = '../uploads/profile_pics/'.$manager['image_path']; echo file_exists($path) ? $profile_pics : $manager['image_path']; ?>" alt="Profile Picture" class="profile-pic">
             </div>
         <?php endforeach; ?>
     <?php else: ?>

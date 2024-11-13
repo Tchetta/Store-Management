@@ -1,5 +1,6 @@
 <?php
-require_once '../includes/class_autoloader.inc.php';
+require_once 'class_autoloader.inc.php';
+require_once 'imageUpload.inc.php';
 
 if (isset($_POST['submit'])) {
     // Collect form data
@@ -66,19 +67,8 @@ if (isset($_POST['submit'])) {
 
 
     // Handle image upload
-    $imagePath = 'default.png'; // Default image
-    if (isset($_FILES['model_image']) && $_FILES['model_image']['error'] === 0) {
-        $imageDir = '../uploads/model_image/';
-        $imageName = basename($_FILES['model_image']['name']);
-        $targetFilePath = $imageDir . $imageName;
-
-        if (move_uploaded_file($_FILES['model_image']['tmp_name'], $targetFilePath)) {
-            $imagePath = $imageName; // Store the actual uploaded image path
-        } else {
-            // Handle upload failure (optional)
-            echo 'Image upload failed';
-        }
-    }
+    $imageDir = '../uploads/model_image/';
+    $imagePath = handleImageUpload($_FILES['model_image'], $imageDir);
 
     // Create the model using the ModelCtrl
     $modelCtrl = new ModelCtrl();
