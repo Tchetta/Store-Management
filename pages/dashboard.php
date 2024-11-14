@@ -46,7 +46,7 @@ $storeId = $_SESSION['store_id'] ?? '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="shortcut icon" href="https://www.svgrepo.com/show/406079/letter-s.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://camtel.cm/wp-content/uploads/2024/01/Logos-Camtel-02-blue.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/store_management.css"> <!-- Link to the CSS file -->
     <link rel="stylesheet" href="../css/dashboard.css"> <!-- Use your provided styles -->
     <link rel="stylesheet" href="../css/display_items.css"> <!-- Use your provided styles -->
