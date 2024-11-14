@@ -67,7 +67,6 @@ if (isset($_GET['models'])) {
     </div>
 
     <div class="model_form-group">
-        <label for="store_name">Store:</label>
         <select id="store_name" name="store_id" required hidden>
             <option value="<?= $storeId ?>"><?= $store['store_name'] ?></option>
         </select>
@@ -86,9 +85,9 @@ if (isset($_GET['models'])) {
             <?php endif; ?>
         </select>
         <!-- Add this button instead -->
-        <a href='dashboard.php?page=create_model' class="btn btn-primary">
+        <button onclick="window.location.href='dashboard.php?page=create_model'" style="display: inline-block">
             Create New Model
-        </a>
+                </button>
     </div>
 
 
