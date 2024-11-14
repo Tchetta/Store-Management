@@ -114,7 +114,7 @@ class EquipmentCtrl extends Dbh
         if (!empty($query)) {
             switch ($field) {
                 case 'store':
-                    $sql .= " AND s.store_name LIKE :query";
+                    $sql .= " AND (s.store_name LIKE :query OR s.store_id LIKE :query)";
                     break;
                 case 'category':
                     $sql .= " AND m.category LIKE :query";
@@ -123,15 +123,17 @@ class EquipmentCtrl extends Dbh
                     $sql .= " AND m.brand LIKE :query";
                     break;
                 case 'model':
-                    $sql .= " AND m.model_name LIKE :query";
+                    $sql .= " AND (m.model_name LIKE :query OR s.model_id LIKE :query)";
                     break;
                 case 'all':
                 default:
                     $sql .= " AND (s.store_name LIKE :query 
+                                OR s.store_id LIKE :query 
                                 OR e.equipment_state LIKE :query 
                                 OR m.category LIKE :query 
                                 OR m.brand LIKE :query 
                                 OR m.model_name LIKE :query 
+                                OR m.model_id LIKE :query 
                                 OR m.specification LIKE :query 
                                 OR m.description LIKE :query)";
                     break;

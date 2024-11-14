@@ -10,6 +10,11 @@ $sortOrder = $_GET['sort'] ?? 'id_asc';
 // Fetch equipment based on filters and search
 $equipments = $equipmentCtrl->getFilteredEquipments($searchQuery, $searchField,  $sortOrder, $storeId);
 
+if (isset($_GET['store_id']) && $_GET['store_id'] !== '') {
+    $storeId = $_GET['store_id'];
+}else {
+    $storeId = $_SESSION['store_id'] ?? '';
+}
 // Set the page-specific data (this will be accessed in the JS file)
 echo "<script>window.equipments = " . json_encode($equipments) . ";</script>";
 echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'null') . ";</script>";
