@@ -12,7 +12,7 @@ if (isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="shortcut icon" href="https://www.svgrepo.com/show/406079/letter-s.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="https://camtel.cm/wp-content/uploads/2024/01/Logos-Camtel-02-blue.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/error_success.css">
     <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
 <?php require_once 'pages/display_result.php'; ?>
 <div class="logo-container">
-    <img src="images/camtel.png" alt="Camtel Logo">
+    <img src="https://camtel.cm/wp-content/uploads/2024/01/Logos-Camtel-02-blue.png" alt="Camtel Logo">
 </div>
 
 <div class="loginBody">
