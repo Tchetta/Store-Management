@@ -82,7 +82,13 @@ $storeId = $_SESSION['store_id'] ?? '';
                         if (file_exists($pageFile)) {
                             include($pageFile);
                         } else {
-                            echo '<h2>Welcome</h2>';
+                            if ($user_role === 'admin') {
+                                include('store_list.php');
+                            } elseif ($user_role === 'store manager') {
+                                include('equipment_list_with_search.php');
+                            } else {
+                                echo '<h2>Welcome</h2>';
+                            }
                         }
                     ?>
                 </div>

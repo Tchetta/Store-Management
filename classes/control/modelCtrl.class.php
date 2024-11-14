@@ -283,10 +283,14 @@ class ModelCtrl extends Model {
     }
     
 
-    public function getFilteredModelsInStoreWithQuantity($searchQuery = '', $searchField = 'all', $sortOrder = 'id_asc', $storeId = null) {
+    public function getFilteredModelsInStoreWithQuantity($searchQuery = '', $searchField = 'all', $sortOrder = 'id_asc', $storeId = null, $all = null) {
         // Start with base query selecting models
-        $query = "SELECT * FROM model WHERE quantity > 0";
+        $query = "SELECT * FROM model WHERE 1 = 1";
         $params = [];
+
+        // if ($all !== 'all_models') {
+        //     $query .= " AND quantity > 0";
+        // }
     
         // Apply search conditions
         if (!empty($searchQuery)) {
@@ -340,7 +344,11 @@ class ModelCtrl extends Model {
             }
             
             // Only add models with a quantity greater than zero to the filtered list
-            if ($model['quantity'] > 0) {
+            if ($all !== 'all_models') {
+                if ($model['quantity'] > 0) {
+                    $filteredModels[] = $model;
+                }
+            } else {
                 $filteredModels[] = $model;
             }
         }
@@ -494,26 +502,48 @@ class ModelCtrl extends Model {
 
     // Method to update model quantity
     public function updateModelQuantity($modelId) {
-        // Count the number of rows in the equipment table with the given model_id
-        $sql = "SELECT COUNT(*) AS total_count FROM equipment WHERE model_id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$modelId]); // Use $modelId instead of $model_id
-        $count = $stmt->fetchColumn();
-        
-        // Update the quantity in the model table
-        $sql_update = "UPDATE model SET quantity = ? WHERE model_id = ?";
-        $stmt = $this->connect()->prepare($sql_update);
-        $stmt->execute([$count, $modelId]); // Use $modelId instead of $model_id
-
-        $brandCtrl = new BrandCtrl();
-        $categoryCtrl = new ProductCategoryCtrl();
-
-        $brand = $this->getBrandByModel($modelId);
-        $category = $this->getCategoryByModel($modelId);
-
-        $brandCtrl->updateBrandQuantity($brand);
-        $categoryCtrl->updateCategoryQuantity($category);
+        try {
+            // Start a transaction if one isn’t already active
+            if (!$this->connect()->inTransaction()) {
+                $this->connect()->beginTransaction();
+            }
+    
+            // Count the number of rows in the equipment table with the given model_id
+            $sql = "SELECT COUNT(*) AS total_count FROM equipment WHERE model_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$modelId]);
+            $count = $stmt->fetchColumn();
+    
+            // Update the quantity in the model table
+            $sql_update = "UPDATE model SET quantity = ? WHERE model_id = ?";
+            $stmt = $this->connect()->prepare($sql_update);
+            $stmt->execute([$count, $modelId]);
+    
+            // Update related quantities for brand and category
+            $brandCtrl = new BrandCtrl();
+            $categoryCtrl = new ProductCategoryCtrl();
+    
+            $brand = $this->getBrandByModel($modelId);
+            $category = $this->getCategoryByModel($modelId);
+    
+            $brandCtrl->updateBrandQuantity($brand);
+            $categoryCtrl->updateCategoryQuantity($category);
+    
+            // Commit the transaction
+            if ($this->connect()->inTransaction()) {
+                $this->connect()->commit();
+            }
+        } catch (Exception $e) {
+            // Rollback the transaction only if it’s active
+            if ($this->connect()->inTransaction()) {
+                $this->connect()->rollBack();
+            }
+            // Rethrow the exception to handle it outside
+            throw $e;
+        }
     }
+    
+    
 
     // Get the brand ID associated with a model
     public function getBrandByModel($modelId) {

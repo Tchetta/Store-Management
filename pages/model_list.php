@@ -2,17 +2,28 @@
 require_once '../includes/class_autoloader.inc.php';
 
 $modelCtrl = new ModelCtrl();
+$models = $modelCtrl->getAllModels();
+foreach ($models as $model) {
+    $modelCtrl->updateModelQuantity($model['model_id']);
+}
 
 // Variables for search and filter
 $searchQuery = $_GET['query'] ?? '';
 $searchField = $_GET['field'] ?? 'all';
 $sortOrder = $_GET['sort'] ?? 'id_asc';
 
-$models = $modelCtrl->getFilteredModelsInStoreWithQuantity($searchQuery, $searchField, $sortOrder, $storeId);
+$all = isset($_GET['all']) ? $_GET['all'] : null;
+
+if ($storeId !== '') {
+    echo 'Store Id: ' . $storeId;
+}
+
+$models = $modelCtrl->getFilteredModelsInStoreWithQuantity($searchQuery, $searchField, $sortOrder, $storeId, $all);
 
 // Set the page-specific data (this will be accessed in the JS file)
 echo "<script>window.pageData = " . json_encode($models) . ";</script>";
 $view = 'table';
+
 
 ?>
 
@@ -68,6 +79,7 @@ $view = 'table';
                                     <td>
                                         <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
                                         <a href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add equipments</a> |
+                                        <a href="dashboard.php?page=remove&model_id=<?= $model['model_id'] ?>" class="edit-action">Remove equipments</a>
                                     </td>
                                 <?php endif; ?>
                             </tr>
@@ -84,7 +96,7 @@ $view = 'table';
             <?php if (!empty($models)) : ?>
                 <?php foreach ($models as $model) : ?>
                     <div class="card">
-                        <a href="dashboard.php?page=equipment_list_with_search?query=<?= $model['model_name'] ?>">
+                        <a href="dashboard.php?page=equipment_list_with_search&query=<?= $model['model_name'] ?>">
                             <div class="card-content">
                                 <div class="card-image">
                                     <img class="model-image" src="<?php $path = '../uploads/model_image/'.$model['image_path']; echo file_exists($path) ? $path : $model['image_path']; ?>" alt="model image">
@@ -101,6 +113,7 @@ $view = 'table';
                                 <?php else : ?>
                                     <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
                                     <a href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add equipments</a> |
+                                    <a href="dashboard.php?page=remove&model_id=<?= $model['model_id'] ?>" class="edit-action">Remove equipments</a>
                                 <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
@@ -108,6 +121,11 @@ $view = 'table';
                 <p>No models found.</p>
             <?php endif; ?>
         </div>
+        <?php
+            if ($user_role === 'admin') {
+                echo '<a href="dashboard.php?page=model_list&all=all_models">See all models</a>';
+            }
+        ?>
     </div>
 
     <!-- Right Sidebar for Search and Sort -->
@@ -127,6 +145,7 @@ $view = 'table';
             <button type="submit" class="btn-small">GO</button>
         </form>
     </div>
+    
 </div>
 
 <script src="../js/display.js"></script>

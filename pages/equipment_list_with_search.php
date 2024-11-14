@@ -20,6 +20,15 @@ echo "<script>window.equipments = " . json_encode($equipments) . ";</script>";
 echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'null') . ";</script>";
 
 ?>
+<script>
+    // Set default view to 'table' on page load if no view is specified
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('view')) {
+            toggleView('table');
+        }
+    };
+</script>
 
 
     <!-- Top Navigation for Export and View Options -->
@@ -33,6 +42,8 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
     </ul>
 </div>
 
+
+
     <div class="content-area">
         <!-- Left Side: Display Results (Table or Card View) -->
         <div class="display-container">
@@ -40,7 +51,7 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
             <p class="result-count">Results found: <?= count($equipments) ?></p>
 
             <!-- Table View -->
-            <div id="tableView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
+            <div id="tableView" style="display: <?= (!isset($_GET['view']) || $_GET['view'] === 'table') ? 'block' : 'none' ?>;">
                 <table>
                     <thead>
                         <tr>
@@ -107,7 +118,7 @@ echo "<script>window.storeId = " . (isset($storeId) ? json_encode($storeId) : 'n
             </div>
 
             <!-- Card View -->
-<div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'none' : 'block' ?>;">
+<div id="cardView" style="display: <?= (isset($_GET['view']) && $_GET['view'] === 'card') ? 'block' : 'none' ?>;">
     <?php if (!empty($equipments)) : ?>
         <?php foreach ($equipments as $item) : ?>
             <?php
