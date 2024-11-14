@@ -1,6 +1,7 @@
 <?php
 // Include necessary files and initialize ModelCtrl
 require_once '../includes/class_autoloader.inc.php';
+require_once './imageUpload.inc.php';
 
 if (isset($_POST['submit'])) {
     // Get the form data

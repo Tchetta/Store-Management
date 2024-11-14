@@ -29,12 +29,15 @@ if (isset($_GET['models'])) {
     $modelId =  $_GET['model_id'] ?? [];
     $selectedBrand = $brandCtrl->getBrandByModelId($modelId);
     $selectedCategory = $categoryCtrl->getCategoryByModelId($modelId);
+} else {
+    $selectedBrand = '';
+    $selectedCategory = '';
 }
 
 ?>
 
 <div class="model_container model_mt-5">
-<h2 class="model_mb-4">Add Product</h2>
+    <h2 class="model_mb-4">Add Product</h2>
 
 <!-- Form to select brand and category -->
 <form action="../includes/fetch_models.inc.php" method="post" id="filterForm">
@@ -75,19 +78,15 @@ if (isset($_GET['models'])) {
     <div class="model_form-group">
         <label for="model">Model:</label>
         <select id="model" name="model_id">
+            <option value="">Select Model</option>
             <?php if ($modelId && !empty($modelId)): ?>
-                <option value="<?= $modelId ?>"><?= $modelCtrl->getModelName($modelId) ?></option>
+                <option value="<?= $modelId ?>" selected><?= $modelCtrl->getModelName($modelId) ?></option>
             <?php elseif (!empty($models)): ?>
-                <option value="">Select Model</option>
                 <?php foreach ($models as $model): ?>
                     <option value="<?= $model['model_id'] ?>"><?= $model['model_name'] ?></option>
                 <?php endforeach; ?>
             <?php endif; ?>
         </select>
-        <!-- Add this button instead -->
-        <button onclick="window.location.href='dashboard.php?page=create_model'" style="display: inline-block">
-            Create New Model
-                </button>
     </div>
 
 

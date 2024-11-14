@@ -95,10 +95,10 @@ if (isset($_GET['equipments'])) {
         $pdf->Output('Equipment_List_' . $store . '.pdf', 'D');
         exit();
     } else {
-        header('Location: ../pages/dashboard.php?error=no+equipment+available');
+        header('Location: ../pages/dashboard.php?page=equipment_list_with_search&error=no+equipment+available');
         exit();
     }
 } else {
-    header('Location: ../pages/dashboard.php?error=something+went+wrong');
+    header('Location: ../pages/dashboard.php?page=equipment_list_with_search&error=something+went+wrong');
     exit();
 }

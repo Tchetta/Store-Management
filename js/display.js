@@ -4,6 +4,8 @@ function toggleView(view) {
     const cardView = document.getElementById('cardView');
 
     // Toggle the view visibility based on the selected view
+    cardView.style.display = 'none';
+
     tableView.style.display = view === 'table' ? 'block' : 'none';
     cardView.style.display = view === 'card' ? 'block' : 'none';
 }
