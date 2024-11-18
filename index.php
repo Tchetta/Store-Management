@@ -20,7 +20,7 @@ if (isset($_SESSION['user_id'])) {
 <body>
 <?php require_once 'pages/display_result.php'; ?>
 <div class="logo-container">
-    <img src="https://camtel.cm/wp-content/uploads/2024/01/Logos-Camtel-02-blue.png" alt="Camtel Logo">
+    <img src="./images/camtel logo.png" alt="Camtel Logo">
 </div>
 
 <div class="loginBody">
