@@ -54,6 +54,11 @@ if ($modelId) {
     </div>
         <button type="submit" name="submit">Save Changes</button>
     </form>
+    <div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
     <div class="link-container">
 <a href="dashboard.php?page=model_list" class="link">View All Model</a>
 </div>

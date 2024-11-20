@@ -77,9 +77,11 @@ $view = 'table';
                                     </td>
                                 <?php else : ?>
                                     <td>
-                                        <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
-                                        <a href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add equipments</a> |
-                                        <a href="dashboard.php?page=remove&model_id=<?= $model['model_id'] ?>" class="edit-action">Remove equipments</a>
+                                        <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" >Edit</a> 
+                                        <a class="action-link add" href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" >Add</a>
+                                        <a class="action-link delete" href="dashboard.php?page=remove&model_id=<?= $model['model_id'] ?>" >Remove</a> 
+                                      
+                                      
                                     </td>
                                 <?php endif; ?>
                             </tr>
@@ -111,9 +113,9 @@ $view = 'table';
                                     <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
                                     <a href="../includes/delete_model.inc.php?id=<?= $model['model_id'] ?>" class="delete-action" onclick="return confirm('Are you sure you want to delete this model?');">Delete</a>
                                 <?php else : ?>
-                                    <a href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
-                                    <a href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add equipments</a> |
-                                    <a href="dashboard.php?page=remove&model_id=<?= $model['model_id'] ?>" class="edit-action">Remove equipments</a>
+                                    <a class="action-link" href="dashboard.php?page=edit_model&model_id=<?= $model['model_id'] ?>" class="edit-action">Edit</a> |
+                                    <a class="action-link add" href="dashboard.php?page=add_equipment&model_id=<?= $model['model_id'] ?>" class="edit-action">Add </a> |
+                                    <a class="action-link delete" href="dashboard.php?page=remove&model_id=<?= $model['model_id'] ?>" class="edit-action">Remove</a>
                                 <?php endif; ?>
                     </div>
                 <?php endforeach; ?>

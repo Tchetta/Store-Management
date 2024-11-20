@@ -162,6 +162,11 @@ h2 {
 .delete {
     color: red;
 }
+.add {
+    color: #3ee766; /* Green for Add */
+    text-decoration: none;
+    font-weight: bold;
+}
 
 /* Pagination styling */
 .pagination-container {

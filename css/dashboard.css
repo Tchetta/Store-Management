@@ -127,10 +127,7 @@ img {
     border-radius: 0 20px 20px 0; /* Rounded corners for the line */
 }
 
-/* Ensure the strip is only visible for active items */
-.sidebar ul li.active::before {
-    content: "";
-}
+
 
 /* Remove the strip for non-active items */
 .sidebar ul li:not(.active)::before {
@@ -166,16 +163,16 @@ img {
     width: 80%;
     background: #f4f6f9;
     transition: width 0.3s ease;
-    overflow: hidden; /* Prevent overflow in the parent */
+    overflow-y: hidden; /* Prevent overflow in the parent */
 }
 
     .dashboard_content {
         background-color: #f4f4f9;
         padding: 8px;
-        height: 100vh; /* Full viewport height */
-        display: flex;
-        flex-direction: column;
-        overflow: hidden; /* Prevent overflow in the parent */
+        height: 100%; /* Full viewport height */
+      /*   display: flex;
+        flex-direction: column; */
+        overflow-y: hidden; /* Prevent overflow in the parent */
     }
     
     .dashboard_content_main {
@@ -186,8 +183,8 @@ img {
         text-align: center;
         width: 100%;
         overflow-y: auto; /* Enables vertical scrolling here */
-        flex-grow: 1; /* Expands to use available height */
-        max-height: calc(100vh - 40px); /* Adjust based on parent padding */
+   /*      flex-grow: 1; */ /* Expands to use available height */
+        max-height: calc(100vh - 20px); /* Adjust based on parent padding */
     }
     
 

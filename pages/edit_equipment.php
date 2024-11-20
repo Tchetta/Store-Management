@@ -52,6 +52,11 @@ if (isset($_GET['id'])) {
     
     <button type="submit">Update Equipment</button>
 </form>
+<div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
 <div class="link-container">
 <a href="dashboard.php?page=equipment_list_with_search" class="link">View All Products</a>
 </div>

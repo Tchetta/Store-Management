@@ -60,6 +60,11 @@ if (isset($_GET['error'])) {
 
         <button type="submit" name="submit">Update Store</button>
     </form>
+    <div class="back-arrow-container">
+    <a href="javascript:history.back()" class="back-arrow">
+        &#8592; Back
+    </a>
+</div>
 
     <div class="link-container">
     <a href="dashboard.php?page=store_list" class="link">View Stores</a></p>
