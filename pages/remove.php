@@ -115,6 +115,8 @@ if (isset($_GET['models'])) {
         </div>
 
         <button type="submit" name="submit">Remove Product</button>
-        <a href="dashboard.php?page=equipment_list_with_search">View All Products</a>
-    </form>
+        </form>
+        <div class="link-container">
+        <a href="dashboard.php?page=equipment_list_with_search" class="link">View All Products</a>
+   
 </div>
