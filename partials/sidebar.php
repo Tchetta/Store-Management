@@ -1,8 +1,8 @@
 <div class="sidebar" id="dashboard_sidebar">
-    <h3 class="dashboard_logo" id="dashboard_logo">CSMS</h3>
+   <!--  <h3 class="dashboard_logo" id="dashboard_logo">CSMS</h3> -->
     <div class="dashboard_sidebar_user">
-        <img id="userImage" src="<?php echo $user_image; ?>" alt="User Image">
-        <p id="userName"><?php echo $user_name; ?></p>
+    <img id="camtelLogo" src="../images/camtel logo.png" alt="Camtel Logo">
+    <p id="userName"><?php echo $user_name; ?></p>
     </div>
     <ul class="dashboard_menu_lists">
         <!-- User Management -->
@@ -11,6 +11,7 @@
                 <i class="fas fa-users"></i>
                 <span class="menuText">User Management</span>
             </a>
+            
             <ul id="user_submenu" class="submenu">
                 <li><a href="dashboard.php?page=user_list" class="<?php echo ($page === 'user_list') ? 'active' : ''; ?>">View Users</a></li>
                 <li><a href="dashboard.php?page=create_user" class="<?php echo ($page === 'create_user') ? 'active' : ''; ?>">Create User</a></li>
