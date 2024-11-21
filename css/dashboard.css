@@ -65,22 +65,24 @@ img {
 /* User profile section */
 .dashboard_sidebar_user {
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
     border-bottom: 1px solid #fff;
+    text-transform: uppercase;
+    
 }
 
 .dashboard_sidebar_user img {
-    width: 90px;
-    height: 90px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     /* border: 2px solid #f0f2f7;  */
 }
 
 .dashboard_sidebar_user p {
-    margin-top: 10px;
+    margin-top: 8px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 22px;
 }
 /* Sidebar styles */
 .sidebar {
