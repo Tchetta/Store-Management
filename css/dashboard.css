@@ -55,26 +55,26 @@ img {
     margin-right: 10px;
 }
 
-.dashboard_logo {
+/* .dashboard_logo {
     color: #6b89eb;
     font-size: 24px;
     text-align: center;
     margin: 20px 0;
-}
+} */
 
 /* User profile section */
 .dashboard_sidebar_user {
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     border-bottom: 1px solid #fff;
 }
 
 .dashboard_sidebar_user img {
-    width: 70px;
-    height: 70px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #709dff;
+    /* border: 2px solid #f0f2f7;  */
 }
 
 .dashboard_sidebar_user p {

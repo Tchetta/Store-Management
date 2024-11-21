@@ -32,7 +32,7 @@ $totalStores = count($storeController->getAllStores());
 <?php else: ?>
 <table>
     <tr>
-        <th>Profile Picture</th>
+       
         <th>User ID</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -41,13 +41,9 @@ $totalStores = count($storeController->getAllStores());
         <th>Actions</th>
     </tr>
     <?php foreach ($users as $user): ?>
-        <?php 
-            // Default profile picture if user has no profile picture
-            $defaultProfilePic = 'https://www.w3schools.com/howto/img_avatar.png';
-            $profilePic = !empty($user['image_path']) ? '../uploads/profile_pics/' . $user['image_path'] : $defaultProfilePic;
-        ?>
+       
         <tr>
-            <td><img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture" width="50" height="50"></td>
+            
             <td><?php echo htmlspecialchars($user['user_id']); ?></td>
             <td><?php echo htmlspecialchars($user['first_name']); ?></td>
             <td><?php echo htmlspecialchars($user['last_name']); ?></td>

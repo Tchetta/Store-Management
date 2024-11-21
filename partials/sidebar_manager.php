@@ -1,11 +1,11 @@
 <div class="sidebar" id="dashboard_sidebar">
-    <h3 class="dashboard_logo" id="dashboard_logo">CSMS</h3>
+   <!--  <h3 class="dashboard_logo" id="dashboard_logo">CSMS</h3> -->
     <div class="dashboard_sidebar_user">
-        <img id="userImage" src="<?php echo $user_image; ?>" alt="User Image">
-        <p id="userName"><?php echo $user_name; ?></p>
+    <img id="camtelLogo" src="../images/camtel logo.png" alt="Camtel Logo">
+    <p id="userName"><?php echo $user_name; ?></p>
     </div>
     <ul class="dashboard_menu_lists">
-
+    
         <!-- Product Management -->
         <li class="menu-item <?php echo ($page === 'equipment_list' || $page === 'add_equipment') ? 'active' : ''; ?>">
             <a href="#" class="menu-link submenu-toggle" data-submenu="product_submenu">

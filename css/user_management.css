@@ -145,17 +145,6 @@ td {
 }
 
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    table {
-        font-size: 12px;
-    }
-
-    th, td {
-        padding: 10px;
-    }
-}
-
   /* Ensure the form is confined within the dashboard */
   .form-container {
     max-width: 600px;
@@ -174,39 +163,9 @@ h2 {
   
 }
 
-form label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 10px 0 5px;
-    color: #555;
-}
 
-form input, form select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
 
-form input[type="file"] {
-    padding: 0;
-}
 
-button {
-    width: 100%;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 0;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-}
 
 button:hover {
     background-color: #45a049;
@@ -230,18 +189,7 @@ p a:hover {
     background-color: #0056b3;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .form-container {
-        padding: 15px;
-        width: 90%;
-    }
 
-    button {
-        font-size: 14px;
-        padding: 8px;
-    }
-}
  
 /* Ensure the form is confined within the dashboard */
 .form-container {
@@ -275,7 +223,7 @@ form label {
 }
 
 form input, form select {
-    width: 70%; /* Set width for fields */
+    width: 100%; /* Set width for fields */
     padding: 10px; /* Padding for fields */
     border: 1px solid #ccc; /* Border style */
     border-radius: 5px; /* Rounded corners */

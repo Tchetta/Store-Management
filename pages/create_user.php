@@ -34,7 +34,7 @@
             <input type="password" id="confirm_password" name="confirm_password" required>
         </div> -->
 
-        <div class="form-field">
+        <div class="model_form-group">
             <label for="role">Role:</label>
             <select id="role" name="role" required>
                 <option value="admin">Admin</option>
@@ -43,10 +43,6 @@
             </select>
         </div>
 
-        <div class="form-field">
-            <label for="profile_pic">Profile Picture:</label>
-            <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
-        </div>
 
         <button type="submit" name="submit">Add User</button>
     </form>

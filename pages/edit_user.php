@@ -49,16 +49,9 @@ if (isset($_GET['id'])) {
                     </select>
                 </div>
 
-                <div  class="model_form-group">
-                    <label for="profile_pic">Profile Picture:</label>
-                    <input type="file" id="profile_pic" name="profile_pic" accept="image/*">
-                </div>
+               
 
-                <div  class="model_form-group">
-                    <p>Current Profile Picture:</p>
-                    <img src="<?php $path = '../uploads/profile_pics/'.$user['image_path']; echo file_exists($path) ? $path : $user['image_path']; ?>" alt="Profile Picture" class="current-profile-pic">
-                </div>
-
+               
                 <button type="submit" name="submit" >Update User</button>
             </form>
             <div class="back-arrow-container">

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sidebarToggle = document.getElementById('toggleBtn');
     const sidebar = document.querySelector('.sidebar');
     const contentContainer = document.getElementById('dashboard_content_container');
-    const userImage = document.getElementById('userImage');
+    const camtelLogo = document.getElementById('camtelLogo'); // Updated to refer to Camtel logo
     const userName = document.getElementById('userName');
     let isCollapsed = false;
 
@@ -25,19 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!isCollapsed) {
             sidebar.style.width = '10%';
             contentContainer.style.width = '90%';
-            userImage.style.display = 'none'; // Hide user image
+            camtelLogo.style.display = 'none'; // Hide Camtel logo
             userName.style.display = 'none'; // Hide user name
             document.querySelectorAll('.menuText').forEach(text => text.style.display = 'none');
         } else {
             sidebar.style.width = '20%';
             contentContainer.style.width = '80%';
-            userImage.style.display = 'block'; // Show user image
+            camtelLogo.style.display = 'block'; // Show Camtel logo
             userName.style.display = 'block'; // Show user name
             document.querySelectorAll('.menuText').forEach(text => text.style.display = 'inline-block');
         }
 
         isCollapsed = !isCollapsed;
     });
+
+
 
     // Add event listeners for submenu toggles
     const submenuToggles = document.querySelectorAll('.submenu-toggle'); // Assume you add 'submenu-toggle' class to parent items
