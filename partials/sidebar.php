@@ -1,7 +1,7 @@
 <div class="sidebar" id="dashboard_sidebar">
    <!--  <h3 class="dashboard_logo" id="dashboard_logo">CSMS</h3> -->
     <div class="dashboard_sidebar_user">
-    <img id="camtelLogo" src="../images/camtel logo.png" alt="Camtel Logo">
+    <img id="camtelLogo" src="../images/camtel_logo.png" alt="Camtel Logo">
     <p id="userName"><?php echo $user_name; ?></p>
     </div>
     <ul class="dashboard_menu_lists">
