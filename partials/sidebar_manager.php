@@ -2,7 +2,10 @@
    <!--  <h3 class="dashboard_logo" id="dashboard_logo">CSMS</h3> -->
     <div class="dashboard_sidebar_user">
     <img id="camtelLogo" src="../images/camtel_logo.png" alt="Camtel Logo">
-    <p id="userName"><?php echo $user_name; ?></p>
+    <p id="userName"><?php 
+        $storeName = (new StoreCtrl)->getStoreName($storeId);
+
+        echo (isset($storeName) && $storeName != '') ? $storeName : "No store"; ?></p>
     </div>
     <ul class="dashboard_menu_lists">
     

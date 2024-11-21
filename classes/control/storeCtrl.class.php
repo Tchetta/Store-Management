@@ -68,6 +68,16 @@ class Store extends Dbh {
         return $stmt->fetchAll();
     }
 
+    public function getStoreName($storeId) {
+        $sql = "SELECT store_name FROM stores where store_id = ?";
+        $stmt = $this->connect()->prepare($sql);
+        if ($stmt->execute([$storeId])) {
+            return $stmt->fetchColumn();
+        } else {
+            return null;
+        }
+    }
+
     // Method to get the count of filtered stores
     public function getFilteredStoreCount($searchQuery = '') {
         $query = "SELECT COUNT(*) AS total FROM stores";
